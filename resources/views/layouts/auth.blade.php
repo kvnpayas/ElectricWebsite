@@ -22,7 +22,7 @@
       @keydown.escape="sidebarOpen = false; notifOpen = false; userOpen = false">
 
     {{-- Sidebar navigation --}}
-    @include('admin.partials.sidebar')
+    <livewire:admin.partials.sidebar />
 
     {{-- Main area — shifts right on desktop to clear the fixed sidebar --}}
     <div class="transition-all duration-300 ease-in-out min-h-screen flex flex-col"
@@ -31,9 +31,13 @@
         {{-- Topbar --}}
         @include('admin.partials.header')
 
-        {{-- Page content --}}
+        {{-- Page content — @yield for traditional @extends pages, $slot for Livewire full-page components --}}
         <main class="flex-1 p-4 sm:p-6 lg:p-8">
-            @yield('content')
+            @isset($slot)
+                {{ $slot }}
+            @else
+                @yield('content')
+            @endif
         </main>
 
         {{-- Footer --}}
