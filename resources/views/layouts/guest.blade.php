@@ -8,7 +8,11 @@
       style="font-family: var(--font-sans); background-color: var(--color-tei-white);">
 
     @include('partials.nav')
-    @yield('content')
+    @isset($slot)
+        {{ $slot }}
+    @else
+        @yield('content')
+    @endisset
     @include('partials.footer')
 
     @stack('scripts')

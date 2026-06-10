@@ -1,0 +1,103 @@
+<section class="relative overflow-hidden pt-16"
+         style="background: linear-gradient(135deg, #082840 0%, #0F3D5C 55%, #1A5A85 100%);">
+
+  {{-- Decorative orbs --}}
+  <div class="absolute top-16 right-[6%] w-80 h-80 rounded-full blur-3xl pointer-events-none animate-float"
+       style="background: radial-gradient(circle, rgba(231,103,39,0.26) 0%, rgba(231,103,39,0.03) 70%);"></div>
+  <div class="absolute bottom-10 left-[2%] w-56 h-56 rounded-full blur-2xl pointer-events-none animate-float-slow"
+       style="background: radial-gradient(circle, rgba(231,103,39,0.18) 0%, transparent 70%);"></div>
+  <div class="absolute top-1/2 right-[30%] w-32 h-32 rounded-full blur-xl pointer-events-none animate-float-delay"
+       style="background: radial-gradient(circle, rgba(65,182,230,0.15) 0%, transparent 70%);"></div>
+
+  {{-- Dot grid --}}
+  <div class="absolute inset-0 pointer-events-none opacity-[0.03]"
+       style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+  {{-- Top shimmer --}}
+  <div class="absolute top-0 left-0 right-0 h-px"
+       style="background: linear-gradient(90deg, transparent 0%, rgba(231,103,39,0.7) 50%, transparent 100%);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+
+    {{-- Breadcrumb --}}
+    <nav id="cust-bc" class="flex items-center gap-2 text-xs mb-8 select-none"
+         style="color: rgba(255,255,255,0.4);">
+      <a href="/" wire:navigate class="transition-colors duration-150 hover:text-white/70">Home</a>
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+      <span style="color: rgba(255,255,255,0.75);">Customer</span>
+    </nav>
+
+    <div class="max-w-3xl">
+
+      {{-- Badge --}}
+      <div id="cust-badge" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 border"
+           style="background: rgba(231,103,39,0.12); border-color: rgba(231,103,39,0.3);">
+        <span class="w-2 h-2 rounded-full"
+              style="background-color: var(--color-tei-orange); animation: pulse-glow 2.5s ease-in-out infinite;"></span>
+        <span class="text-xs font-bold tracking-[0.15em] uppercase" style="color: var(--color-tei-orange);">
+          Customer Services
+        </span>
+      </div>
+
+      {{-- Headline --}}
+      <h1 id="cust-title" class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.06] mb-5"
+          style="font-family: var(--font-display); color: white;">
+        All Your Electricity<br>
+        Needs, <span style="color: var(--color-tei-orange);">Simplified.</span>
+      </h1>
+
+      {{-- Sub --}}
+      <p id="cust-sub" class="text-base sm:text-lg leading-relaxed mb-10 max-w-xl"
+         style="color: rgba(255,255,255,0.68);">
+        From new service connections to bill payments and special programs —
+        everything a TEI customer needs is right here.
+      </p>
+
+      {{-- CTAs --}}
+      <div id="cust-ctas" class="flex flex-wrap gap-4">
+        <a href="#"
+           class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-bold shadow-xl transition-all duration-200 cursor-pointer"
+           style="background-color: var(--color-tei-orange); color: white;"
+           onmouseover="this.style.backgroundColor='var(--color-tei-orange-dark)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 20px 40px rgba(231,103,39,0.4)'"
+           onmouseout="this.style.backgroundColor='var(--color-tei-orange)'; this.style.transform=''; this.style.boxShadow=''">
+          <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          Pay Your Bill
+        </a>
+        <a href="#services"
+           class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-bold border-2 transition-all duration-200 cursor-pointer"
+           style="border-color: rgba(255,255,255,0.32); color: white;"
+           onmouseover="this.style.borderColor='rgba(255,255,255,0.75)'; this.style.backgroundColor='rgba(255,255,255,0.08)'; this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.32)'; this.style.backgroundColor='transparent'; this.style.transform=''">
+          Explore Services
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    {{-- Mini stats row --}}
+    <div id="cust-stats" class="grid grid-cols-3 sm:grid-cols-3 gap-6 mt-16 pt-10 border-t max-w-xl"
+         style="border-color: rgba(255,255,255,0.08);">
+      @foreach ([['8+', 'Services Available'], ['100K+', 'Customers Served'], ['24/7', 'Support']] as [$n, $l])
+      <div>
+        <div class="text-2xl font-black mb-0.5"
+             style="font-family: var(--font-display); color: var(--color-tei-orange);">{{ $n }}</div>
+        <div class="text-xs font-medium" style="color: rgba(255,255,255,0.45);">{{ $l }}</div>
+      </div>
+      @endforeach
+    </div>
+  </div>
+
+  {{-- Wave separator --}}
+  <div class="relative h-10 -mb-1">
+    <svg class="absolute bottom-0 w-full h-10" preserveAspectRatio="none" viewBox="0 0 1440 40" fill="none">
+      <path d="M0 40 C360 0 1080 0 1440 40 L1440 40 L0 40Z" fill="var(--color-tei-white)"/>
+    </svg>
+  </div>
+</section>
