@@ -42,15 +42,15 @@
         {{-- Main brand content --}}
         <div class="relative z-10" id="brand-body">
             {{-- Badge --}}
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-8"
+            {{-- <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-8"
                  style="background: rgba(231,103,39,0.1); border-color: rgba(231,103,39,0.25);">
                 <span class="w-1.5 h-1.5 rounded-full"
                       style="background-color: var(--color-tei-orange); animation: pulse-glow 2.5s ease-in-out infinite;"></span>
                 <span class="text-[11px] font-bold tracking-[0.14em] uppercase"
                       style="color: var(--color-tei-orange);">Secure Admin Portal</span>
-            </div>
+            </div> --}}
 
-            <h2 class="text-4xl xl:text-5xl font-black leading-[1.06] mb-5 text-white"
+            {{-- <h2 class="text-4xl xl:text-5xl font-black leading-[1.06] mb-5 text-white"
                 style="font-family: var(--font-display);">
                 Manage<br>
                 <span style="color: var(--color-tei-orange);">Tarlac's</span><br>
@@ -59,10 +59,10 @@
             <p class="text-base leading-relaxed mb-12"
                style="color: rgba(255,255,255,0.55); max-width: 340px;">
                 Oversee services, customer accounts, outage reports, and power advisories across the province — all in one place.
-            </p>
+            </p> --}}
 
             {{-- Stats row --}}
-            <div class="flex gap-8">
+            {{-- <div class="flex gap-8">
                 @foreach ([['100K+','Customers'],['15+','Municipalities'],['24/7','Support']] as [$val,$lbl])
                 <div>
                     <div class="text-2xl font-black mb-0.5"
@@ -70,13 +70,13 @@
                     <div class="text-xs font-medium" style="color: rgba(255,255,255,0.4);">{{ $lbl }}</div>
                 </div>
                 @endforeach
-            </div>
+            </div> --}}
 
             {{-- Divider --}}
-            <div class="mt-10 w-16 h-px" style="background: rgba(255,255,255,0.1);"></div>
+            {{-- <div class="mt-10 w-16 h-px" style="background: rgba(255,255,255,0.1);"></div> --}}
 
             {{-- Security badge --}}
-            <div class="mt-8 flex items-center gap-3">
+            {{-- <div class="mt-8 flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl flex items-center justify-center"
                      style="background: rgba(255,255,255,0.06);">
                     <svg class="w-4.5 w-[18px] h-[18px]" fill="none" stroke="rgba(255,255,255,0.5)" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@
                     <div class="text-xs font-semibold" style="color: rgba(255,255,255,0.7);">256-bit SSL Encrypted</div>
                     <div class="text-[11px]" style="color: rgba(255,255,255,0.35);">Your session is protected</div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         {{-- Back to website --}}

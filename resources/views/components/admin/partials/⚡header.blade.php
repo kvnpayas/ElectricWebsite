@@ -1,4 +1,32 @@
-{{-- ─── Top header bar ──────────────────────────────────── --}}
+<?php
+
+use Livewire\Component;
+
+new class extends Component {
+    public string $userName = '';
+    public string $userEmail = '';
+    public string $initials = '';
+
+    public function mount(): void
+    {
+        $user = Auth::user();
+
+        $this->userName = $user->name;
+        $this->userEmail = $user->email;
+        $this->initials = get_initials($user->name);
+    }
+    public function logout(): void
+    {
+        Auth::logout();
+
+        session()->invalidate();
+        session()->regenerateToken();
+
+        $this->redirect(route('login'), navigate: true);
+    }
+};
+?>
+
 <header class="sticky top-0 z-30 flex h-16 shrink-0 items-center gap-3 border-b px-4 sm:px-6"
   style="background-color: #FFFFFF; border-color: #E5E7EB;">
 
@@ -14,7 +42,7 @@
 
   {{-- Breadcrumb --}}
   <nav class="hidden sm:flex items-center gap-1.5 text-sm flex-1 min-w-0" aria-label="Breadcrumb">
-    <span class="font-medium truncate" style="color: #082840;">@yield('page-title', 'Dashboard')</span>
+    <span class="font-medium truncate text-tei-blue-dark">@yield('page-title', 'Dashboard')</span>
   </nav>
 
   {{-- Spacer on mobile --}}
@@ -45,7 +73,7 @@
             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
         </svg>
         {{-- Unread badge --}}
-        <span class="absolute top-1.5 right-1.5 size-2 rounded-full" style="background-color: #E76727;"></span>
+        <span class="absolute top-1.5 right-1.5 size-2 rounded-full bg-tei-orange"></span>
       </button>
 
       {{-- Notifications dropdown --}}
@@ -58,9 +86,8 @@
         class="absolute right-0 top-full mt-2 w-80 rounded-2xl border shadow-xl overflow-hidden"
         style="background-color: #FFFFFF; border-color: #E5E7EB; z-index: 50;">
         <div class="flex items-center justify-between px-4 py-3 border-b" style="border-color: #F3F4F6;">
-          <span class="text-sm font-bold" style="color: #082840;">Notifications</span>
-          <span class="text-xs font-semibold px-2 py-0.5 rounded-full"
-            style="background-color: rgba(231,103,39,0.1); color: #E76727;">3 new</span>
+          <span class="text-sm font-bold text-tei-blue-dark">Notifications</span>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-tei-orange/10 text-tei-orange">3 new</span>
         </div>
         @foreach ([['Emergency alert posted', 'Power advisory requires approval', '2m ago', '#EF4444'], ['New user registered', 'Maria Santos joined as Customer', '18m ago', '#3B82F6'], ['Media upload complete', '12 photos added to library', '1h ago', '#8B5CF6']] as [$title, $sub, $time, $color])
           <div class="flex items-start gap-3 px-4 py-3 border-b cursor-pointer transition-colors duration-150"
@@ -68,14 +95,14 @@
             onmouseout="this.style.backgroundColor='transparent'">
             <div class="size-2 mt-2 rounded-full shrink-0" style="background-color: {{ $color }};"></div>
             <div class="min-w-0 flex-1">
-              <p class="text-sm font-semibold leading-tight" style="color: #082840;">{{ $title }}</p>
-              <p class="text-xs mt-0.5 leading-snug" style="color: #56565A;">{{ $sub }}</p>
+              <p class="text-sm font-semibold leading-tight text-tei-blue-dark">{{ $title }}</p>
+              <p class="text-xs mt-0.5 leading-snug tei-gray">{{ $sub }}</p>
             </div>
-            <span class="text-[10px] shrink-0 mt-0.5" style="color: #A7A8AA;">{{ $time }}</span>
+            <span class="text-[10px] shrink-0 mt-0.5 tei-gray-light">{{ $time }}</span>
           </div>
         @endforeach
         <div class="px-4 py-2.5 text-center">
-          <a href="#" class="text-xs font-semibold" style="color: #E76727;">View all notifications</a>
+          <a href="#" class="text-xs font-semibold text-tei-orange">View all notifications</a>
         </div>
       </div>
     </div>
@@ -88,11 +115,10 @@
       <button @click="userOpen = !userOpen"
         class="flex items-center gap-2 rounded-xl pl-1 pr-3 py-1 transition-colors duration-150 cursor-pointer"
         onmouseover="this.style.backgroundColor='#F2F3F5'" onmouseout="this.style.backgroundColor='transparent'">
-        <div class="size-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm"
-          style="background: linear-gradient(135deg, #E76727, #C45218);">
-          AD
+        <div class="size-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm bg-linear-to-r from-tei-orange to-tei-orange-dark">
+          {{ $initials }}
         </div>
-        <span class="hidden sm:block text-sm font-semibold" style="color: #082840;">Admin</span>
+        <span class="hidden sm:block text-sm font-semibold text-tei-blue-dark">{{ $userName }}</span>
         <svg class="size-4 transition-transform duration-200" :class="userOpen ? 'rotate-180' : ''" fill="none"
           stroke="currentColor" viewBox="0 0 24 24" width="16" height="16" style="color: #A7A8AA;">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -109,8 +135,8 @@
         class="absolute right-0 top-full mt-2 w-52 rounded-2xl border shadow-xl overflow-hidden"
         style="background-color: #FFFFFF; border-color: #E5E7EB; z-index: 50;">
         <div class="px-4 py-3 border-b" style="border-color: #F3F4F6;">
-          <p class="text-sm font-bold" style="color: #082840;">Admin User</p>
-          <p class="text-xs" style="color: #A7A8AA;">admin@tei.com.ph</p>
+          <p class="text-sm font-bold text-tei-blue-dark">{{ $userName }}</p>
+          <p class="text-xs text-tei-gray">{{ $userEmail }}</p>
         </div>
         @foreach ([['Profile Settings', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'], ['View Website', 'M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14']] as [$label, $iconPath])
           <a href="#"
@@ -125,8 +151,8 @@
           </a>
         @endforeach
         <div class="border-t" style="border-color: #F3F4F6;">
-          <a href="#"
-            class="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 cursor-pointer"
+          <button wire:click="logout"
+            class="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 cursor-pointer w-full text-left"
             style="color: #EF4444;" onmouseover="this.style.backgroundColor='#FFF5F5'"
             onmouseout="this.style.backgroundColor='transparent'">
             <svg class="size-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16"
@@ -135,7 +161,7 @@
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
             Sign out
-          </a>
+          </button>
         </div>
       </div>
     </div>

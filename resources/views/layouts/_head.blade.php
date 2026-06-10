@@ -11,7 +11,7 @@
 
 <title>@yield('title', config('app.name', 'Tarlac Electric Inc.'))</title>
 <meta name="description"
-      content="@yield('description', 'TEI Tarlac Electric Inc. — Your trusted power distribution company serving the province of Tarlac.')">
+      content="@yield('description', 'TEI Tarlac Electric Inc. — Your trusted power distribution company serving Tarlac City.')">
 
 {{-- Prevent Alpine.js flash-of-unstyled-content --}}
 <style>[x-cloak] { display: none !important; }</style>

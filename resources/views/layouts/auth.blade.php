@@ -29,7 +29,7 @@
          :class="(sidebarCollapsed && isDesktop) ? 'lg:pl-20' : 'lg:pl-72'">
 
         {{-- Topbar --}}
-        @include('admin.partials.header')
+       <livewire:admin.partials.header />
 
         {{-- Page content — @yield for traditional @extends pages, $slot for Livewire full-page components --}}
         <main class="flex-1 p-4 sm:p-6 lg:p-8">
