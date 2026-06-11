@@ -20,9 +20,11 @@
           and community.
         </p>
         <div class="flex items-center gap-3">
-          @foreach ([['Facebook', 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z'], 
-          // ['Twitter', 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z'], 
-          ['YouTube', 'M22.54 6.42a2.78 2.78 0 00-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 1.96A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 001.94-1.95 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z M9.75 15.02l5.75-3.27-5.75-3.27v6.54z']] as [$name, $dpath])
+          @foreach ([
+        ['Facebook', 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z'],
+        // ['Twitter', 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z'],
+        ['YouTube', 'M22.54 6.42a2.78 2.78 0 00-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 1.96A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 001.94-1.95 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z M9.75 15.02l5.75-3.27-5.75-3.27v6.54z'],
+    ] as [$name, $dpath])
             <a href="#" aria-label="{{ $name }}"
               class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200"
               style="background-color: rgba(255,255,255,0.07);"
@@ -46,8 +48,9 @@
         <h4 class="text-xs font-bold uppercase tracking-widest mb-5" style="color: rgba(255,255,255,0.35);">Customer
           Service</h4>
         <ul class="space-y-3">
-          @foreach (['Power Advisory', 'How To Read Your Bill', 'Service Application', 'Bill Deposit', 'Senior Citizen', 'Net Metering', 'Distributed Energy Resources', 'Calculator'] as $item)
-            <li><a href="#" class="text-sm transition-colors duration-150" style="color: rgba(255,255,255,0.55);"
+          @foreach ([['Power Advisory', 'customer.power-advisory'], ['How To Read Your Bill', 'customer.how-to-read-your-bill'], ['Service Application', 'customer.service-application'], ['Bill Deposit', 'customer.bill-deposit'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator']] as [$item, $url])
+            <li><a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate
+                class="text-sm transition-colors duration-150" style="color: rgba(255,255,255,0.55);"
                 onmouseover="this.style.color='var(--color-tei-orange)'"
                 onmouseout="this.style.color='rgba(255,255,255,0.55)'">{{ $item }}</a></li>
           @endforeach

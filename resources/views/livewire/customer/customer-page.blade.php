@@ -80,6 +80,7 @@
         </a>
       </x-custom-card>
 
+      
       {{-- 3. Service Application (with 3 sub-items) --}}
       <x-custom-card>
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-tei-orange-dark/10">
@@ -118,14 +119,16 @@
               d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
         </div>
-        <h3 class="text-base font-bold mb-2 text-tei-blue">Bill Deposit</h3>
+        <h3 class="text-base font-bold mb-2 text-tei-blue">
+          <a href="{{ route('customer.bill-deposit') }}" wire:navigate class="hover:underline">Bill Deposit</a>
+        </h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
           All TEI customers — new applicants and reconnection requests — are required to pay a bill deposit
           approximately equivalent to one month's electric bill.
           This guarantees payment capability. Failure to pay the required deposit will result in disconnection of
           electric service.
         </p>
-        <a href="#"
+        <a href="{{ route('customer.bill-deposit') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           Learn More
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
@@ -169,15 +172,16 @@
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </div>
-        <h3 class="text-base font-bold mb-2 text-tei-blue">Senior Citizen Primer</h3>
+        <h3 class="text-base font-bold mb-2 text-tei-blue">
+          <a href="{{ route('customer.senior-citizen-discount') }}" wire:navigate class="hover:underline">Senior Citizen Discount</a>
+        </h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
           Following the <strong class="text-tei-blue">Expanded Senior Citizen Act of 2010</strong>,
           Tarlac Electric Inc. offers significant savings to elderly Filipinos aged 60 and above on their monthly
           electricity consumption.
         </p>
-        <a href="#"
-          class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange"
-          style="color: var(--color-tei-orange);">
+        <a href="{{ route('customer.senior-citizen-discount') }}" wire:navigate
+          class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           View Discount Details
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
@@ -193,15 +197,15 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
-        <h3 class="text-base font-bold mb-2 text-tei-blue" >Net Metering Primer
+        <h3 class="text-base font-bold mb-2 text-tei-blue">
+          <a href="{{ route('customer.net-metering-primer') }}" wire:navigate class="hover:underline">Net Metering Primer</a>
         </h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
           TEI is in full support of clean, renewable, and sustainable energy. Residential and business owners are
-          encouraged
-          to find alternative means of creating energy — whether solar, wind, biomass, or biogas — and give it back to
+          encouraged to find alternative means of creating energy — whether solar, wind, biomass, or biogas — and give it back to
           the community.
         </p>
-        <a href="#"
+        <a href="{{ route('customer.net-metering-primer') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           Learn About Net Metering
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
@@ -219,13 +223,16 @@
               d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
         </div>
-        <h3 class="text-base font-bold mb-2 text-tei-blue">Distributed Energy Resources</h3>
+        <h3 class="text-base font-bold mb-2 text-tei-blue">
+          <a href="{{ route('customer.distributed-energy-resources') }}" wire:navigate class="hover:underline">Distributed Energy Resources</a>
+        </h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
           The Distributed Energy Resources (DER) program, initiated by the ERC, aims to encourage the development
           and utilization of distributed energy and promote energy efficiency and sustainability across all customer
           types.
         </p>
-        <a href="#" class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
+        <a href="{{ route('customer.distributed-energy-resources') }}" wire:navigate
+          class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           Learn About DER
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
@@ -261,52 +268,3 @@
   </section> --}}
 </div>
 
-@push('scripts')
-  <script>
-    (function() {
-      function initAnimations() {
-        gsap.utils.toArray('.scroll-reveal').forEach(el => {
-          gsap.from(el, {
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 88%',
-              invalidateOnRefresh: true
-            },
-            opacity: 0,
-            y: 36,
-            duration: 0.7,
-            ease: 'power2.out',
-          });
-        });
-
-        gsap.utils.toArray('.stagger-cards').forEach(container => {
-          const cards = container.querySelectorAll('.card');
-          gsap.from(cards, {
-            scrollTrigger: {
-              trigger: container,
-              start: 'top 88%',
-              invalidateOnRefresh: true
-            },
-            opacity: 0,
-            y: 48,
-            duration: 0.65,
-            stagger: 0.1,
-            ease: 'power2.out',
-            clearProps: 'transform,opacity',
-            onComplete() {
-              cards.forEach(el => {
-                el.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease';
-              });
-            },
-          });
-        });
-      }
-
-      if (document.readyState === 'complete') {
-        initAnimations();
-      } else {
-        window.addEventListener('load', initAnimations);
-      }
-    })();
-  </script>
-@endpush

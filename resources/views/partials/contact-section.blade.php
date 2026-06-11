@@ -39,28 +39,3 @@
     </div>
   </div>
 </section>
-
-@push('scripts')
-  <script>
-    (function() {
-      function initContact() {
-        if (typeof gsap === 'undefined') return;
-        gsap.utils.toArray('#contact-section .scroll-reveal').forEach(el => {
-          gsap.from(el, {
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 88%',
-              once: true
-            },
-            opacity: 0,
-            y: 32,
-            duration: 0.7,
-            ease: 'power2.out',
-          });
-        });
-      }
-      if (document.readyState === 'complete') initContact();
-      else window.addEventListener('load', initContact);
-    })();
-  </script>
-@endpush

@@ -139,8 +139,8 @@
               <div class="my-1.5 border-t mx-3" style="border-color: rgba(15,61,92,0.07);"></div>
 
               {{-- Remaining L2 items --}}
-              @foreach ([['Bill Deposit', 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z'], ['Senior Citizen', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'], ['Net Metering', 'M13 10V3L4 14h7v7l9-11h-7z'], ['Distributed Energy Resources', 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'], ['Calculator', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z']] as [$lbl, $ico])
-                <a href="#"
+              @foreach ([['Bill Deposit', 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z', 'customer.bill-deposit'], ['Senior Citizen', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'customer.senior-citizen-discount'], ['Net Metering', 'M13 10V3L4 14h7v7l9-11h-7z', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', 'customer.distributed-energy-resources'], ['Calculator', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', 'customer.calculator']] as [$lbl, $ico, $url])
+                <a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate
                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
                   style="color: #374151;"
                   onmouseover="this.style.backgroundColor='rgba(15,61,92,0.05)'; this.style.color='#0F3D5C'"
@@ -347,8 +347,8 @@
           </div>
 
           {{-- Rest of L2 --}}
-          @foreach (['Bill Deposit', 'Senior Citizen', 'Net Metering', 'Distributed Energy Resources', 'Calculator'] as $item)
-            <a href="#" class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
+          @foreach ([['Bill Deposit', 'customer.bill-deposit'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator']] as [$item, $url])
+            <a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
               style="color: rgba(255,255,255,0.7);"
               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
               onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">

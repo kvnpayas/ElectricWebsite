@@ -271,68 +271,56 @@
           $advisories = [
               [
                   'badge' => 'Scheduled',
-                  'badgeColor' => '#FFB81C',
                   'date' => 'June 8, 2026',
                   'time' => '8:00 AM – 5:00 PM',
                   'title' => 'Scheduled Interruption – Zone A',
                   'area' => 'Brgy. San Sebastian, San Vicente, San Jose',
                   'reason' => 'Tree trimming and line maintenance.',
+                  'variant' => 'warning',
               ],
               [
                   'badge' => 'Scheduled',
-                  'badgeColor' => '#FFB81C',
                   'date' => 'June 10, 2026',
                   'time' => '7:00 AM – 4:00 PM',
                   'title' => 'Line Maintenance – Tarlac City Proper',
                   'area' => 'Brgy. Sto. Cristo, San Nicolas, Sinait',
                   'reason' => 'Replacement of deteriorated distribution lines.',
+                  'variant' => 'warning',
               ],
               [
                   'badge' => 'Emergency',
-                  'badgeColor' => '#E76727',
                   'date' => 'June 5, 2026',
                   'time' => 'Ongoing',
                   'title' => 'Emergency Restoration – Concepcion',
                   'area' => 'Concepcion, La Paz District',
                   'reason' => 'Restoration underway after storm-related damage.',
+                  'variant' => 'danger',
               ],
           ];
         @endphp
 
         @foreach ($advisories as $adv)
-          <div
-            class="card bg-white rounded-2xl overflow-hidden border transition-[box-shadow,border-color] duration-300 cursor-pointer"
-            style="border-color: rgba(15,61,92,0.08); box-shadow: 0 2px 8px rgba(15,61,92,0.05);"
-            onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 40px rgba(15,61,92,0.12)'"
-            onmouseout="this.style.transform=''; this.style.boxShadow='0 2px 8px rgba(15,61,92,0.05)'">
-            <div class="h-1" style="background-color: {{ $adv['badgeColor'] }};"></div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-4">
-                <span class="px-3 py-1 rounded-full text-xs font-bold"
-                  style="background-color: {{ $adv['badgeColor'] }}22; color: {{ $adv['badgeColor'] }};">
-                  {{ $adv['badge'] }}
-                </span>
-                <span class="text-xs" style="color: var(--color-tei-gray-light);">{{ $adv['date'] }}</span>
-              </div>
-              <h3 class="font-bold text-base mb-1 leading-snug" style="color: var(--color-tei-blue);">
-                {{ $adv['title'] }}</h3>
-              <p class="text-xs font-semibold mb-3 flex items-center gap-1.5" style="color: var(--color-tei-orange);">
-                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {{ $adv['time'] }}
-              </p>
-              <p class="text-xs leading-relaxed mb-2" style="color: var(--color-tei-gray);">
-                <svg class="w-3.5 h-3.5 inline mr-1 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  style="color: var(--color-tei-gray-light);">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                {{ $adv['area'] }}
-              </p>
-              <p class="text-xs leading-relaxed pb-4 border-b mb-4"
-                style="color: var(--color-tei-gray-light); border-color: rgba(15,61,92,0.07);">{{ $adv['reason'] }}</p>
+          <x-card badge="{{ $adv['badge'] }}" preText="{{ $adv['date'] }}" variant="{{ $adv['variant'] }}">
+
+            <h3 class="font-bold text-base mb-1 leading-snug text-tei-blue">
+              {{ $adv['title'] }}</h3>
+            <p class="text-xs font-semibold mb-3 flex items-center gap-1.5 text-tei-orange">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {{ $adv['time'] }}
+            </p>
+            <p class="text-xs leading-relaxed mb-2 text-tei-gray">
+              <svg class="w-3.5 h-3.5 inline mr-1 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                style="color: var(--color-tei-gray-light);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              {{ $adv['area'] }}
+            </p>
+            <p class="text-xs leading-relaxed text-tei-gray-light">{{ $adv['reason'] }}</p>
+            <x-slot:footer>
               <a href="#" class="inline-flex items-center gap-1 text-xs font-bold"
                 style="color: var(--color-tei-blue);">
                 View Full Advisory
@@ -340,8 +328,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
               </a>
-            </div>
-          </div>
+            </x-slot:footer>
+          </x-card>
         @endforeach
       </div>
     </div>
@@ -424,8 +412,8 @@
 
 @push('scripts')
   <script>
-    function initAnimations() {
-      // Hero entrance — runs immediately, elements are in viewport
+    function teiHero() {
+      if (!document.getElementById('hero-tag')) return;
       gsap.timeline({
           defaults: {
             ease: 'power3.out'
@@ -451,50 +439,14 @@
           y: 20,
           duration: 0.6
         }, '-=0.4');
-
-      // Single element scroll reveals
-      gsap.utils.toArray('.scroll-reveal').forEach(el => {
-        gsap.from(el, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            invalidateOnRefresh: true,
-          },
-          opacity: 0,
-          y: 40,
-          duration: 0.75,
-          ease: 'power2.out',
-        });
-      });
-
-      // Card stagger groups
-      gsap.utils.toArray('.stagger-cards').forEach(container => {
-        const cards = container.querySelectorAll('.card');
-        gsap.from(cards, {
-          scrollTrigger: {
-            trigger: container,
-            start: 'top 88%',
-            invalidateOnRefresh: true,
-          },
-          opacity: 0,
-          y: 50,
-          duration: 0.65,
-          stagger: 0.1,
-          ease: 'power2.out',
-          clearProps: 'transform,opacity',
-          onComplete() {
-            cards.forEach(el => {
-              el.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease';
-            });
-          },
-        });
-      });
     }
 
     if (document.readyState === 'complete') {
-      initAnimations();
+      teiHero();
     } else {
-      window.addEventListener('load', initAnimations);
+      window.addEventListener('load', teiHero);
     }
+
+    document.addEventListener('livewire:navigated', teiHero);
   </script>
 @endpush
