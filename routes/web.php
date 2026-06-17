@@ -2,6 +2,7 @@
 
 use App\Livewire\Admin\UserMaintenance;
 use App\Livewire\Customer\BillDeposit;
+use App\Livewire\Customer\Calculator;
 use App\Livewire\Customer\CustomerPage;
 use App\Livewire\Customer\HowToReadBill;
 use App\Livewire\Customer\DistributedEnergyResources;
@@ -16,6 +17,7 @@ Route::get('/bill-deposit', BillDeposit::class)->name('customer.bill-deposit');
 Route::get('/senior-citizen-discount', SeniorCitizenDiscount::class)->name('customer.senior-citizen-discount');
 Route::get('/net-metering-primer', NetMeteringPrimer::class)->name('customer.net-metering-primer');
 Route::get('/distributed-energy-resources', DistributedEnergyResources::class)->name('customer.distributed-energy-resources');
+Route::get('/calculator', Calculator::class)->name('customer.calculator');
 Route::redirect('/how-toread-your-bill', '/how-to-read-your-bill', 301);
 
 Route::middleware(['guest.custom'])->group(function () {
