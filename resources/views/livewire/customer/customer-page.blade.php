@@ -42,7 +42,7 @@
           Visit this page regularly or follow our official Facebook page <strong>@tei.ph</strong> to get updates on
           all electric service interruptions.
         </p>
-        <a href="#"
+        <a href="{{ route('customer.power-interruption-schedule') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           View Schedule
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
@@ -80,7 +80,7 @@
         </a>
       </x-custom-card>
 
-      
+
       {{-- 3. Service Application (with 3 sub-items) --}}
       <x-custom-card>
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-tei-orange-dark/10">
@@ -96,8 +96,8 @@
         </p>
         {{-- Sub-items --}}
         <div class="space-y-1.5 pt-4 border-t" style="border-color: rgba(15,61,92,0.07);">
-          @foreach ([['Application Procedure', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'], ['Application Requirement', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01'], ['Other Service Related Applications', 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z']] as [$lbl, $ico])
-            <a href="#"
+          @foreach ([['Application Procedure', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', 'customer.service-application.application-procedure'], ['Application Requirement', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', 'customer.service-application.application-requirements'], ['Other Service Related Applications', 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z', 'customer.service-application.other-service-related-applications']] as [$lbl, $ico, $url])
+            <a href="{{ $url && Route::has($url) ? route($url) : '#' }}" {{ $url ? 'wire:navigate' : '' }}
               class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-150"
               style="color: var(--color-tei-blue);"
               onmouseover="this.style.backgroundColor='rgba(231,103,39,0.06)'; this.style.color='var(--color-tei-orange)'"
@@ -173,7 +173,8 @@
           </svg>
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">
-          <a href="{{ route('customer.senior-citizen-discount') }}" wire:navigate class="hover:underline">Senior Citizen Discount</a>
+          <a href="{{ route('customer.senior-citizen-discount') }}" wire:navigate class="hover:underline">Senior
+            Citizen Discount</a>
         </h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
           Following the <strong class="text-tei-blue">Expanded Senior Citizen Act of 2010</strong>,
@@ -198,11 +199,13 @@
           </svg>
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">
-          <a href="{{ route('customer.net-metering-primer') }}" wire:navigate class="hover:underline">Net Metering Primer</a>
+          <a href="{{ route('customer.net-metering-primer') }}" wire:navigate class="hover:underline">Net Metering
+            Primer</a>
         </h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
           TEI is in full support of clean, renewable, and sustainable energy. Residential and business owners are
-          encouraged to find alternative means of creating energy — whether solar, wind, biomass, or biogas — and give it back to
+          encouraged to find alternative means of creating energy — whether solar, wind, biomass, or biogas — and give
+          it back to
           the community.
         </p>
         <a href="{{ route('customer.net-metering-primer') }}" wire:navigate
@@ -224,7 +227,8 @@
           </svg>
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">
-          <a href="{{ route('customer.distributed-energy-resources') }}" wire:navigate class="hover:underline">Distributed Energy Resources</a>
+          <a href="{{ route('customer.distributed-energy-resources') }}" wire:navigate
+            class="hover:underline">Distributed Energy Resources</a>
         </h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
           The Distributed Energy Resources (DER) program, initiated by the ERC, aims to encourage the development
@@ -267,4 +271,3 @@
     </div>
   </section> --}}
 </div>
-

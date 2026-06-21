@@ -48,7 +48,7 @@
         <h4 class="text-xs font-bold uppercase tracking-widest mb-5" style="color: rgba(255,255,255,0.35);">Customer
           Service</h4>
         <ul class="space-y-3">
-          @foreach ([['Power Advisory', 'customer.power-advisory'], ['How To Read Your Bill', 'customer.how-to-read-your-bill'], ['Service Application', 'customer.service-application'], ['Bill Deposit', 'customer.bill-deposit'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator']] as [$item, $url])
+          @foreach ([['Power Advisory', 'customer.power-interruption-schedule'], ['How To Read Your Bill', 'customer.how-to-read-your-bill'], ['Service Application', 'customer.service-application'], ['Bill Deposit', 'customer.bill-deposit'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator']] as [$item, $url])
             <li><a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate
                 class="text-sm transition-colors duration-150" style="color: rgba(255,255,255,0.55);"
                 onmouseover="this.style.color='var(--color-tei-orange)'"

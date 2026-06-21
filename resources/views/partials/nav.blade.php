@@ -82,7 +82,7 @@
               style="background: #ffffff; border: 1px solid rgba(15,61,92,0.09); box-shadow: 0 12px 40px rgba(15,61,92,0.16);">
 
               {{-- Group: General --}}
-              <a href="#"
+              <a href="{{ route('customer.power-interruption-schedule') }}" wire:navigate
                 class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
                 style="color: #374151;"
                 onmouseover="this.style.backgroundColor='rgba(15,61,92,0.05)'; this.style.color='#0F3D5C'"
@@ -111,29 +111,32 @@
               {{-- Divider --}}
               <div class="my-1.5 border-t mx-3" style="border-color: rgba(15,61,92,0.07);"></div>
 
-              {{-- Service Application → L3 trigger --}}
-              <button @mouseenter="subOpen = true"
-                class="w-full flex items-center justify-between gap-2 px-4 py-2.5 text-sm font-semibold transition-all duration-150 cursor-pointer"
-                :style="subOpen
-                    ?
-                    'background-color: rgba(231,103,39,0.08); color: var(--color-tei-orange);' :
-                    'color: #374151;'"
-                onmouseover="this.style.backgroundColor='rgba(231,103,39,0.08)'; this.style.color='var(--color-tei-orange)'"
-                onmouseout="if(!$data.subOpen){ this.style.backgroundColor='transparent'; this.style.color='#374151' }">
-                <span class="flex items-center gap-3">
+              {{-- Service Application → split: label navigates, chevron triggers L3 --}}
+              <div @mouseenter="subOpen = true"
+                class="flex items-center justify-between rounded-lg transition-all duration-150"
+                :style="subOpen ? 'background-color: rgba(231,103,39,0.08);' : ''"
+                onmouseover="this.style.backgroundColor='rgba(231,103,39,0.08)'"
+                onmouseout="if(!$data.subOpen){ this.style.backgroundColor='transparent' }">
+                <a href="{{ route('customer.service-application') }}" wire:navigate
+                  class="flex items-center gap-3 pl-4 pr-1.5 py-2.5 text-sm font-semibold flex-1 transition-colors duration-150"
+                  :style="subOpen ? 'color: var(--color-tei-orange);' : 'color: #374151;'">
                   <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     :style="subOpen ? 'color: var(--color-tei-orange)' : 'color: #9CA3AF'">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Service Application
-                </span>
-                <svg :class="subOpen ? 'translate-x-0.5' : ''"
-                  class="w-4 h-4 shrink-0 transition-transform duration-150" fill="none" stroke="currentColor"
-                  viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+                </a>
+                <button @click.stop="subOpen = !subOpen"
+                  class="pr-3 py-2.5 cursor-pointer transition-colors duration-150 bg-transparent"
+                  :style="subOpen ? 'color: var(--color-tei-orange);' : 'color: #9CA3AF;'">
+                  <svg :class="subOpen ? 'translate-x-0.5' : ''"
+                    class="w-4 h-4 transition-transform duration-150" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
 
               {{-- Divider --}}
               <div class="my-1.5 border-t mx-3" style="border-color: rgba(15,61,92,0.07);"></div>
@@ -168,26 +171,31 @@
               style="background: #ffffff; border: 1px solid rgba(15,61,92,0.09); box-shadow: 0 12px 40px rgba(15,61,92,0.16);">
 
               {{-- L3 header --}}
-              <div class="px-4 pt-3.5 pb-2.5 border-b flex items-center gap-2.5"
-                style="border-color: rgba(15,61,92,0.07); background: linear-gradient(135deg, rgba(231,103,39,0.05), rgba(231,103,39,0.02));">
-                <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                  style="background: rgba(231,103,39,0.1);">
-                  <svg class="w-4 h-4" fill="none" stroke="#E76727" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+              <a href="{{ route('customer.service-application') }}" wire:navigate
+                class="block px-4 pt-3.5 pb-2.5 border-b transition-colors duration-150"
+                style="border-color: rgba(15,61,92,0.07); background: linear-gradient(135deg, rgba(231,103,39,0.05), rgba(231,103,39,0.02));"
+                onmouseover="this.style.background='linear-gradient(135deg, rgba(231,103,39,0.1), rgba(231,103,39,0.05))'"
+                onmouseout="this.style.background='linear-gradient(135deg, rgba(231,103,39,0.05), rgba(231,103,39,0.02))'">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                    style="background: rgba(231,103,39,0.1);">
+                    <svg class="w-4 h-4" fill="none" stroke="#E76727" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs font-black uppercase tracking-wider" style="color: var(--color-tei-orange);">
+                      Service Application
+                    </p>
+                    <p class="text-[11px] mt-0.5" style="color: #9CA3AF;">View all application guides</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-xs font-black uppercase tracking-wider" style="color: var(--color-tei-orange);">
-                    Service Application
-                  </p>
-                  <p class="text-[11px] mt-0.5" style="color: #9CA3AF;">Choose an application type</p>
-                </div>
-              </div>
+              </a>
 
               {{-- L3 items --}}
-              @foreach ([['Application Procedure', 'Step-by-step guide to apply for service', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'], ['Application Requirement', 'Documents and forms needed for application', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01'], ['Other Service Related Applications', 'Additional service requests and inquiries', 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z']] as [$lbl, $desc, $ico])
-                <a href="#"
+              @foreach ([['Application Procedure', 'Step-by-step guide to apply for service', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', 'customer.service-application.application-procedure'], ['Application Requirement', 'Documents and forms needed for application', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', 'customer.service-application.application-requirements'], ['Other Service Related Applications', 'Additional service requests and inquiries', 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z', 'customer.service-application.other-service-related-applications']] as [$lbl, $desc, $ico, $url])
+                <a href="{{ $url && Route::has($url) ? route($url) : '#' }}" {{ $url ? 'wire:navigate' : '' }}
                   class="flex items-center gap-3.5 px-4 py-3 transition-colors duration-150 border-b last:border-0 group"
                   style="border-color: rgba(15,61,92,0.05);"
                   onmouseover="this.style.backgroundColor='rgba(231,103,39,0.04)'"
@@ -302,13 +310,14 @@
           x-transition:leave-end="opacity-0 -translate-y-1" class="mt-1 ml-4 pl-3 flex flex-col gap-0.5 border-l-2"
           style="border-color: rgba(231,103,39,0.35);">
 
-          <a href="#" class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
+          <a href="{{ route('customer.power-interruption-schedule') }}" wire:navigate 
+          class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
             style="color: rgba(255,255,255,0.7);"
             onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
             onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">
             Power Advisory Schedule
           </a>
-          <a href="{{ route('customer.how-to-read-your-bill') }}"
+          <a href="{{ route('customer.how-to-read-your-bill') }}" wire:navigate
             class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
             style="color: rgba(255,255,255,0.7);"
             onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
@@ -334,8 +343,8 @@
               x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1"
               class="mt-1 ml-3 pl-3 flex flex-col gap-0.5 border-l-2" style="border-color: rgba(231,103,39,0.2);">
 
-              @foreach (['Application Procedure', 'Application Requirement', 'Other Service Related Applications'] as $item)
-                <a href="#" class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
+              @foreach ([['Application Procedure', 'customer.service-application.application-procedure'], ['Application Requirement', 'customer.service-application.application-requirements'], ['Other Service Related Applications', 'customer.service-application.other-service-related-applications']] as [$item, $mUrl])
+                <a href="{{ $mUrl && Route::has($mUrl) ? route($mUrl) : '#' }}" {{ $mUrl ? 'wire:navigate' : '' }} class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
                   style="color: rgba(255,255,255,0.6);"
                   onmouseover="this.style.backgroundColor='rgba(255,255,255,0.06)'; this.style.color='rgba(255,255,255,0.9)'"
                   onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.6)'">
