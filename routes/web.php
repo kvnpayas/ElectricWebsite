@@ -13,6 +13,14 @@ use App\Livewire\Customer\ApplicationProcedure;
 use App\Livewire\Customer\ApplicationRequirements;
 use App\Livewire\Customer\OtherServiceRelatedApplications;
 use App\Livewire\Customer\ServiceApplication;
+use App\Livewire\ContactUs;
+use App\Livewire\PrivacyPolicy;
+use App\Livewire\AboutUs\AboutUs;
+use App\Livewire\AboutUs\Profile;
+use App\Livewire\AboutUs\BoardOfDirectors;
+use App\Livewire\AboutUs\ExecutiveOfficers;
+use App\Livewire\AboutUs\ManagementTeam;
+use App\Livewire\AboutUs\OrganizationalStructure;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('home'))->name('home');
@@ -28,6 +36,14 @@ Route::get('/net-metering-primer', NetMeteringPrimer::class)->name('customer.net
 Route::get('/distributed-energy-resources', DistributedEnergyResources::class)->name('customer.distributed-energy-resources');
 Route::get('/calculator', Calculator::class)->name('customer.calculator');
 Route::get('/power-interruption-schedule', PowerInterruptionSchedule::class)->name('customer.power-interruption-schedule');
+Route::get('/contact-us', ContactUs::class)->name('contact-us');
+Route::get('/privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
+Route::get('/about-us', AboutUs::class)->name('about-us');
+Route::get('/profile', Profile::class)->name('about-us.profile');
+Route::get('/board-of-directors', BoardOfDirectors::class)->name('about-us.profile.board-of-directors');
+Route::get('/executive-officers', ExecutiveOfficers::class)->name('about-us.profile.executive-officers');
+Route::get('/management-team', ManagementTeam::class)->name('about-us.profile.management-team');
+Route::get('/organizational-structure', OrganizationalStructure::class)->name('about-us.profile.organizational-structure');
 Route::redirect('/how-toread-your-bill', '/how-to-read-your-bill', 301);
 
 Route::middleware(['guest.custom'])->group(function () {

@@ -24,8 +24,11 @@
         </div>
         <div>
           <h3 class="text-base font-bold mb-2 text-tei-blue">What is a Bill Deposit?</h3>
-          <p class="text-sm leading-relaxed mb-3 text-tei-gray">
+          {{-- <p class="text-sm leading-relaxed mb-3 text-tei-gray">
             All Tarlac Electric Inc. (TEI) customers — whether new applicants or clients requesting reconnection — are required to pay a <strong class="text-tei-blue">bill deposit</strong>. The amount is approximately equivalent to one (1) month of the customer's electric bill and serves as a guarantee of payment capability. TEI bases the deposit on the customer's estimated electricity consumption or load schedule submitted during service application, and adjusts it yearly based on actual average monthly consumption.
+          </p> --}}
+          <p class="text-sm leading-relaxed mb-3 text-tei-gray">
+            Whether you're a new applicant or a client requesting for reconnection. all Tarlac Electric Inc. (TEI) customers are required to pay a <strong class="text-tei-blue">bill deposit</strong>. Approximately equivalent to one month of the customer's electric bill, this amount guarantees that he will be able to pay his statement. TEI will base the bill deposit on the customer's estimated electricity consumption or load schedule, which is submitted during service application. However, the amount is adjusted yearly depending on the actual average monthly electric energy consumption of the customer.
           </p>
           <div class="flex items-start gap-2 rounded-xl px-4 py-3 text-sm bg-danger/10 border border-danger/20">
             <svg class="w-4 h-4 shrink-0 mt-0.5 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,8 +107,11 @@
           Annual Review
         </span>
         <h2 class="text-2xl sm:text-3xl font-black mb-2 text-tei-blue">Annual Update of Bill Deposit</h2>
-        <p class="text-sm max-w-2xl text-tei-gray">
+        {{-- <p class="text-sm max-w-2xl text-tei-gray">
           Every year on the anniversary month of your service contract, TEI reviews your bill deposit to make sure it still covers your monthly usage. The outcome depends on how your actual average monthly bill compares to your current deposit.
+        </p> --}}
+        <p class="text-sm max-w-2xl text-tei-gray">
+          Every year on the anniversary month of your service contract, TEI reviews your bill deposit to make sure it still covers your monthly usage.
         </p>
       </div>
 
@@ -122,12 +128,16 @@
             <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-warning/15 text-warning">Deposit Increases</span>
           </div>
           <h4 class="text-sm font-bold mb-2 text-tei-blue">Bill is 10% or more higher</h4>
-          <p class="text-xs leading-relaxed mb-4 text-tei-gray">
+          {{-- <p class="text-xs leading-relaxed mb-4 text-tei-gray">
             If your actual average monthly bill is <strong class="text-tei-blue">higher than your deposit by 10% or more</strong>, TEI will collect an additional amount. The corresponding interest will be applied to your deposit adjustment.
+          </p> --}}
+          <p class="text-xs leading-relaxed mb-4 text-tei-gray">
+            If your actual average monthly bill is <strong class="text-tei-blue">higher than your deposit by 10% or more</strong>, your bill deposit will be adjusted accordingly and an additional amount will be collected from you. The corresponding interest shall be applied to your bill deposit adjustment.
           </p>
           <div class="rounded-xl px-3 py-2.5 bg-warning/10">
             <p class="text-xs font-semibold text-warning mb-0.5">Payment Options</p>
-            <p class="text-xs text-tei-gray">One-time or staggered basis — your choice.</p>
+            {{-- <p class="text-xs text-tei-gray">One-time or staggered basis — your choice.</p> --}}
+            <p class="text-xs text-tei-gray">One-time or staggered basis</p>
           </div>
         </x-card>
 
@@ -144,10 +154,10 @@
           <p class="text-xs leading-relaxed mb-4 text-tei-gray">
             If the amount falls <strong class="text-tei-blue">within the acceptable range</strong>, no additional fee will be collected from you. This also means that you will not be able to claim a bill deposit refund.
           </p>
-          <div class="rounded-xl px-3 py-2.5 bg-info/10">
+          {{-- <div class="rounded-xl px-3 py-2.5 bg-info/10">
             <p class="text-xs font-semibold text-info mb-0.5">Acceptable Range</p>
             <p class="text-xs text-tei-gray">Between 90% and 110% of current deposit.</p>
-          </div>
+          </div> --}}
         </x-card>
 
         <x-card variant="success">
@@ -161,7 +171,7 @@
           </div>
           <h4 class="text-sm font-bold mb-2 text-tei-blue">Bill is 90% or less</h4>
           <p class="text-xs leading-relaxed mb-4 text-tei-gray">
-            If your actual average monthly bill is <strong class="text-tei-blue">less than 90% of your deposit</strong>, you can apply for a refund of the excess amount at any TEI business center.
+            If your actual average monthly bill is <strong class="text-tei-blue">less than 90% of your bill deposit</strong>, you can apply for a refund of the excess amount at any TEI business center.
           </p>
           <div class="rounded-xl px-3 py-2.5 bg-success/10">
             <p class="text-xs font-semibold text-success mb-0.5">Refund Method</p>

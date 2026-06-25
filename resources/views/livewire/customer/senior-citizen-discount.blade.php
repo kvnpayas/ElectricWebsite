@@ -25,8 +25,11 @@
         <div>
           <h3 class="text-base font-bold mb-2 text-tei-blue">Senior Citizen Discount</h3>
           <p class="text-sm leading-relaxed mb-3 text-tei-gray">
-            Under the <strong class="text-tei-blue">Expanded Senior Citizen Act of 2010</strong>, Tarlac Electric Inc. offers a <strong class="text-tei-blue">5% discount</strong> on the monthly electricity bills of qualified senior citizens. This discount is applicable to Philippine senior citizens who use <strong class="text-tei-blue">one hundred kilowatt-hours (100 kWh) or less per month</strong> and have their TEI electricity meter registered under their name for at least one (1) year.
+            Under the <strong class="text-tei-blue">Expanded Senior Citizen Act of 2010</strong>, Tarlac Electric Inc. offers a <strong class="text-tei-blue">5% discount</strong> on the monthly electricity bills of qualified senior citizens. This is applicable if you are a Philippine senior citizen who uses <strong class="text-tei-blue">one hundred kilowatt-hours (100 kWh) or less per month,</strong> and has the TEI electricity meter of your home registered under your name for at least one (1) year.
           </p>
+          {{-- <p class="text-sm leading-relaxed mb-3 text-tei-gray">
+            Under the <strong class="text-tei-blue">Expanded Senior Citizen Act of 2010</strong>, Tarlac Electric Inc. offers a <strong class="text-tei-blue">5% discount</strong> on the monthly electricity bills of qualified senior citizens. This discount is applicable to Philippine senior citizens who use <strong class="text-tei-blue">one hundred kilowatt-hours (100 kWh) or less per month</strong> and have their TEI electricity meter registered under their name for at least one (1) year.
+          </p> --}}
           <div class="flex items-start gap-2 rounded-xl px-4 py-3 text-sm bg-warning/10 border border-warning/20">
             <svg class="w-4 h-4 shrink-0 mt-0.5 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -119,8 +122,12 @@
             </div>
             <div>
               <h4 class="text-sm font-bold mb-2 text-tei-blue">Get the Application Form</h4>
-              <p class="text-xs leading-relaxed text-tei-gray">
+              {{-- <p class="text-xs leading-relaxed text-tei-gray">
                 Obtain a <strong class="text-tei-blue">Senior Citizen Discount Form</strong> from any of the TEI business centers. The form is available free of charge.
+              </p> --}}
+              <p class="text-xs leading-relaxed text-tei-gray">
+                Get a <strong class="text-tei-blue">Senior Citizen Discount Form</strong> from any of the TEI business centers.
+                 {{-- The form is available free of charge. --}}
               </p>
             </div>
           </div>
@@ -176,8 +183,11 @@
             </div>
             <div>
               <h4 class="text-sm font-bold mb-2 text-tei-blue">Submit to a TEI Business Center</h4>
-              <p class="text-xs leading-relaxed mb-3 text-tei-gray">
+              {{-- <p class="text-xs leading-relaxed mb-3 text-tei-gray">
                 Present your complete requirements at the <strong class="text-tei-blue">TEI main branch</strong> or any of its business centers for processing.
+              </p> --}}
+              <p class="text-xs leading-relaxed mb-3 text-tei-gray">
+                To process the application, present the following to the <strong class="text-tei-blue">TEI main branch</strong> or any of its business centers:
               </p>
               <div class="space-y-1.5">
                 @foreach ([
