@@ -26,16 +26,22 @@ new class extends Component
                     'badge'  => '3',
                 ],
                 [
-                    'label'  => 'Power Advisories',
+                    'label'  => 'Rates & Advisories',
+                    'href'   => route('admin.rates-advisories'),
+                    'active' => request()->routeIs('admin.rates-advisories*'),
+                    'icon'   => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+                ],
+                [
+                    'label'  => 'Power Interruption',
                     'href'   => '#',
-                    'active' => request()->routeIs('admin.advisories*'),
-                    'icon'   => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+                    'active' => request()->routeIs('admin.power-interruption*'),
+                    'icon'   => 'M13 10V3L4 14h7v7l9-11h-7z',
                 ],
                 [
                     'label'  => 'Services',
                     'href'   => '#',
                     'active' => request()->routeIs('admin.services*'),
-                    'icon'   => 'M13 10V3L4 14h7v7l9-11h-7z',
+                    'icon'   => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
                 ],
             ],
             'Media' => [
@@ -107,33 +113,26 @@ new class extends Component
      class="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"></div>
 
 {{-- ─── Sidebar ────────────────────────────────────────────── --}}
-<aside class="fixed inset-y-0 left-0 z-40 flex flex-col overflow-hidden transition-all duration-300 ease-in-out"
+<aside class="fixed inset-y-0 left-0 z-40 flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-tei-blue-dark"
        :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-       :style="{ backgroundColor: '#082840', width: (sidebarCollapsed && isDesktop) ? '80px' : '288px' }">
+       :style="{ width: (sidebarCollapsed && isDesktop) ? '80px' : '288px' }">
 
     {{-- Logo / brand header --}}
-    <div class="flex h-16 shrink-0 items-center justify-between px-4 border-b"
-         style="border-color: rgba(255,255,255,0.08);">
+    <div class="flex h-16 shrink-0 items-center justify-between px-4 border-b border-white/8">
         <a href="{{ url('/') }}" class="flex items-center gap-3 min-w-0" title="Back to website">
-            <div class="shrink-0 size-9 rounded-xl flex items-center justify-center shadow-lg"
-                 style="background: linear-gradient(135deg, #E76727, #C45218);">
-                <span class="text-white font-black text-base leading-none"
-                      style="font-family: var(--font-display);">T</span>
+            <div class="shrink-0 size-9 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-tei-orange to-tei-orange-dark">
+                <span class="text-white font-black text-base leading-none font-display">T</span>
             </div>
             <div x-cloak x-show="!(sidebarCollapsed && isDesktop)" class="min-w-0 overflow-hidden">
-                <p class="text-white font-bold text-sm leading-tight truncate"
-                   style="font-family: var(--font-display);">TEI Admin</p>
-                <p class="text-[10px] truncate" style="color: rgba(255,255,255,0.4);">Content Management</p>
+                <p class="text-white font-bold text-sm leading-tight truncate font-display">TEI Admin</p>
+                <p class="text-[10px] truncate text-white/40">Content Management</p>
             </div>
         </a>
         {{-- Desktop collapse toggle --}}
         <button @click="sidebarCollapsed = !sidebarCollapsed"
                 x-cloak
                 x-show="isDesktop"
-                class="hidden lg:flex size-7 rounded-lg items-center justify-center transition-colors duration-200 cursor-pointer shrink-0"
-                style="color: rgba(255,255,255,0.4);"
-                onmouseover="this.style.backgroundColor='rgba(255,255,255,0.08)'; this.style.color='white'"
-                onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.4)'"
+                class="hidden lg:flex size-7 rounded-lg items-center justify-center transition-colors duration-200 cursor-pointer shrink-0 text-white/40 hover:bg-white/8 hover:text-white"
                 :aria-label="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
             <svg class="size-4 transition-transform duration-300" :class="sidebarCollapsed ? 'rotate-180' : ''"
                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,8 +147,9 @@ new class extends Component
         <div>
             {{-- Group label --}}
             <p x-cloak x-show="!(sidebarCollapsed && isDesktop)"
-               class="px-4 mb-1 text-[10px] font-bold tracking-[0.12em] uppercase select-none"
-               style="color: rgba(255,255,255,0.3);">{{ $groupName }}</p>
+               class="px-4 mb-1 text-[10px] font-bold tracking-[0.12em] uppercase select-none text-white/30">
+               {{ $groupName }}
+            </p>
 
             {{-- Items --}}
             <ul class="space-y-0.5 px-2">
@@ -157,13 +157,11 @@ new class extends Component
                 <li>
                     <a href="{{ $item['href'] }}"
                        @if($item['href'] !== '#') wire:navigate @endif
-                       class="flex items-center gap-3 px-2 py-2.5 rounded-xl text-sm font-medium transition-colors duration-150 cursor-pointer group relative"
+                       class="flex items-center gap-3 px-2 py-2.5 rounded-xl text-sm font-medium transition-colors duration-150 cursor-pointer group relative
+                              {{ $item['active']
+                                  ? 'bg-tei-orange/15 text-white border-l-[3px] border-tei-orange'
+                                  : 'text-white/70 hover:bg-white/8 hover:text-white' }}"
                        :class="(sidebarCollapsed && isDesktop) ? 'justify-center' : ''"
-                       style="{{ $item['active'] ? 'background-color: rgba(231,103,39,0.15); color: white; border-left: 3px solid #E76727;' : 'color: rgba(255,255,255,0.7);' }}"
-                       @if(!$item['active'])
-                       onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
-                       onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'"
-                       @endif
                        :title="(sidebarCollapsed && isDesktop) ? '{{ $item['label'] }}' : ''">
 
                         {{-- Icon --}}
@@ -180,8 +178,9 @@ new class extends Component
                         {{-- Badge --}}
                         @if(!empty($item['badge']))
                         <span x-cloak x-show="!(sidebarCollapsed && isDesktop)"
-                              class="shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-                              style="background-color: #E76727; color: white;">{{ $item['badge'] }}</span>
+                              class="shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-tei-orange text-white">
+                              {{ $item['badge'] }}
+                        </span>
                         @endif
                     </a>
                 </li>
@@ -192,22 +191,18 @@ new class extends Component
     </nav>
 
     {{-- User profile footer --}}
-    <div class="shrink-0 border-t p-3" style="border-color: rgba(255,255,255,0.08);">
-        <div class="flex items-center gap-3 px-2 py-2 rounded-xl transition-colors duration-150 cursor-pointer"
-             :class="(sidebarCollapsed && isDesktop) ? 'justify-center' : ''"
-             onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'"
-             onmouseout="this.style.backgroundColor='transparent'">
-            <div class="shrink-0 size-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow"
-                 style="background: linear-gradient(135deg, #E76727, #C45218);">
+    <div class="shrink-0 border-t border-white/8 p-3">
+        <div class="flex items-center gap-3 px-2 py-2 rounded-xl transition-colors duration-150 cursor-pointer hover:bg-white/8"
+             :class="(sidebarCollapsed && isDesktop) ? 'justify-center' : ''">
+            <div class="shrink-0 size-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow bg-linear-to-br from-tei-orange to-tei-orange-dark">
                 AD
             </div>
             <div x-cloak x-show="!(sidebarCollapsed && isDesktop)" class="min-w-0 flex-1 overflow-hidden">
                 <p class="text-white text-sm font-semibold leading-tight truncate">Admin User</p>
-                <p class="text-[11px] truncate" style="color: rgba(255,255,255,0.4);">admin@tei.com.ph</p>
+                <p class="text-[11px] truncate text-white/40">admin@tei.com.ph</p>
             </div>
             <svg x-cloak x-show="!(sidebarCollapsed && isDesktop)"
-                 class="size-4 shrink-0" fill="none" stroke="currentColor"
-                 viewBox="0 0 24 24" style="color: rgba(255,255,255,0.3);">
+                 class="size-4 shrink-0 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
             </svg>

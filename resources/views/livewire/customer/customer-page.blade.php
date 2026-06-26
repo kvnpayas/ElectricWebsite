@@ -29,7 +29,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-cards">
 
       {{-- 1. Power Advisory Schedule --}}
-      <x-custom-card>
+      {{-- <x-custom-card>
         <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-tei-orange-dark/10">
           <svg class="w-6 h-6 text-tei-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,7 +50,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
-      </x-custom-card>
+      </x-custom-card> --}}
 
       {{-- 2. How to Read Your Bill --}}
       <x-custom-card>

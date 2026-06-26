@@ -14,7 +14,7 @@
   <x-guest-section>
 
     {{-- Intro card --}}
-    <div class="rounded-2xl p-6 sm:p-8 mb-10 scroll-reveal bg-gradient-to-br from-tei-blue/4 to-tei-blue/2 border border-tei-blue/8">
+    {{-- <div class="rounded-2xl p-6 sm:p-8 mb-10 scroll-reveal bg-gradient-to-br from-tei-blue/4 to-tei-blue/2 border border-tei-blue/8">
       <div class="flex gap-4 items-start">
         <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 bg-tei-orange/10">
           <svg class="w-5 h-5 text-tei-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     {{-- Section heading --}}
     <div class="text-center mb-10 scroll-reveal">

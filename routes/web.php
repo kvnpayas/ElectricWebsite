@@ -1,7 +1,13 @@
 <?php
 
+use App\Livewire\Admin\RatesAdvisories;
 use App\Livewire\Admin\UserMaintenance;
-use App\Livewire\Advisory\PowerInterruptionSchedule;
+use App\Livewire\RateAndAdvisory\AdvisoryList;
+use App\Livewire\RateAndAdvisory\AdvisoryViewer;
+use App\Models\AdvisoryDocument;
+use Illuminate\Support\Facades\Storage;
+use App\Livewire\RateAndAdvisory\RateAndAdvisory;
+use App\Livewire\RateAndAdvisory\PowerInterruptionSchedule;
 use App\Livewire\Customer\BillDeposit;
 use App\Livewire\Customer\Calculator;
 use App\Livewire\Customer\CustomerPage;
@@ -35,7 +41,19 @@ Route::get('/other-service-related-applications', OtherServiceRelatedApplication
 Route::get('/net-metering-primer', NetMeteringPrimer::class)->name('customer.net-metering-primer');
 Route::get('/distributed-energy-resources', DistributedEnergyResources::class)->name('customer.distributed-energy-resources');
 Route::get('/calculator', Calculator::class)->name('customer.calculator');
-Route::get('/power-interruption-schedule', PowerInterruptionSchedule::class)->name('customer.power-interruption-schedule');
+Route::get('/rates-and-advisories', RateAndAdvisory::class)->name('rate-and-advisories');
+Route::get('/power-interruption-schedule', PowerInterruptionSchedule::class)->name('rate-and-advisories.power-interruption-schedule');
+Route::get('/rates-and-advisories/advisories', AdvisoryList::class)->name('rate-and-advisories.advisories');
+Route::get('/rates-and-advisories/rate-schedule', AdvisoryList::class)->name('rate-and-advisories.rate-schedule');
+Route::get('/rates-and-advisories/other-documents', AdvisoryList::class)->name('rate-and-advisories.other-documents');
+Route::get('/advisory-file/{slug}', function (string $slug) {
+    $doc = AdvisoryDocument::where('url', $slug)->where('status', 'published')->firstOrFail();
+    abort_unless($doc->file_path && Storage::exists($doc->file_path), 404);
+    return response()->file(Storage::path($doc->file_path), [
+        'Content-Type'        => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="' . $doc->file_name . '"',
+    ]);
+})->name('rate-and-advisories.pdf');
 Route::get('/contact-us', ContactUs::class)->name('contact-us');
 Route::get('/privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
 Route::get('/about-us', AboutUs::class)->name('about-us');
@@ -57,7 +75,21 @@ Route::middleware(['auth.custom'])->group(function () {
   Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::get('/rates-advisories', RatesAdvisories::class)->name('rates-advisories');
     Route::get('/users', UserMaintenance::class)->name('users.index');
+
+    Route::get('/documents/{document}', function (AdvisoryDocument $document) {
+        abort_unless($document->file_path && Storage::exists($document->file_path), 404);
+        return response()->file(Storage::path($document->file_path), [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $document->file_name . '"',
+        ]);
+    })->name('documents.serve');
   });
 
 });
+
+// Advisory document viewer — registered LAST so it never shadows any named route above
+Route::get('/{slug}', AdvisoryViewer::class)
+    ->name('rate-and-advisories.view')
+    ->where('slug', '[a-zA-Z0-9\-_]+');

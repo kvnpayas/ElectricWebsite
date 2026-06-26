@@ -1,58 +1,13 @@
 <div>
 
-  {{-- ══════════════════════════════════════════
-         PAGE HEADER
-    ══════════════════════════════════════════ --}}
-  <div id="page-header" class="mb-6">
-    {{-- <nav class="flex items-center gap-2 text-xs mb-3" aria-label="Breadcrumb" style="color: #9CA3AF;">
-      <a href="{{ route('admin.dashboard') }}" wire:navigate class="transition-colors duration-150" style="color: #9CA3AF;"
-        onmouseover="this.style.color='#E76727'" onmouseout="this.style.color='#9CA3AF'">Dashboard</a>
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-      <span style="color: #374151; font-weight: 600;">User Maintenance</span>
-    </nav> --}}
-
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-      <div>
-        <h1 class="text-2xl font-black">
-          User Maintenance
-        </h1>
-        <p class="text-sm mt-0.5 text-tei-gray">
-          Manage system accounts, roles, and access permissions.
-        </p>
-      </div>
-      <div
-        class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium shrink-0 bg-success/15 text-success border border-success/20"
-        {{-- style="background: rgba(5,150,105,0.08); color: #059669; border: 1px solid rgba(5,150,105,0.15);" --}}>
-        <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
-        System Online
-      </div>
+  <x-admin.partials.page-header id="page-header" title="User Maintenance"
+    subtitle="Manage system accounts, roles, and access permissions.">
+    <div
+      class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium shrink-0 bg-success/15 text-success border border-success/20">
+      <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+      System Online
     </div>
-  </div>
-
-
-  {{-- ══════════════════════════════════════════
-         TOAST
-    ══════════════════════════════════════════ --}}
-  @if (session()->has('success'))
-    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)"
-      x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-y-0"
-      x-transition:leave-end="opacity-0 -translate-y-3"
-      class="fixed top-6 right-6 z-[60] flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-xl max-w-sm bg-success text-white"
-      role="alert" aria-live="polite">
-      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-      </svg>
-      <span class="text-sm font-medium">{{ session('success') }}</span>
-      <button @click="show = false" class="ml-auto cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
-        aria-label="Dismiss">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-  @endif
+  </x-admin.partials.page-header>
 
 
   {{-- ══════════════════════════════════════════
@@ -350,42 +305,42 @@
         </div>
       </div>
 
-        <div x-data="{ showPass: false }"class="{{ $formMode == 'edit' ? 'hidden' : '' }}">
-          <label for="formPassword" class="block text-sm font-semibold mb-1.5"
-            style="color: var(--color-tei-blue);">Password <span style="color:#EF4444;">*</span></label>
-          <div class="relative">
-            <input wire:model="formPassword" id="formPassword" :type="showPass ? 'text' : 'password'"
-              placeholder="Min. 8 characters"
-              class="w-full pl-4 pr-11 py-3 rounded-xl border text-sm outline-none transition-all duration-200"
-              style="border-color: {{ $errors->has('formPassword') ? '#EF4444' : '#E5E7EB' }}; background: #FAFAFA; color: #111827;"
-              onfocus="this.style.borderColor='#E76727'; this.style.backgroundColor='white'; this.style.boxShadow='0 0 0 3px rgba(231,103,39,0.10)'"
-              onblur="this.style.borderColor='{{ $errors->has('formPassword') ? '#EF4444' : '#E5E7EB' }}'; this.style.backgroundColor='#FAFAFA'; this.style.boxShadow='none'">
-            <button type="button" @click="showPass = !showPass"
-              class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer transition-colors duration-150"
-              style="color: #9CA3AF;" onmouseover="this.style.color='#E76727'"
-              onmouseout="this.style.color='#9CA3AF'" aria-label="Toggle password">
-              <svg x-show="!showPass" class="w-[18px] h-[18px]" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-              <svg x-show="showPass" x-cloak class="w-[18px] h-[18px]" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-              </svg>
-            </button>
-          </div>
-          @error('formPassword')
-            <p class="mt-1.5 text-xs flex items-center gap-1" style="color: #EF4444;">
-              <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {{ $message }}
-            </p>
-          @enderror
+      <div x-data="{ showPass: false }"class="{{ $formMode == 'edit' ? 'hidden' : '' }}">
+        <label for="formPassword" class="block text-sm font-semibold mb-1.5"
+          style="color: var(--color-tei-blue);">Password <span style="color:#EF4444;">*</span></label>
+        <div class="relative">
+          <input wire:model="formPassword" id="formPassword" :type="showPass ? 'text' : 'password'"
+            placeholder="Min. 8 characters"
+            class="w-full pl-4 pr-11 py-3 rounded-xl border text-sm outline-none transition-all duration-200"
+            style="border-color: {{ $errors->has('formPassword') ? '#EF4444' : '#E5E7EB' }}; background: #FAFAFA; color: #111827;"
+            onfocus="this.style.borderColor='#E76727'; this.style.backgroundColor='white'; this.style.boxShadow='0 0 0 3px rgba(231,103,39,0.10)'"
+            onblur="this.style.borderColor='{{ $errors->has('formPassword') ? '#EF4444' : '#E5E7EB' }}'; this.style.backgroundColor='#FAFAFA'; this.style.boxShadow='none'">
+          <button type="button" @click="showPass = !showPass"
+            class="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer transition-colors duration-150"
+            style="color: #9CA3AF;" onmouseover="this.style.color='#E76727'" onmouseout="this.style.color='#9CA3AF'"
+            aria-label="Toggle password">
+            <svg x-show="!showPass" class="w-[18px] h-[18px]" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <svg x-show="showPass" x-cloak class="w-[18px] h-[18px]" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+            </svg>
+          </button>
         </div>
+        @error('formPassword')
+          <p class="mt-1.5 text-xs flex items-center gap-1" style="color: #EF4444;">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {{ $message }}
+          </p>
+        @enderror
+      </div>
 
 
 
@@ -393,7 +348,8 @@
 
     <x-drawer.footer>
       <x-button variant="ghost" size="lg" @click="$wire.closeModal()">Cancel</x-button>
-      <x-button variant="secondary" size="lg" wire:click="{{ $formMode == 'add' ? 'saveUser' : 'updateUser' }}" loading="Saving…">
+      <x-button variant="secondary" size="lg" wire:click="{{ $formMode == 'add' ? 'saveUser' : 'updateUser' }}"
+        loading="Saving…">
         {{ $formMode == 'add' ? 'Save User' : 'Update User' }}
       </x-button>
     </x-drawer.footer>
@@ -437,27 +393,8 @@
         </div>
 
         <div class="flex items-center justify-end gap-3 mt-6">
-          <button wire:click="cancelDelete"
-            class="px-4 py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-colors duration-150 min-h-[44px]"
-            style="background: #F3F4F6; color: #374151;" onmouseover="this.style.backgroundColor='#E5E7EB'"
-            onmouseout="this.style.backgroundColor='#F3F4F6'">
-            Cancel
-          </button>
-          <button wire:click="deleteUser" wire:loading.attr="disabled"
-            class="px-4 py-2.5 rounded-xl text-sm font-bold text-white cursor-pointer transition-all duration-150 min-h-[44px]"
-            style="background-color: #EF4444; box-shadow: 0 4px 12px rgba(239,68,68,0.3);"
-            onmouseover="this.style.backgroundColor='#DC2626'" onmouseout="this.style.backgroundColor='#EF4444'"
-            wire:loading.class="opacity-70 cursor-not-allowed">
-            <span wire:loading.remove>Yes, Delete</span>
-            <span wire:loading class="flex items-center gap-1.5">
-              <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                  stroke-width="4" />
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-              Deleting…
-            </span>
-          </button>
+          <x-button variant="ghost" wire:click="cancelDelete">Cancel</x-button>
+          <x-button loading="Deleting…" variant="danger" wire:click="deleteUser">Yes, Delete</x-button>
         </div>
 
       </div>
@@ -466,25 +403,3 @@
 
 </div>
 
-@script
-  <script>
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.timeline({
-          defaults: {
-            ease: 'power2.out'
-          }
-        })
-        .from('#page-header', {
-          y: -16,
-          opacity: 0,
-          duration: 0.4
-        })
-        .from('.stat-card', {
-          y: 20,
-          opacity: 0,
-          duration: 0.35,
-          stagger: 0.07
-        }, '-=0.2');
-    }
-  </script>
-@endscript

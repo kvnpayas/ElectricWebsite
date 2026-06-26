@@ -49,7 +49,7 @@ class UserMaintenance extends Component
   {
     $total = User::count();
     $active = User::where('status', 'active')->count();
-    $admins = User::where('role', 'admin')->count();
+    $admins = User::where('role', 'administrator')->count();
     $editor = User::where('role', 'editor')->count();
 
     return [
@@ -103,7 +103,7 @@ class UserMaintenance extends Component
     ]);
 
     $this->closeModal();
-    session()->flash('success', "User \"{$this->formName}\" was added.");
+    $this->dispatch('toast', message: "User \"{$this->formName}\" was added.");
   }
 
   public function openEdit(int $id): void
@@ -135,7 +135,7 @@ class UserMaintenance extends Component
     ]);
 
     $this->closeModal();
-    session()->flash('success', "User \"{$this->formName}\" was updated.");
+    $this->dispatch('toast', message: "User \"{$this->formName}\" was updated.");
   }
 
   public function toggleStatus(int $id): void
@@ -161,7 +161,7 @@ class UserMaintenance extends Component
     $user->delete();
 
     $this->deleteTarget = null;
-    session()->flash('success', "\"{$name}\" was removed.");
+    $this->dispatch('toast', message: "\"{$name}\" was removed.");
   }
 
   public function render()

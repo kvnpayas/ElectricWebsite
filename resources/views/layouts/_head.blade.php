@@ -25,6 +25,13 @@
   }
 </style>
 
+{{-- Livewire update endpoint config — must be set before the Vite module loads so
+     livewire.esm skips its own DOMContentLoaded auto-starter and we can call
+     Livewire.start() exactly once ourselves. inject_assets:false means Livewire
+     won't inject this automatically. The URI is hashed from APP_KEY so it must
+     be resolved server-side. --}}
+<script>window.livewireScriptConfig = {"uri": "{{ url(app('livewire')->getUpdateUri()) }}"};</script>
+
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 @stack('head')

@@ -4,7 +4,7 @@
     'class' => '',
 ])
 
-<div {{ $attributes->merge(['class' => 'bg-white rounded-2xl overflow-hidden ' . $class]) }}
+<div {{ $attributes->merge(['class' => 'admin-table-card bg-white rounded-2xl overflow-hidden ' . $class]) }}
   style="border: 1px solid rgba(15,61,92,0.07); box-shadow: 0 2px 16px rgba(15,61,92,0.06);">
 
   @if ($title || $count !== null || isset($toolbar))

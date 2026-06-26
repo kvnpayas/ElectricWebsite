@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Advisory;
+namespace App\Livewire\RateAndAdvisory;
 
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -99,7 +99,7 @@ class PowerInterruptionSchedule extends Component
             ? $this->advisories
             : array_values(array_filter($this->advisories, fn ($a) => $a['status'] === $this->filter));
 
-        return view('livewire.advisory.power-interruption-schedule', [
+        return view('livewire.rate-and-advisory.power-interruption-schedule', [
             'advisories'        => $filtered,
             'ongoingAdvisories' => array_values(array_filter($this->advisories, fn ($a) => $a['status'] === 'ongoing')),
             'counts'            => [

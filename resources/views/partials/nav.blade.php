@@ -17,7 +17,8 @@
     $isCustomer = str_starts_with($route ?? '', 'customer');
     $isAbout    = str_starts_with($route ?? '', 'about-us');
     $isContact  = $route === 'contact-us';
-    $isPrivacy  = $route === 'privacy-policy';
+    $isPrivacy       = $route === 'privacy-policy';
+    $isRatesAdvisory = str_starts_with($route ?? '', 'rate-and-advisories');
   @endphp
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,20 +89,6 @@
             {{-- ── L2 Panel ── --}}
             <div class="w-60 rounded-2xl overflow-hidden py-1.5"
               style="background: #ffffff; border: 1px solid rgba(15,61,92,0.09); box-shadow: 0 12px 40px rgba(15,61,92,0.16);">
-
-              {{-- Group: General --}}
-              <a href="{{ route('customer.power-interruption-schedule') }}" wire:navigate
-                class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
-                style="color: #374151;"
-                onmouseover="this.style.backgroundColor='rgba(15,61,92,0.05)'; this.style.color='#0F3D5C'"
-                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151'">
-                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  style="color:#9CA3AF">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Power Advisory Schedule
-              </a>
 
               <a href="{{ route('customer.how-to-read-your-bill') }}" wire:navigate
                 class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
@@ -401,6 +388,65 @@
           </div>
         </div>
 
+        {{-- ── Rates & Advisories (toggle only) ── --}}
+        <div class="relative" x-data="{
+            open: false,
+            _t: null,
+            go() { clearTimeout(this._t); this.open = true },
+            stop() { this._t = setTimeout(() => { this.open = false }, 220) }
+        }" @mouseenter="go()" @mouseleave="stop()">
+
+          {{-- L1: split button — label navigates, chevron toggles dropdown --}}
+          <div :class="open ? 'bg-white/14' : '{{ $isRatesAdvisory ? 'bg-white/12' : 'hover:bg-white/8' }}'"
+            class="flex items-center rounded-lg transition-all duration-200">
+            <a href="{{ route('rate-and-advisories') }}" wire:navigate
+              :class="open ? 'text-white' : '{{ $isRatesAdvisory ? 'text-tei-orange' : 'text-white/90' }}'"
+              class="pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200">
+              Rates & Advisories
+            </a>
+            <button @click.stop="open = !open"
+              :class="open ? 'text-white' : 'text-white/80'"
+              class="pr-3 py-2 cursor-pointer transition-colors duration-200 bg-transparent">
+              <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+
+          <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-1"
+            class="absolute top-full left-0 mt-2"
+            style="z-index: 100;">
+
+          <div class="w-64 rounded-2xl overflow-hidden py-1.5"
+            style="background: #ffffff; border: 1px solid rgba(15,61,92,0.09); box-shadow: 0 12px 40px rgba(15,61,92,0.16);">
+
+            @foreach ([
+              ['Power Interruption Schedule', 'M13 10V3L4 14h7v7l9-11h-7z', 'rate-and-advisories.power-interruption-schedule'],
+              ['Advisories', 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', ''],
+              ['Rate Schedule / Customer Class', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', ''],
+              ['Others', 'M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z', ''],
+            ] as [$lbl, $ico, $rName])
+              <a href="{{ $rName && Route::has($rName) ? route($rName) : '#' }}" {{ $rName ? 'wire:navigate' : '' }}
+                class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
+                style="color: #374151;"
+                onmouseover="this.style.backgroundColor='rgba(15,61,92,0.05)'; this.style.color='#0F3D5C'"
+                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151'">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  style="color:#9CA3AF">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $ico }}" />
+                </svg>
+                {{ $lbl }}
+              </a>
+            @endforeach
+
+          </div>
+          </div>
+        </div>
+
         {{-- Contact Us --}}
         <a href="{{ route('contact-us') }}" wire:navigate
           class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ $isContact ? 'bg-white/12 text-tei-orange' : 'text-white/90 hover:bg-white/8' }}">
@@ -408,7 +454,7 @@
         </a>
 
         {{-- Other top-level links --}}
-        @foreach (['Advisories', 'Careers'] as $link)
+        @foreach (['Careers'] as $link)
           <a href="#" class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 text-white/90 hover:bg-white/8">
             {{ $link }}
           </a>
@@ -492,13 +538,6 @@
           x-transition:leave-end="opacity-0 -translate-y-1" class="mt-1 ml-4 pl-3 flex flex-col gap-0.5 border-l-2"
           style="border-color: rgba(231,103,39,0.35);">
 
-          <a href="{{ route('customer.power-interruption-schedule') }}" wire:navigate 
-          class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
-            style="color: rgba(255,255,255,0.7);"
-            onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
-            onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">
-            Power Advisory Schedule
-          </a>
           <a href="{{ route('customer.how-to-read-your-bill') }}" wire:navigate
             class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
             style="color: rgba(255,255,255,0.7);"
@@ -625,6 +664,45 @@
         </div>
       </div>
 
+      {{-- ── Mobile Rates & Advisories accordion ── --}}
+      <div x-data="{ raOpen: false }">
+
+        <button @click="raOpen = !raOpen"
+          :class="raOpen ? 'bg-white/8 text-white' : '{{ $isRatesAdvisory ? 'bg-white/8 text-tei-orange' : 'text-white/85' }}'"
+          class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-colors duration-150 cursor-pointer bg-transparent">
+          <a href="{{ route('rate-and-advisories') }}" wire:navigate>
+            <span>Rates & Advisories</span>
+          </a>
+          <svg :class="raOpen ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div x-show="raOpen" x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-1" class="mt-1 ml-4 pl-3 flex flex-col gap-0.5 border-l-2"
+          style="border-color: rgba(231,103,39,0.35);">
+
+          @foreach ([
+            ['Power Interruption Schedule', 'rate-and-advisories.power-interruption-schedule'],
+            ['Advisories', ''],
+            ['Rate Schedule / Customer Class', ''],
+            ['Others', ''],
+          ] as [$item, $raUrl])
+            <a href="{{ $raUrl && Route::has($raUrl) ? route($raUrl) : '#' }}" {{ $raUrl ? 'wire:navigate' : '' }}
+              @click="mobileOpen = false" class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
+              style="color: rgba(255,255,255,0.7);"
+              onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
+              onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">
+              {{ $item }}
+            </a>
+          @endforeach
+
+        </div>
+      </div>
+
       {{-- Contact Us --}}
       <a href="{{ route('contact-us') }}" wire:navigate @click="mobileOpen = false"
         class="px-4 py-3 text-sm font-medium rounded-xl transition-colors duration-150 {{ $isContact ? 'bg-white/8 text-tei-orange' : 'text-white/85 hover:bg-white/8' }}">
@@ -632,7 +710,7 @@
       </a>
 
       {{-- Other top-level mobile links --}}
-      @foreach (['Advisories', 'Careers'] as $link)
+      @foreach (['Careers'] as $link)
         <a href="#" class="px-4 py-3 text-sm font-medium rounded-xl transition-colors duration-150 text-white/85 hover:bg-white/8">
           {{ $link }}
         </a>
