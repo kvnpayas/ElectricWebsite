@@ -474,25 +474,10 @@
     </div>
 
     <div class="max-w-lg mx-auto scroll-reveal">
-      <div class="rounded-2xl overflow-hidden border border-tei-blue/8 bg-white">
-
-        {{-- Table header --}}
-        <div class="grid grid-cols-2 bg-tei-blue px-6 py-3.5">
-          <p class="text-xs font-bold text-white/80 uppercase tracking-wider">Transformer Rating (kVA)</p>
-          <p class="text-xs font-bold text-white/80 uppercase tracking-wider text-right">Hosting Capacity (kWac)</p>
-        </div>
-
-        {{-- Table rows --}}
-        @foreach ([[15, 6], [25, 10], [37.5, 15], [50, 20], [75, 30], [100, 40]] as [$kva, $kwac])
-          <div
-            class="grid grid-cols-2 px-6 py-4 border-b border-tei-blue/6 last:border-0
-            {{ $loop->even ? 'bg-tei-surface' : 'bg-white' }}">
-            <p class="text-sm font-semibold text-tei-blue">{{ $kva }}</p>
-            <p class="text-sm font-black text-tei-orange text-right">{{ $kwac }}</p>
-          </div>
-        @endforeach
-
-      </div>
+      <x-guest-table
+          col1="Transformer Rating (kVA)"
+          col2="Hosting Capacity (kWac)"
+          :rows="$this->hostingRows" />
 
       {{-- Footnote --}}
       <p class="mt-4 text-xs leading-relaxed text-tei-gray-light text-center italic">

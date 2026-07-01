@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $category
+ * @property string $type  articles-of-incorporation | by-laws
+ * @property string $category  accordion group label
  * @property string $title
  * @property \Illuminate\Support\Carbon $document_date
  * @property string $status
  * @property string|null $file_path
  * @property string|null $file_name
- * @property string|null $url  URL slug for customer-facing routing (e.g. erc-sample-document)
+ * @property string|null $url
  * @property bool $is_downloadable
  * @property int $sort_order
  * @property int|null $ctrd_user
@@ -21,9 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read string|null $public_url
  */
-class AdvisoryDocument extends Model
+class ProfileDocument extends Model
 {
     protected $fillable = [
+        'type',
         'category',
         'title',
         'document_date',
@@ -42,27 +44,15 @@ class AdvisoryDocument extends Model
         'is_downloadable' => 'boolean',
     ];
 
-    // ── Scopes ────────────────────────────────────────────────
-
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
     }
 
-    public function scopeCategory($query, string $category)
-    {
-        return $query->where('category', $category);
-    }
-
-    // ── Accessors ─────────────────────────────────────────────
-
-    /** Returns the in-app serve URL for the file (requires auth), or null if no file is stored. */
     public function getPublicUrlAttribute(): ?string
     {
-        return $this->file_path ? route('admin.documents.serve', $this->id) : null;
+        return $this->file_path ? route('admin.profile-documents.serve', $this->id) : null;
     }
-
-    // ── Relations ─────────────────────────────────────────────
 
     public function creator(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

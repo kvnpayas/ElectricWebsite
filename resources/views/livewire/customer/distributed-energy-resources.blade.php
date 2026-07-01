@@ -531,54 +531,11 @@
             </div>
             <h3 class="text-sm font-bold text-tei-blue">Per Feeder Hosting Capacity</h3>
           </div>
-          <div class="rounded-2xl overflow-hidden border border-tei-blue/8 bg-white">
-            <div class="grid grid-cols-2 bg-tei-blue px-5 py-3">
-              <p class="text-xs font-bold text-white/80 uppercase tracking-wider">Feeder</p>
-              <p class="text-xs font-bold text-white/80 uppercase tracking-wider text-right">Max Capacity (kW)</p>
-            </div>
-            @php
-              $feeders = [
-                  ['LIPIEWP', '2,011'],
-                  ['LIPLINE', '4,400'],
-                  ['LIPSSMP', '2,874'],
-                  ['LIPIWSPC', '2,569'],
-                  ['LIPSNMGL', '2,200'],
-                  ['LIPHACIENDA', '2,100'],
-                  ['SANRAFARMENIA', 'Two (2) embedded plants — 7.1 MW &amp; 2 MW'],
-                  ['SANRAFSMBINAUGANAN', '3,024'],
-                  ['SANRAFNORTH', '2,759'],
-                  ['SANRAFNORHILLS', '1,200'],
-                  ['SANRAFSOUTH', '2,400'],
-                  ['MALGETHA', '1,253'],
-                  ['MALJOSE', '2,016'],
-                  ['MALGLOBE', '2,306'],
-                  ['MALAMU', '2,978'],
-                  ['PANGHIWAY', '3,400'],
-                  ['PANGSCRUZ', 'One (1) embedded plant — 5.5 MW'],
-                  ['PANGNASI', 'Loads → San Vicente FDR1'],
-                  ['PANGSANVIC', 'Loads → San Vicente FDR2'],
-                  ['PANGPOB', '3,708'],
-                  ['PANGSSV', 'FOR N-1'],
-                  ['TPCFDR 1', '2,700'],
-                  ['TPCFDR 2', '2,700'],
-                  ['San Vicente FDR1', '2,500'],
-                  ['San Vicente FDR2', '1,100'],
-                  ['San Vicente FDR3', '2,400'],
-                  ['San Vicente FDR4', '1,700'],
-                  ['San Vicente FDR5', '2,500'],
-              ];
-            @endphp
-            @foreach ($feeders as [$feeder, $cap])
-              @php $isNote = !is_numeric(str_replace([',', ' '], '', $cap)); @endphp
-              <div
-                class="grid grid-cols-2 px-5 py-3 border-b border-tei-blue/6 last:border-0 {{ $loop->even ? 'bg-tei-surface' : 'bg-white' }}">
-                <p class="text-xs font-semibold text-tei-blue">{{ $feeder }}</p>
-                <p
-                  class="text-xs text-right {{ $isNote ? 'text-tei-gray-light italic' : 'font-black text-tei-orange' }}">
-                  {!! $cap !!}</p>
-              </div>
-            @endforeach
-          </div>
+          <x-guest-table
+              col1="Feeder"
+              col2="Max Capacity (kW)"
+              :rows="$this->feederRows"
+              :dense="true" />
         </div>
 
         {{-- Per Substation Table --}}
@@ -592,19 +549,10 @@
             </div>
             <h3 class="text-sm font-bold text-tei-blue">Per Substation Hosting Capacity</h3>
           </div>
-          <div class="rounded-2xl overflow-hidden border border-tei-blue/8 bg-white">
-            <div class="grid grid-cols-2 bg-tei-blue px-5 py-3">
-              <p class="text-xs font-bold text-white/80 uppercase tracking-wider">Substation</p>
-              <p class="text-xs font-bold text-white/80 uppercase tracking-wider text-right">Max Capacity (kW)</p>
-            </div>
-            @foreach ([['LIP Substation', '16,154'], ['San Rafael Substation', '9,383'], ['Maliwalo Substation', '8,554'], ['Panganiban Substation', '7,108'], ['TPC Substation', '5,400'], ['San Vicente Substation', '10,200']] as [$sub, $cap])
-              <div
-                class="grid grid-cols-2 px-5 py-4 border-b border-tei-blue/6 last:border-0 {{ $loop->even ? 'bg-tei-surface' : 'bg-white' }}">
-                <p class="text-sm font-semibold text-tei-blue">{{ $sub }}</p>
-                <p class="text-sm font-black text-tei-orange text-right">{{ $cap }}</p>
-              </div>
-            @endforeach
-          </div>
+          <x-guest-table
+              col1="Substation"
+              col2="Max Capacity (kW)"
+              :rows="$this->substationRows" />
 
           {{-- Footnote --}}
           <p class="mt-4 text-xs leading-relaxed text-tei-gray-light italic">

@@ -160,7 +160,7 @@
               <p>
                 You can pay your electric bills at any of the following business centers: TEI Main Office (Mabini
                 Street), SM City Tarlac, Magic Star Mall, Magic Star Matatalaib, CityWalk, Metrotown Mall, and Market
-                City Mall. <a href="#" class="text-tei-orange">Click here</a> to see each business center’s
+                City Mall. <a href="{{ route('customer.business-centers') }}" wire:navigate class="text-tei-orange">Click here</a> to see each business center’s
                 operating hours.
               </p>
             </x-accordion>
@@ -236,7 +236,7 @@
             </x-accordion>
             <x-accordion question="Where can I find your business centers?">
               <p>
-                <a href="#" class="text-tei-orange">Click here</a> to see TEI’s complete list of business centers.
+                <a href="{{ route('customer.business-centers') }}" wire:navigate class="text-tei-orange">Click here</a> to see TEI’s complete list of business centers.
               </p>
             </x-accordion>
             <x-accordion question="What other services are accepted at the TEI business centers?">

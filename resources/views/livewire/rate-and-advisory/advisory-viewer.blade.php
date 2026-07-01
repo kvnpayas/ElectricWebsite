@@ -2,9 +2,10 @@
 
   {{-- PAGE HEADER --}}
   @livewire('guest.page-header', [
-      'title'      => $this->document->title,
-      'badgeTitle' => $this->categoryLabel,
-      'subTitle'   => $this->document->document_date->format('F d, Y'),
+      'title'       => $this->document->title,
+      'badgeTitle'  => $this->categoryLabel,
+      'subTitle'    => $this->document->document_date->format('F d, Y'),
+      'breadcrumbs' => $this->breadcrumbs,
   ])
 
 
@@ -20,8 +21,8 @@
         Back to {{ $this->categoryLabel }}
       </a>
 
-      @if ($this->document->url && $this->document->file_path)
-        <a href="{{ route('rate-and-advisories.pdf', $this->document->url) }}"
+      @if ($this->pdfRoute && $this->document->is_downloadable)
+        <a href="{{ $this->pdfRoute }}"
           download="{{ $this->document->file_name }}"
           class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-tei-blue text-white hover:bg-tei-blue/90 transition-colors duration-200">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,10 +62,10 @@
     </div>
 
     {{-- PDF embed --}}
-    @if ($this->document->url && $this->document->file_path)
+    @if ($this->pdfRoute)
       <div class="rounded-2xl overflow-hidden border border-tei-blue/10 shadow-sm scroll-reveal">
         <iframe
-          src="{{ route('rate-and-advisories.pdf', $this->document->url) }}"
+          src="{{ $this->pdfRoute }}{{ $this->document->is_downloadable ? '' : '#toolbar=0' }}"
           class="w-full"
           style="height: 80vh; min-height: 500px;"
           title="{{ $this->document->title }}"

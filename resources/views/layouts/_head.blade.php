@@ -6,6 +6,7 @@
       @stack('head')                    — extra <link> / <meta> tags
 --}}
 <meta charset="utf-8">
+<link rel="icon" type="image/png" href="{{ asset('assets/TEI-logo-no-name.png') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 

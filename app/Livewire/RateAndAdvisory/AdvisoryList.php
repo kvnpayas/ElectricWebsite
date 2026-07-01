@@ -6,11 +6,20 @@ use App\Models\AdvisoryDocument;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Layout('layouts.guest')]
 class AdvisoryList extends Component
 {
+    use WithPagination;
+
     public string $category = 'advisories';
+    public string $search = '';
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
 
     private const CONFIG = [
         'advisories' => [
@@ -42,13 +51,15 @@ class AdvisoryList extends Component
         return AdvisoryDocument::query()
             ->where('category', $this->category)
             ->where('status', 'published')
+            ->when($this->search, fn ($q) => $q->where('title', 'like', '%' . $this->search . '%'))
             ->orderByDesc('document_date')
-            ->get();
+            ->paginate(15);
     }
 
     public function render()
     {
         $config = self::CONFIG[$this->category];
-        return view('livewire.rate-and-advisory.advisory-list', compact('config'));
+        return view('livewire.rate-and-advisory.advisory-list', compact('config'))
+            ->title($config['title'] . ' — TEI Tarlac Electric');
     }
 }

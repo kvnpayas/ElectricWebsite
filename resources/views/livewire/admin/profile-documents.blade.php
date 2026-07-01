@@ -1,35 +1,30 @@
 <div>
 
-  <x-admin.partials.page-header title="Rates & Advisories"
-    subtitle="Manage PDF documents for advisories, rate schedules, and other regulatory filings." />
+  <x-admin.partials.page-header title="Profile Documents"
+    subtitle="Manage Articles of Incorporation and By Laws PDF documents." />
 
 
   {{-- ─── Stat cards ──────────────────────────────────────── --}}
-  <div class="grid grid-cols-4 gap-4 mb-6">
+  <div class="grid grid-cols-3 gap-4 mb-6">
 
-    <x-stat-card wire:click="setCategory('all')" color="tei-blue" icon="M4 6h16M4 10h16M4 14h16M4 18h16" :value="$this->counts['all']"
-      label="All Documents" class="cursor-pointer {{ $categoryFilter === 'all' ? 'ring-2 ring-tei-blue/30' : '' }}" />
+    <x-stat-card wire:click="setType('all')" color="tei-blue" icon="M4 6h16M4 10h16M4 14h16M4 18h16" :value="$this->counts['all']"
+      label="All Documents" class="cursor-pointer {{ $typeFilter === 'all' ? 'ring-2 ring-tei-blue/30' : '' }}" />
 
-    <x-stat-card wire:click="setCategory('advisories')" color="tei-blue"
+    <x-stat-card wire:click="setType('articles-of-incorporation')" color="tei-blue"
       icon="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-      :value="$this->counts['advisories']" label="Advisories"
-      class="cursor-pointer {{ $categoryFilter === 'advisories' ? 'ring-2 ring-tei-blue/30' : '' }}" />
+      :value="$this->counts['articles-of-incorporation']" label="Articles of Incorporation"
+      class="cursor-pointer {{ $typeFilter === 'articles-of-incorporation' ? 'ring-2 ring-tei-blue/30' : '' }}" />
 
-    <x-stat-card wire:click="setCategory('rate-schedule')" color="tei-orange"
-      icon="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-      :value="$this->counts['rate-schedule']" label="Rate Schedule"
-      class="cursor-pointer {{ $categoryFilter === 'rate-schedule' ? 'ring-2 ring-tei-orange/30' : '' }}" />
-
-    <x-stat-card wire:click="setCategory('others')" color="tei-blue"
-      icon="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-      :value="$this->counts['others']" label="Others"
-      class="cursor-pointer {{ $categoryFilter === 'others' ? 'ring-2 ring-tei-blue/30' : '' }}" />
+    <x-stat-card wire:click="setType('by-laws')" color="tei-orange"
+      icon="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+      :value="$this->counts['by-laws']" label="By Laws"
+      class="cursor-pointer {{ $typeFilter === 'by-laws' ? 'ring-2 ring-tei-orange/30' : '' }}" />
 
   </div>
 
 
-  {{-- ─── Tab + Table card ────────────────────────────────── --}}
-  <x-table-container title="All Documents" :count="$this->documents->count()">
+  {{-- ─── Table card ──────────────────────────────────────── --}}
+  <x-table-container title="Documents" :count="$this->documents->count()">
 
     <x-slot:toolbar>
       {{-- Search --}}
@@ -40,21 +35,20 @@
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
-        <input wire:model.live.debounce.300ms="search" type="search" placeholder="Search documents…"
-          class="pl-9 pr-4 py-2 w-52 text-sm rounded-xl border border-gray-200 bg-gray-50 text-gray-900
+        <input wire:model.live.debounce.300ms="search" type="search" placeholder="Search title or category…"
+          class="pl-9 pr-4 py-2 w-56 text-sm rounded-xl border border-gray-200 bg-gray-50 text-gray-900
                  outline-none transition-all duration-200
                  focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
       </div>
 
-      {{-- Category filter --}}
-      <select wire:model.live="categoryFilter"
+      {{-- Type filter --}}
+      <select wire:model.live="typeFilter"
         class="py-2 pl-3 pr-8 text-sm rounded-xl border border-gray-200 bg-gray-50 text-tei-gray
                outline-none cursor-pointer transition-all duration-200
                focus:border-tei-orange focus:ring-2 focus:ring-tei-orange/15">
-        <option value="all">All Categories</option>
-        <option value="advisories">Advisories</option>
-        <option value="rate-schedule">Rate Schedule / Customer Class</option>
-        <option value="others">Others</option>
+        <option value="all">All Types</option>
+        <option value="articles-of-incorporation">Articles of Incorporation</option>
+        <option value="by-laws">By Laws</option>
       </select>
 
       {{-- Status filter --}}
@@ -67,18 +61,17 @@
         <option value="draft">Draft</option>
       </select>
 
-      {{-- Add Document button --}}
       <x-button variant="secondary" wire:click="openAdd" icon="M12 4v16m8-8H4">Add Document</x-button>
     </x-slot:toolbar>
 
     {{-- Table --}}
     <x-table>
       <x-table.head>
-        <x-table.th>Title</x-table.th>
-        <x-table.th hidden="sm">Category</x-table.th>
+        <x-table.th>Title / Category</x-table.th>
+        <x-table.th hidden="sm">Type</x-table.th>
         <x-table.th hidden="sm">Date</x-table.th>
         <x-table.th>Status</x-table.th>
-        <x-table.th hidden="md">File / URL</x-table.th>
+        <x-table.th hidden="md">File</x-table.th>
         <x-table.th align="right">Actions</x-table.th>
       </x-table.head>
 
@@ -88,20 +81,20 @@
 
             <x-table.td>
               <p class="font-semibold text-sm text-tei-blue-dark leading-snug line-clamp-2">{{ $doc->title }}</p>
+              <p class="text-xs text-tei-gray-light mt-0.5 truncate max-w-48">{{ $doc->category }}</p>
             </x-table.td>
 
             <x-table.td hidden="sm">
               @php
-                $catLabels = ['advisories' => 'Advisories', 'rate-schedule' => 'Rate Schedule', 'others' => 'Others'];
-                $catColors = [
-                    'advisories' => 'bg-tei-blue/10 text-tei-blue',
-                    'rate-schedule' => 'bg-tei-orange/10 text-tei-orange',
-                    'others' => 'bg-gray-100 text-tei-gray',
+                $typeLabels = ['articles-of-incorporation' => 'Articles', 'by-laws' => 'By Laws'];
+                $typeColors = [
+                    'articles-of-incorporation' => 'bg-tei-blue/10 text-tei-blue',
+                    'by-laws' => 'bg-tei-orange/10 text-tei-orange',
                 ];
               @endphp
               <span
-                class="inline-flex text-xs font-semibold px-2.5 py-1 rounded-full {{ $catColors[$doc->category] ?? 'bg-gray-100 text-tei-gray' }}">
-                {{ $catLabels[$doc->category] ?? $doc->category }}
+                class="inline-flex text-xs font-semibold px-2.5 py-1 rounded-full {{ $typeColors[$doc->type] ?? 'bg-gray-100 text-tei-gray' }}">
+                {{ $typeLabels[$doc->type] ?? $doc->type }}
               </span>
             </x-table.td>
 
@@ -202,24 +195,51 @@
   <x-drawer width="max-w-lg">
 
     <x-drawer.header title="{{ $formMode === 'add' ? 'Add New Document' : 'Edit Document' }}"
-      subtitle="{{ ['advisories' => 'Advisories', 'rate-schedule' => 'Rate Schedule', 'others' => 'Others'][$formCategory] ?? '' }}"
+      subtitle="{{ ['articles-of-incorporation' => 'Articles of Incorporation', 'by-laws' => 'By Laws'][$formType] ?? '' }}"
       icon="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
 
-    <form wire:submit.prevent="save" id="doc-form" class="flex-1 overflow-y-auto px-6 py-6 space-y-5">
+    <form wire:submit.prevent="save" id="profile-doc-form" class="flex-1 overflow-y-auto px-6 py-6 space-y-5">
 
-      {{-- Category --}}
+      {{-- Type --}}
       <div>
         <label class="block text-sm font-semibold text-tei-blue mb-1.5">
-          Category <span class="text-danger">*</span>
+          Type <span class="text-danger">*</span>
         </label>
-        <select wire:model.live="formCategory"
+        <select wire:model.live="formType"
           class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark
                        outline-none cursor-pointer transition-all duration-200
                        focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
-          <option value="advisories">Advisories</option>
-          <option value="rate-schedule">Rate Schedule / Customer Class</option>
-          <option value="others">Others</option>
+          <option value="articles-of-incorporation">Articles of Incorporation</option>
+          <option value="by-laws">By Laws</option>
         </select>
+        @error('formType')
+          <p class="mt-1.5 text-xs text-danger flex items-center gap-1">
+            <svg class="size-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {{ $message }}
+          </p>
+        @enderror
+      </div>
+
+      {{-- Category (accordion group) --}}
+      <div>
+        <label class="block text-sm font-semibold text-tei-blue mb-1.5">
+          Category / Group <span class="text-danger">*</span>
+          <span class="ml-1 text-xs font-normal text-tei-gray-light">used as the accordion header on the public
+            page</span>
+        </label>
+        <input wire:model="formCategory" type="text" list="category-suggestions"
+          placeholder="e.g. Original Articles of Incorporation"
+          class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark placeholder:text-tei-gray-light
+                      outline-none transition-all duration-200
+                      focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
+        <datalist id="category-suggestions">
+          @foreach ($this->categories as $cat)
+            <option value="{{ $cat }}">
+          @endforeach
+        </datalist>
         @error('formCategory')
           <p class="mt-1.5 text-xs text-danger flex items-center gap-1">
             <svg class="size-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,7 +256,8 @@
         <label class="block text-sm font-semibold text-tei-blue mb-1.5">
           Document Title <span class="text-danger">*</span>
         </label>
-        <input wire:model.live.debounce.400ms="formTitle" type="text" placeholder="Sample Document 2026"
+        <input wire:model.live.debounce.400ms="formTitle" type="text"
+          placeholder="Amended Articles Change of Corporate Name 1992"
           class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark placeholder:text-tei-gray-light
                       outline-none transition-all duration-200
                       focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
@@ -305,7 +326,7 @@
       {{-- PDF Upload --}}
       <div>
         <label class="block text-sm font-semibold text-tei-blue mb-1.5">PDF File</label>
-        <label for="doc-pdf"
+        <label for="profile-doc-pdf"
           class="flex items-center gap-3 px-4 py-4 border-2 border-dashed rounded-xl transition-colors duration-150 cursor-pointer
                       {{ $formFile ? 'border-tei-orange/60 bg-tei-orange/4' : 'border-gray-200 hover:border-tei-orange/40' }}">
           <svg class="size-9 shrink-0 {{ $formFile ? 'text-tei-orange' : 'text-tei-gray-light' }}" fill="none"
@@ -323,7 +344,7 @@
               <p class="text-xs text-tei-gray-light mt-0.5">PDF only · Max 10 MB</p>
             @endif
           </div>
-          <input id="doc-pdf" wire:model="formFile" type="file" accept=".pdf" class="sr-only">
+          <input id="profile-doc-pdf" wire:model="formFile" type="file" accept=".pdf" class="sr-only">
         </label>
         @error('formFile')
           <p class="mt-1.5 text-xs text-danger flex items-center gap-1">
@@ -347,7 +368,7 @@
                     transition-all duration-200 focus-within:border-tei-orange focus-within:bg-white focus-within:ring-2 focus-within:ring-tei-orange/15">
           <span
             class="px-3 py-3 text-sm text-tei-gray-light border-r border-gray-200 bg-gray-100 select-none shrink-0">/</span>
-          <input wire:model="formUrl" type="text" placeholder="sample-document"
+          <input wire:model="formUrl" type="text" placeholder="amended-articles-corporate-name-1992"
             class="flex-1 px-3 py-3 text-sm text-tei-blue-dark placeholder:text-tei-gray-light bg-transparent outline-none font-mono">
         </div>
         @error('formUrl')
@@ -372,9 +393,8 @@
 
   </x-drawer>
 
-  {{-- ══════════════════════════════════════════
-         DELETE CONFIRMATION MODAL
-    ══════════════════════════════════════════ --}}
+
+  {{-- ─── Delete Confirmation Modal ──────────────────────── --}}
   <x-confirm-modal title="Delete Document?"
     message="This action cannot be undone. The document and its uploaded file will be permanently removed.">
     <x-button variant="ghost" wire:click="cancelDelete">Cancel</x-button>

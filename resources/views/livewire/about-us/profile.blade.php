@@ -241,7 +241,7 @@
           <p class="text-sm leading-relaxed mb-5 text-tei-gray">
             Access TEI's Articles of Incorporation — the founding legal document establishing the corporation and its purpose.
           </p>
-          <a href="#"
+          <a href="{{ route('about-us.profile.articles-of-incorporation') }}" wire:navigate
             class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
             View Document
             <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
@@ -263,7 +263,7 @@
           <p class="text-sm leading-relaxed mb-5 text-tei-gray">
             Review the internal rules and regulations that govern the management and operations of Tarlac Electric Inc.
           </p>
-          <a href="#"
+          <a href="{{ route('about-us.profile.by-laws') }}" wire:navigate
             class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
             View By Laws
             <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"

@@ -15,10 +15,10 @@
     $route      = Route::currentRouteName();
     $isHome     = $route === 'home';
     $isCustomer = str_starts_with($route ?? '', 'customer');
-    $isAbout    = str_starts_with($route ?? '', 'about-us');
+    $isAbout    = str_starts_with($route ?? '', 'about-us') || ($isAboutViewer ?? false);
     $isContact  = $route === 'contact-us';
     $isPrivacy       = $route === 'privacy-policy';
-    $isRatesAdvisory = str_starts_with($route ?? '', 'rate-and-advisories');
+    $isRatesAdvisory = str_starts_with($route ?? '', 'rate-and-advisories') && ! ($isAboutViewer ?? false);
   @endphp
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,7 +137,7 @@
               <div class="my-1.5 border-t mx-3" style="border-color: rgba(15,61,92,0.07);"></div>
 
               {{-- Remaining L2 items --}}
-              @foreach ([['Bill Deposit', 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z', 'customer.bill-deposit'], ['Bill Deposit Primer', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', 'customer.bill-deposit-primer'], ['Senior Citizen', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'customer.senior-citizen-discount'], ['Net Metering', 'M13 10V3L4 14h7v7l9-11h-7z', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', 'customer.distributed-energy-resources'], ['Calculator', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', 'customer.calculator']] as [$lbl, $ico, $url])
+              @foreach ([['Bill Deposit', 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z', 'customer.bill-deposit'], ['Bill Deposit Primer', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', 'customer.bill-deposit-primer'], ['Senior Citizen', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'customer.senior-citizen-discount'], ['Net Metering', 'M13 10V3L4 14h7v7l9-11h-7z', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', 'customer.distributed-energy-resources'], ['Calculator', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', 'customer.calculator'], ['Business Centers', 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', 'customer.business-centers']] as [$lbl, $ico, $url])
                 <a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate @mouseenter="subOpen = false"
                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
                   style="color: #374151;"
@@ -299,10 +299,10 @@
 
               {{-- Remaining L2 items --}}
               @foreach ([
-                ['Corporate Governance', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', ''],
-                ['Disclosures', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', ''],
-                ['Investor Relations', 'M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z', ''],
-                ['Press Materials / News', 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z', ''],
+                ['Corporate Governance', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'about-us.corporate-governance'],
+                ['Disclosures', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', 'about-us.disclosures'],
+                ['Investor Relations', 'M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z', 'about-us.investor-relations'],
+                ['Press Materials / News', 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z', 'about-us.press-materials'],
                 ['FAQs', 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.2 2.6-2.85 2.85L12 13v1m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'about-us.faqs'],
               ] as [$lbl, $ico, $url])
                 <a href="{{ $url && Route::has($url) ? route($url) : '#' }}" {{ $url ? 'wire:navigate' : '' }}
@@ -359,8 +359,8 @@
                 ['Executive Officers', 'Senior management and key officers', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'about-us.profile.executive-officers'],
                 ['Management Team', 'Department heads and management staff', 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'about-us.profile.management-team'],
                 ['Organizational Structure', 'Company structure and hierarchy', 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z', 'about-us.profile.organizational-structure'],
-                ['Articles of Incorporation', 'Founding corporate documents', 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', ''],
-                ['By Laws', 'Internal governance rules and regulations', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2', ''],
+                ['Articles of Incorporation', 'Founding corporate documents', 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', 'about-us.profile.articles-of-incorporation'],
+                ['By Laws', 'Internal governance rules and regulations', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2', 'about-us.profile.by-laws'],
               ] as [$lbl, $desc, $ico, $url])
                 <a href="{{ $url && Route::has($url) ? route($url) : '#' }}" {{ $url ? 'wire:navigate' : '' }}
                   class="flex items-center gap-3.5 px-4 py-3 transition-colors duration-150 border-b last:border-0 group"
@@ -579,7 +579,7 @@
           </div>
 
           {{-- Rest of L2 --}}
-          @foreach ([['Bill Deposit', 'customer.bill-deposit'], ['Bill Deposit Primer', 'customer.bill-deposit-primer'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator']] as [$item, $url])
+          @foreach ([['Bill Deposit', 'customer.bill-deposit'], ['Bill Deposit Primer', 'customer.bill-deposit-primer'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator'], ['Business Centers', 'customer.business-centers']] as [$item, $url])
             <a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
               style="color: rgba(255,255,255,0.7);"
               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
@@ -638,8 +638,8 @@
                 ['Executive Officers', 'about-us.profile.executive-officers'],
                 ['Management Team', 'about-us.profile.management-team'],
                 ['Organizational Structure', 'about-us.profile.organizational-structure'],
-                ['Articles of Incorporation', ''],
-                ['By Laws', ''],
+                ['Articles of Incorporation', 'about-us.profile.articles-of-incorporation'],
+                ['By Laws', 'about-us.profile.by-laws'],
               ] as [$item, $url])
                 <a href="{{ $url && Route::has($url) ? route($url) : '#' }}" {{ $url ? 'wire:navigate' : '' }}
                   class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
@@ -655,10 +655,10 @@
 
           {{-- Other L2 items --}}
           @foreach ([
-            ['Corporate Governance', ''],
-            ['Disclosures', ''],
-            ['Investor Relations', ''],
-            ['Press Materials / News', ''],
+            ['Corporate Governance', 'about-us.corporate-governance'],
+            ['Disclosures', 'about-us.disclosures'],
+            ['Investor Relations', 'about-us.investor-relations'],
+            ['Press Materials / News', 'about-us.press-materials'],
             ['FAQs', 'about-us.faqs'],
           ] as [$item, $mUrl])
             <a href="{{ $mUrl && Route::has($mUrl) ? route($mUrl) : '#' }}" {{ $mUrl ? 'wire:navigate' : '' }}

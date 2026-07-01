@@ -8,7 +8,7 @@ new class extends Component {
     public string $badgeTitle = '';
     public array $breadcrumbs = [];
 
-    public function mount($title = '', $subTitle = '', $badgeTitle = '')
+    public function mount($title = '', $subTitle = '', $badgeTitle = '', $breadcrumbs = [])
     {
         $routeName = Route::currentRouteName() ?? '';
 
@@ -20,21 +20,20 @@ new class extends Component {
 
             $this->title = $title ?: $formattedTitle;
 
-            $breadcrumbs = [];
+            $autoBreadcrumbs = [];
             $currentPath = '';
 
             foreach ($routes as $route) {
                 $currentPath = $currentPath ? $currentPath . '.' . $route : $route;
 
-                $breadcrumbs[] = [
+                $autoBreadcrumbs[] = [
                     'name' => ucwords(str_replace('-', ' ', $route)),
                     'route_name' => Route::has($currentPath) ? $currentPath : '',
                 ];
             }
-            $this->breadcrumbs = $breadcrumbs;
+            $this->breadcrumbs = !empty($breadcrumbs) ? $breadcrumbs : $autoBreadcrumbs;
         }
 
-        // 4. Handle props
         $this->subTitle = $subTitle;
         $this->badgeTitle = $badgeTitle ? $badgeTitle : $this->title;
     }

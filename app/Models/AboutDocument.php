@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $status
  * @property string|null $file_path
  * @property string|null $file_name
- * @property string|null $url  URL slug for customer-facing routing (e.g. erc-sample-document)
  * @property bool $is_downloadable
  * @property int $sort_order
  * @property int|null $ctrd_user
@@ -21,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read string|null $public_url
  */
-class AdvisoryDocument extends Model
+class AboutDocument extends Model
 {
     protected $fillable = [
         'category',
@@ -56,10 +55,9 @@ class AdvisoryDocument extends Model
 
     // ── Accessors ─────────────────────────────────────────────
 
-    /** Returns the in-app serve URL for the file (requires auth), or null if no file is stored. */
     public function getPublicUrlAttribute(): ?string
     {
-        return $this->file_path ? route('admin.documents.serve', $this->id) : null;
+        return $this->file_path ? route('admin.about-documents.serve', $this->id) : null;
     }
 
     // ── Relations ─────────────────────────────────────────────

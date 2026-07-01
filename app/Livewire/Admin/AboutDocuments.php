@@ -2,20 +2,20 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\AdvisoryDocument;
+use App\Models\AboutDocument;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 #[Layout('layouts.auth')]
-#[Title('Rates & Advisories — TEI Admin')]
-class RatesAdvisories extends Component
+#[Title('About Documents — TEI Admin')]
+class AboutDocuments extends Component
 {
     use WithFileUploads;
 
@@ -25,7 +25,7 @@ class RatesAdvisories extends Component
     public bool   $showModal      = false;
     public string $formMode       = 'add';
     public ?int   $formId         = null;
-    public string $formCategory   = 'advisories';
+    public string $formCategory   = 'corporate-governance';
     public string $formTitle      = '';
     public string $formDate       = '';
     public string $formStatus     = 'published';
@@ -39,7 +39,7 @@ class RatesAdvisories extends Component
     #[Computed]
     public function documents()
     {
-        return AdvisoryDocument::query()
+        return AboutDocument::query()
             ->when($this->categoryFilter !== 'all', fn($q) => $q->where('category', $this->categoryFilter))
             ->when($this->search, fn($q) => $q->where('title', 'like', "%{$this->search}%"))
             ->when($this->statusFilter !== 'all', fn($q) => $q->where('status', $this->statusFilter))
@@ -51,27 +51,19 @@ class RatesAdvisories extends Component
     #[Computed]
     public function counts(): array
     {
-        $raw = AdvisoryDocument::query()
+        $raw = AboutDocument::query()
             ->selectRaw('category, count(*) as total')
             ->groupBy('category')
             ->pluck('total', 'category')
             ->all();
 
-        foreach (['advisories', 'rate-schedule', 'others'] as $cat) {
+        foreach (['corporate-governance', 'disclosures', 'investor-relations', 'press-materials'] as $cat) {
             $raw[$cat] ??= 0;
         }
 
         $raw['all'] = array_sum($raw);
 
         return $raw;
-    }
-
-    // ── Category filter (stat cards) ──────────────────────────
-
-    public function setCategory(string $category): void
-    {
-        $this->categoryFilter = $category;
-        $this->deleteTarget   = null;
     }
 
     // ── Auto-slug from title ──────────────────────────────────
@@ -83,12 +75,20 @@ class RatesAdvisories extends Component
         }
     }
 
+    // ── Category filter ───────────────────────────────────────
+
+    public function setCategory(string $category): void
+    {
+        $this->categoryFilter = $category;
+        $this->deleteTarget   = null;
+    }
+
     // ── Drawer open / close ───────────────────────────────────
 
     public function openAdd(): void
     {
         $this->reset(['formId', 'formTitle', 'formDate', 'formStatus', 'formUrl', 'formDownloadable', 'formFile']);
-        $this->formCategory = $this->categoryFilter !== 'all' ? $this->categoryFilter : 'advisories';
+        $this->formCategory = $this->categoryFilter !== 'all' ? $this->categoryFilter : 'corporate-governance';
         $this->formDate     = now()->format('Y-m-d');
         $this->formStatus   = 'published';
         $this->formMode     = 'add';
@@ -98,7 +98,7 @@ class RatesAdvisories extends Component
 
     public function openEdit(int $id): void
     {
-        $doc = AdvisoryDocument::findOrFail($id);
+        $doc = AboutDocument::findOrFail($id);
 
         $this->formId           = $doc->id;
         $this->formCategory     = $doc->category;
@@ -108,7 +108,7 @@ class RatesAdvisories extends Component
         $this->formUrl          = $doc->url ?? '';
         $this->formDownloadable = (bool) $doc->is_downloadable;
         $this->formFile         = null;
-        $this->formMode         = 'edit';
+        $this->formMode     = 'edit';
         $this->showModal    = true;
         $this->resetErrorBag();
     }
@@ -123,11 +123,10 @@ class RatesAdvisories extends Component
 
     public function save(): void
     {
-        $uniqueSlug = Rule::unique('advisory_documents', 'url')
-            ->ignore($this->formId);
+        $uniqueSlug = Rule::unique('about_documents', 'url')->ignore($this->formId);
 
         $this->validate([
-            'formCategory' => ['required', 'in:advisories,rate-schedule,others'],
+            'formCategory' => ['required', 'in:corporate-governance,disclosures,investor-relations,press-materials'],
             'formTitle'    => ['required', 'min:3'],
             'formDate'     => ['required', 'date'],
             'formStatus'   => ['required', 'in:published,draft'],
@@ -146,27 +145,25 @@ class RatesAdvisories extends Component
         ];
 
         if ($this->formFile) {
-            $folder = $this->categoryFolder();
-
-            // Delete the old file before storing the replacement
             if ($this->formMode === 'edit') {
-                $existing = AdvisoryDocument::find($this->formId);
+                $existing = AboutDocument::find($this->formId);
                 if ($existing?->file_path) {
                     Storage::delete($existing->file_path);
                 }
             }
 
-            $data['file_path'] = $this->formFile->storeAs("rate-advisories/{$folder}", $this->formFile->getClientOriginalName());
+            $folder            = $this->categoryFolder();
+            $data['file_path'] = $this->formFile->storeAs("about-documents/{$folder}", $this->formFile->getClientOriginalName());
             $data['file_name'] = $this->formFile->getClientOriginalName();
-            $this->formFile    = null; // temp file was moved; clear so render doesn't call getSize() on deleted path
+            $this->formFile    = null;
         }
 
         if ($this->formMode === 'add') {
             $data['ctrd_user'] = Auth::id();
-            $doc = AdvisoryDocument::create($data);
+            $doc = AboutDocument::create($data);
             $this->dispatch('toast', message: "Document \"{$doc->title}\" was added.");
         } else {
-            $doc = AdvisoryDocument::findOrFail($this->formId);
+            $doc = AboutDocument::findOrFail($this->formId);
             $doc->update($data);
             $this->dispatch('toast', message: "Document \"{$doc->title}\" was updated.");
         }
@@ -188,7 +185,7 @@ class RatesAdvisories extends Component
 
     public function delete(): void
     {
-        $doc = AdvisoryDocument::find($this->deleteTarget);
+        $doc = AboutDocument::find($this->deleteTarget);
 
         if (! $doc) {
             $this->deleteTarget = null;
@@ -212,9 +209,11 @@ class RatesAdvisories extends Component
     private function categoryFolder(): string
     {
         return match ($this->formCategory) {
-            'rate-schedule' => 'rate',
-            'others'        => 'other',
-            default         => 'advisories',
+            'corporate-governance' => 'corporate-governance',
+            'disclosures'          => 'disclosures',
+            'investor-relations'   => 'investor-relations',
+            'press-materials'      => 'press-materials',
+            default                => 'general',
         };
     }
 
@@ -222,6 +221,6 @@ class RatesAdvisories extends Component
 
     public function render()
     {
-        return view('livewire.admin.rates-advisories');
+        return view('livewire.admin.about-documents');
     }
 }

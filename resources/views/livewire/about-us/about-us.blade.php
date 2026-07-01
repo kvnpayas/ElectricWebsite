@@ -82,7 +82,7 @@
           TEI is committed to the highest standards of corporate governance. Learn about our board of directors,
           organizational structure, and the policies that ensure accountability and transparency.
         </p>
-        <a href="#"
+        <a href="{{ route('about-us.corporate-governance') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           View Governance
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
@@ -105,7 +105,7 @@
           Access official regulatory disclosures and filings required by the Energy Regulatory Commission (ERC) and
           other governing bodies, in line with our commitment to full transparency.
         </p>
-        <a href="#"
+        <a href="{{ route('about-us.disclosures') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           View Disclosures
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
@@ -128,7 +128,7 @@
           Find financial reports, annual statements, and key information for stakeholders and investors who trust in
           Tarlac Electric Inc.'s long-term growth and service commitment.
         </p>
-        <a href="#"
+        <a href="{{ route('about-us.investor-relations') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           View Investor Info
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
@@ -151,7 +151,7 @@
           Stay up to date with the latest TEI news, press releases, announcements, and media resources. Follow our
           updates to know what's happening across the company and our service area.
         </p>
-        <a href="#"
+        <a href="{{ route('about-us.press-materials') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           Read Latest News
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"

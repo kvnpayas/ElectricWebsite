@@ -2,6 +2,7 @@
     'title' => null,
     'count' => null,
     'class' => '',
+    'icon' => null,
 ])
 
 <div {{ $attributes->merge(['class' => 'admin-table-card bg-white rounded-2xl overflow-hidden ' . $class]) }}
@@ -13,6 +14,12 @@
 
       @if ($title || $count !== null)
         <div class="flex items-center gap-3 shrink-0">
+          @if ($icon)
+            <svg class="w-4 h-4 text-tei-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="{{ $icon }}" />
+            </svg>
+          @endif
           @if ($title)
             <h2 class="text-base font-bold" style="color: var(--color-tei-blue);">{{ $title }}</h2>
           @endif
