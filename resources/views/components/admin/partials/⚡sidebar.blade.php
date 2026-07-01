@@ -33,7 +33,7 @@ new class extends Component
                 ],
                 [
                     'label'  => 'Power Interruption',
-                    'href'   => '#',
+                    'href'   => route('admin.power-interruption'),
                     'active' => request()->routeIs('admin.power-interruption*'),
                     'icon'   => 'M13 10V3L4 14h7v7l9-11h-7z',
                 ],

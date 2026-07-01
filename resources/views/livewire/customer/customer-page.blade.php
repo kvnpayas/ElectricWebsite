@@ -154,7 +154,7 @@
             or more</strong>, your deposit will be adjusted.
           You may pay the adjustment in one-time or staggered basis.
         </p>
-        <a href="#"
+        <a href="{{ route('customer.bill-deposit-primer') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           Read Primer
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"

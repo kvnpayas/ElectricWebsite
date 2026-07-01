@@ -2,9 +2,9 @@
 
   {{-- PAGE HEADER --}}
   @livewire('guest.page-header', [
-      'title'      => 'About Us',
+      'title' => 'About Us',
       'badgeTitle' => 'About TEI',
-      'subTitle'   => 'Learn about Tarlac Electric Inc. — our history, governance, and commitment to powering the city of Tarlac.',
+      'subTitle' => 'Learn about Tarlac Electric Inc. — our history, governance, and commitment to powering the city of Tarlac.',
   ])
 
 
@@ -33,7 +33,8 @@
 
     {{-- Section heading --}}
     <div class="text-center mb-10 scroll-reveal">
-      <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] uppercase mb-4 bg-tei-orange/10 text-tei-orange">
+      <span
+        class="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] uppercase mb-4 bg-tei-orange/10 text-tei-orange">
         Explore
       </span>
       <h2 class="text-3xl sm:text-4xl font-black mb-3 text-tei-blue">Learn More About TEI</h2>
@@ -55,7 +56,8 @@
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">Profile</h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
-          Discover the story of Tarlac Electric Inc. — our founding, mission, vision, and the values that guide us in serving over a hundred thousand customers across Tarlac.
+          Discover the story of Tarlac Electric Inc. — our founding, mission, vision, and the values that guide us in
+          serving over a hundred thousand customers across Tarlac.
         </p>
         <a href="{{ route('about-us.profile') }}" wire:navigate
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
@@ -77,7 +79,8 @@
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">Corporate Governance</h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
-          TEI is committed to the highest standards of corporate governance. Learn about our board of directors, organizational structure, and the policies that ensure accountability and transparency.
+          TEI is committed to the highest standards of corporate governance. Learn about our board of directors,
+          organizational structure, and the policies that ensure accountability and transparency.
         </p>
         <a href="#"
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
@@ -99,7 +102,8 @@
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">Disclosures</h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
-          Access official regulatory disclosures and filings required by the Energy Regulatory Commission (ERC) and other governing bodies, in line with our commitment to full transparency.
+          Access official regulatory disclosures and filings required by the Energy Regulatory Commission (ERC) and
+          other governing bodies, in line with our commitment to full transparency.
         </p>
         <a href="#"
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
@@ -121,7 +125,8 @@
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">Investor Relations</h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
-          Find financial reports, annual statements, and key information for stakeholders and investors who trust in Tarlac Electric Inc.'s long-term growth and service commitment.
+          Find financial reports, annual statements, and key information for stakeholders and investors who trust in
+          Tarlac Electric Inc.'s long-term growth and service commitment.
         </p>
         <a href="#"
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
@@ -143,11 +148,33 @@
         </div>
         <h3 class="text-base font-bold mb-2 text-tei-blue">Press Materials / News</h3>
         <p class="text-sm leading-relaxed mb-5 text-tei-gray">
-          Stay up to date with the latest TEI news, press releases, announcements, and media resources. Follow our updates to know what's happening across the company and our service area.
+          Stay up to date with the latest TEI news, press releases, announcements, and media resources. Follow our
+          updates to know what's happening across the company and our service area.
         </p>
         <a href="#"
           class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
           Read Latest News
+          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </x-custom-card>
+
+      <x-custom-card>
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-tei-blue/8">
+          <svg class="w-5 h-5 text-tei-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+        </div>
+        <h3 class="text-base font-bold mb-2 text-tei-blue">FAQs</h3>
+        <p class="text-sm leading-relaxed mb-5 text-tei-gray">
+          Find answers to commonly asked questions about TEI services, billing, connections, and more.
+        </p>
+        <a href="{{ route('about-us.faqs') }}" wire:navigate
+          class="inline-flex items-center gap-1.5 text-sm font-bold transition-all duration-200 text-tei-orange">
+          View FAQs
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

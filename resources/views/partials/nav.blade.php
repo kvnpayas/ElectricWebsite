@@ -137,7 +137,7 @@
               <div class="my-1.5 border-t mx-3" style="border-color: rgba(15,61,92,0.07);"></div>
 
               {{-- Remaining L2 items --}}
-              @foreach ([['Bill Deposit', 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z', 'customer.bill-deposit'], ['Senior Citizen', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'customer.senior-citizen-discount'], ['Net Metering', 'M13 10V3L4 14h7v7l9-11h-7z', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', 'customer.distributed-energy-resources'], ['Calculator', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', 'customer.calculator']] as [$lbl, $ico, $url])
+              @foreach ([['Bill Deposit', 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z', 'customer.bill-deposit'], ['Bill Deposit Primer', 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', 'customer.bill-deposit-primer'], ['Senior Citizen', 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'customer.senior-citizen-discount'], ['Net Metering', 'M13 10V3L4 14h7v7l9-11h-7z', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', 'customer.distributed-energy-resources'], ['Calculator', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', 'customer.calculator']] as [$lbl, $ico, $url])
                 <a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate @mouseenter="subOpen = false"
                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
                   style="color: #374151;"
@@ -299,12 +299,14 @@
 
               {{-- Remaining L2 items --}}
               @foreach ([
-                ['Corporate Governance', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'],
-                ['Disclosures', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01'],
-                ['Investor Relations', 'M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'],
-                ['Press Materials / News', 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z'],
-              ] as [$lbl, $ico])
-                <a href="#" @mouseenter="subOpen = false"
+                ['Corporate Governance', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', ''],
+                ['Disclosures', 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', ''],
+                ['Investor Relations', 'M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z', ''],
+                ['Press Materials / News', 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z', ''],
+                ['FAQs', 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.2 2.6-2.85 2.85L12 13v1m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'about-us.faqs'],
+              ] as [$lbl, $ico, $url])
+                <a href="{{ $url && Route::has($url) ? route($url) : '#' }}" {{ $url ? 'wire:navigate' : '' }}
+                  @mouseenter="subOpen = false"
                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
                   style="color: #374151;"
                   onmouseover="this.style.backgroundColor='rgba(15,61,92,0.05)'; this.style.color='#0F3D5C'"
@@ -426,9 +428,9 @@
 
             @foreach ([
               ['Power Interruption Schedule', 'M13 10V3L4 14h7v7l9-11h-7z', 'rate-and-advisories.power-interruption-schedule'],
-              ['Advisories', 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', ''],
-              ['Rate Schedule / Customer Class', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', ''],
-              ['Others', 'M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z', ''],
+              ['Advisories', 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', 'rate-and-advisories.advisories'],
+              ['Rate Schedule / Customer Class', 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', 'rate-and-advisories.rate-schedule'],
+              ['Others', 'M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z', 'rate-and-advisories.other-documents'],
             ] as [$lbl, $ico, $rName])
               <a href="{{ $rName && Route::has($rName) ? route($rName) : '#' }}" {{ $rName ? 'wire:navigate' : '' }}
                 class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
@@ -577,7 +579,7 @@
           </div>
 
           {{-- Rest of L2 --}}
-          @foreach ([['Bill Deposit', 'customer.bill-deposit'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator']] as [$item, $url])
+          @foreach ([['Bill Deposit', 'customer.bill-deposit'], ['Bill Deposit Primer', 'customer.bill-deposit-primer'], ['Senior Citizen', 'customer.senior-citizen-discount'], ['Net Metering', 'customer.net-metering-primer'], ['Distributed Energy Resources', 'customer.distributed-energy-resources'], ['Calculator', 'customer.calculator']] as [$item, $url])
             <a href="{{ Route::has($url) ? route($url) : '#' }}" wire:navigate class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
               style="color: rgba(255,255,255,0.7);"
               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
@@ -652,8 +654,16 @@
           </div>
 
           {{-- Other L2 items --}}
-          @foreach (['Corporate Governance', 'Disclosures', 'Investor Relations', 'Press Materials / News'] as $item)
-            <a href="#" class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
+          @foreach ([
+            ['Corporate Governance', ''],
+            ['Disclosures', ''],
+            ['Investor Relations', ''],
+            ['Press Materials / News', ''],
+            ['FAQs', 'about-us.faqs'],
+          ] as [$item, $mUrl])
+            <a href="{{ $mUrl && Route::has($mUrl) ? route($mUrl) : '#' }}" {{ $mUrl ? 'wire:navigate' : '' }}
+              @click="mobileOpen = false"
+              class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
               style="color: rgba(255,255,255,0.7);"
               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
               onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">
@@ -687,9 +697,9 @@
 
           @foreach ([
             ['Power Interruption Schedule', 'rate-and-advisories.power-interruption-schedule'],
-            ['Advisories', ''],
-            ['Rate Schedule / Customer Class', ''],
-            ['Others', ''],
+            ['Advisories', 'rate-and-advisories.advisories'],
+            ['Rate Schedule / Customer Class', 'rate-and-advisories.rate-schedules'],
+            ['Others', 'rate-and-advisories.other-documents'],
           ] as [$item, $raUrl])
             <a href="{{ $raUrl && Route::has($raUrl) ? route($raUrl) : '#' }}" {{ $raUrl ? 'wire:navigate' : '' }}
               @click="mobileOpen = false" class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
