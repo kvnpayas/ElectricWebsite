@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Csp\PowerSupplyProcurement;
 use App\Livewire\Admin\PowerInterruptionSchedules;
 use App\Livewire\Admin\AboutDocuments;
 use App\Livewire\Admin\HostingCapacity;
@@ -100,6 +101,7 @@ Route::get('/about-file/{slug}', function (string $slug) {
     ]);
 })->name('about-us.pdf');
 Route::get('/faqs', Faqs::class)->name('about-us.faqs');
+Route::get('/power-supply-procurement', PowerSupplyProcurement::class)->name('csp.power-supply-procurement');
 Route::redirect('/how-toread-your-bill', '/how-to-read-your-bill', 301);
 
 Route::middleware(['guest.custom'])->group(function () {

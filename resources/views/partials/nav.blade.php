@@ -19,6 +19,7 @@
     $isContact  = $route === 'contact-us';
     $isPrivacy       = $route === 'privacy-policy';
     $isRatesAdvisory = str_starts_with($route ?? '', 'rate-and-advisories') && ! ($isAboutViewer ?? false);
+    $isCsp           = str_starts_with($route ?? '', 'csp');
   @endphp
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -449,6 +450,67 @@
           </div>
         </div>
 
+        {{-- ── Competitive Selection Process (chevron-only, no hub page) ── --}}
+        <div class="relative" x-data="{
+            open: false,
+            _t: null,
+            go() { clearTimeout(this._t); this.open = true },
+            stop() { this._t = setTimeout(() => { this.open = false }, 220) }
+        }" @mouseenter="go()" @mouseleave="stop()">
+
+          <button @click="open = !open"
+            :class="open ? 'bg-white/14 text-white' : '{{ $isCsp ? 'bg-white/12 text-tei-orange' : 'text-white/90 hover:bg-white/8' }}'"
+            class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer bg-transparent">
+            CSP
+            <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-1"
+            class="absolute top-full left-0 mt-2"
+            style="z-index: 100;">
+
+            <div class="w-64 rounded-2xl overflow-hidden py-1.5"
+              style="background: #ffffff; border: 1px solid rgba(15,61,92,0.09); box-shadow: 0 12px 40px rgba(15,61,92,0.16);">
+
+              {{-- Panel label --}}
+              <div class="px-4 pt-3 pb-2">
+                <p class="text-[10px] font-black uppercase tracking-widest" style="color: #9CA3AF;">
+                  Competitive Selection Process
+                </p>
+              </div>
+              <div class="mx-3 mb-1.5 border-t" style="border-color: rgba(15,61,92,0.07);"></div>
+
+              @foreach ([
+                ['Power Supply Procurement', 'M13 10V3L4 14h7v7l9-11h-7z', 'csp.power-supply-procurement'],
+                ['Procurement Opportunities', 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', null],
+              ] as [$lbl, $ico, $rName])
+                @if ($rName && Route::has($rName))
+                  <a href="{{ route($rName) }}" wire:navigate
+                @else
+                  <a href="#"
+                @endif
+                  class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors duration-150"
+                  style="color: #374151;"
+                  onmouseover="this.style.backgroundColor='rgba(15,61,92,0.05)'; this.style.color='#0F3D5C'"
+                  onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151'">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    style="color:#9CA3AF">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $ico }}" />
+                  </svg>
+                  {{ $lbl }}
+                </a>
+              @endforeach
+
+            </div>
+          </div>
+        </div>
+
         {{-- Contact Us --}}
         <a href="{{ route('contact-us') }}" wire:navigate
           class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ $isContact ? 'bg-white/12 text-tei-orange' : 'text-white/90 hover:bg-white/8' }}">
@@ -709,6 +771,43 @@
               {{ $item }}
             </a>
           @endforeach
+
+        </div>
+      </div>
+
+      {{-- ── Mobile Competitive Selection Process accordion ── --}}
+      <div x-data="{ cspOpen: false }">
+
+        <button @click="cspOpen = !cspOpen"
+          :class="cspOpen ? 'bg-white/8 text-white' : '{{ $isCsp ? 'bg-white/8 text-tei-orange' : 'text-white/85' }}'"
+          class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-colors duration-150 cursor-pointer bg-transparent">
+          <span>Competitive Selection Process</span>
+          <svg :class="cspOpen ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div x-show="cspOpen" x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-1" class="mt-1 ml-4 pl-3 flex flex-col gap-0.5 border-l-2"
+          style="border-color: rgba(231,103,39,0.35);">
+
+          <a href="{{ route('csp.power-supply-procurement') }}" wire:navigate @click="mobileOpen = false"
+            class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
+            style="color: rgba(255,255,255,0.7);"
+            onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">
+            Power Supply Procurement
+          </a>
+          <a href="#" @click="mobileOpen = false"
+            class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
+            style="color: rgba(255,255,255,0.7);"
+            onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">
+            Procurement Opportunities
+          </a>
 
         </div>
       </div>

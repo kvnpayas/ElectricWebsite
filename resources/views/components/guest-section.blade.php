@@ -1,4 +1,4 @@
-<section class="py-20 bg-tei-white">
+<section class="py-15 bg-tei-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {{ $slot }}
   </div>

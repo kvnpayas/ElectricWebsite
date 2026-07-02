@@ -12,39 +12,12 @@
   <x-guest-section>
 
     {{-- Intro card --}}
-    <div class="rounded-2xl p-6 sm:p-8 mb-5 scroll-reveal"
-      style="background: linear-gradient(135deg, rgba(15,61,92,0.04), rgba(15,61,92,0.02)); border: 1px solid rgba(15,61,92,0.08);">
-      <div class="flex gap-4 items-start">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 bg-tei-orange/10">
-          <svg class="w-5 h-5 text-tei-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-        <div>
-          <h3 class="text-base font-bold mb-2 text-tei-blue">About Your Statement of Account
-            (SOA)</h3>
-          <p class="text-sm leading-relaxed mb-3 text-tei-gray">
-            {{-- TEI sends a monthly Statement of Account to your service address showing the statement period covered,
-              the total amount you have to pay, and the due date. --}}
-            Customers of Tarlac Electric Inc. (TEI) can expect a Statement of Account (SOA) sent to their service
-            address on a monthly basis. In it, you can find statement period covered, the total amount you have to
-            pay,
-            and when you have to pay.
-          </p>
-          <div class="flex items-start gap-2 rounded-xl px-4 py-3 text-sm bg-tei-orange/10 border border-tei-orange/20">
-            <svg class="w-4 h-4 shrink-0 mt-0.5 text-tei-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p class="text-tei-orange-dark">
-              <strong>Prompt Payment Discount:</strong>
-              Pay your bill on or before the due date at any TEI business center to avail of this discount.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <x-guest-intro
+        label="What is an SOA?"
+        title="Your Statement of Account (SOA)"
+        text="Customers of Tarlac Electric Inc. (TEI) can expect a Statement of Account (SOA) sent to their service address on a monthly basis. In it, you can find statement period covered, the total amount you have to pay, and when you have to pay."
+        promptTitle="Prompt Payment Discount"
+        promptText="Pay your bill on or before the due date at any TEI business center to avail of this discount." />
 
   </x-guest-section>
 
@@ -267,7 +240,7 @@
   ──────────────────────────────────────────── --}}
     <div id="panel-others" x-show="tab === 'others'" x-transition:enter="transition ease-out duration-200"
       x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
-      class="py-20 box-flex-group">
+      class="py-20 box-flex-group bg-tei-surface">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="mb-12 scroll-reveal">
@@ -364,7 +337,7 @@
   ──────────────────────────────────────────── --}}
     <div id="panel-taxes" x-show="tab === 'taxes'" x-transition:enter="transition ease-out duration-200"
       x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
-      class="py-20 border-right-style">
+      class="py-20 border-right-style bg-tei-surface">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="mb-12 scroll-reveal">
