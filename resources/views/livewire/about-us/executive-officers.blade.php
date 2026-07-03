@@ -72,7 +72,7 @@
           'type'     => 'officer',
           'initials' => 'FA',
           'bio'      => [
-            'Atty. Fredrick Rodel V. Atienza was elected as Assistant Corporate Secretary on 28 June 2024.',
+            'Atty. Fredrick Rodel V. Atienza was elected as Asst. Corporate Secretary on 28 June 2024.',
           ],
         ],
       ];

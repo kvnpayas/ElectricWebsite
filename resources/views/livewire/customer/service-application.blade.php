@@ -25,11 +25,10 @@
   <x-guest-section-dark>
 
     {{-- Section heading --}}
-    <div class="flex items-center gap-6 mb-10 scroll-reveal">
-      <div class="h-px flex-1 bg-tei-blue/8"></div>
-      <p class="text-[11px] font-bold text-tei-orange uppercase tracking-[0.2em] shrink-0">Application Guide</p>
-      <div class="h-px flex-1 bg-tei-blue/8"></div>
-    </div>
+    <x-section-heading title="Application Guide" />
+
+    {{-- Section description --}}
+
     {{-- 3 cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 stagger-cards">
 

@@ -1,0 +1,66 @@
+How to read your bill
+Customers of Tarlac Electric Inc. (TEI) can expect a Statement of Account (SOA) sent to their service address on a monthly basis. In it, you can find the statement
+period covered, the total amount you have to pay, and when you have to pay. To avail of the Prompt Payment Discount, you must pay your current bill at any TEI
+business center on or before its due date.
+Read this comprehensive guide so that you can understand where your payment goes.
+
+Generation and Transmission
+Generation Charge
+The generation charge takes up the biggest percentage of your SOA. Every month, TEI acquires electric power for you from its different suppliers such as power
+producers with ongoing TEI power supply agreements, independent power producers, and wholesale electricity spot market.
+DAA (GRAM & ICERA)
+GRAM and ICERA are two adjustment recovery mechanisms that are reviewed by the Energy Regulatory Commission (ERC). GRAM is short for Generation Rate
+Adjustment Mechanism, while ICERA is short for Incremental Currency Exchange Rate Adjustment. These amounts cover ERC-approved costs in fuel, purchased power,
+and foreign exchange rates over a given period of time.
+Transmission Charge
+Paid to the National Grid Corporation of the Philippines (NGCP), the transmission charge is the amount NGCP charges for the delivery of electricity from various power
+suppliers to TEl's distribution system.
+
+System Loss Charge
+When transmitting electric power, technical and non-technical system losses are unavoidable because of the nature of the energy being transported. Thus, a system
+loss charge is added to your SOA.
+
+Distribution Revenues
+Distribution Charge
+The distribution charge is the amount given to TEI. This is used for the creation, operation, and maintenance of TEI's distribution system, as well as the delivery of
+electricity to residential, commercial, and industrial establishments in Tarlac City.
+Supply Charge
+This amount covers all TEI customer-related services such as the computation of monthly charges, delivery of statement, and customer assistance.
+Metering Charge
+The metering charge includes the operational and maintenance costs of your electric meter, the cost of reading the meter, and other service-related fees.
+
+Others
+Special discounts are given for TEI customers who are senior citizens or belong to the low income bracket. Up to five percent (5%) discount is given, with the amount
+being subsidized by other TEI customers.
+Subsidy on Lifeline
+This subsidized rate is automatically given to marginalized customers that use forty-five kilowatt hours (45 kWh) or less every month.
+Subsidy on Senior Citizen
+This subsidized rate is given to senior citizens that use one hundred kilowatt hours (100 kWh) or less per month, and has the TEI electricity meter registered under
+their name for at least one (1) year. This discount must be applied for on a yearly basis. For more information, click here.
+
+Government Taxes
+Franchise Tax- Local
+
+Following the conditions of the Local Government Code (sections 15 and 137), the franchise tax is the amount collected by TEI and paid accordingly to local
+government units.
+
+Value Added Tax
+
+This sales tax is added to the price of services obtained from TEI. It covers all the services provided by TEI, from the generation and transmission of electricity to the
+distribution and sale of electricity.
+
+Universal Charge
+Four different categories fall under this charge, namely Missionary Electrification Charge, Environmental Charge, Stranded Contract Cost, and Stranded Debt.
+. The Missionary Electrification Charge is the amount given to fund the energization of locations not easily accessible or readily connected to the TEI distribution
+system.
+
+. The Environmental Charge is an environmental fund that is used for the watershed rehabilitation and management of the National Power Corporation (NPC). It is set
+at PHP 0.0025 per kWh.
+. The Stranded Contract Cost is the excess of the contracted cost of electricity under qualified IPP contracts of NPC over the actual selling price of the contracted
+electric output.
+
+. The Stranded Debt of NPC is the amount that has not yet been settled from the sales and privatization of state power assets.
+
+Fit-All (Renewable)
+Fit-All is short for Feed-in-Tariff Allowance, an amount taken from TEI customers that will be given to producers of renewable energy. This fee will assist in covering the
+high costs spent by producers to develop renewable energy.

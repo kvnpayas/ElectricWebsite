@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\HostingCapacityRow;
+use App\Models\HostingCapacitySetting;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
@@ -16,6 +17,10 @@ class HostingCapacity extends Component
     public string $typeFilter = 'net-metering';
     public string $search     = '';
 
+    // Page settings
+    public string $settingAsOfDate = '';
+    public bool   $settingSaved    = false;
+
     // Drawer
     public bool   $showDrawer    = false;
     public ?int   $editId        = null;
@@ -28,6 +33,26 @@ class HostingCapacity extends Component
     // Delete modal
     public bool $showDeleteModal = false;
     public ?int $deleteId        = null;
+
+    public function mount(): void
+    {
+        $s = HostingCapacitySetting::firstOrCreate([]);
+        $this->settingAsOfDate = $s->as_of_date?->format('Y-m-d') ?? '';
+    }
+
+    public function saveSettings(): void
+    {
+        $this->validate([
+            'settingAsOfDate' => 'nullable|date',
+        ]);
+
+        HostingCapacitySetting::updateOrCreate([], [
+            'as_of_date' => $this->settingAsOfDate ?: null,
+        ]);
+
+        $this->settingSaved = true;
+        $this->js("setTimeout(() => \$wire.set('settingSaved', false), 2500)");
+    }
 
     public function setType(string $type): void
     {

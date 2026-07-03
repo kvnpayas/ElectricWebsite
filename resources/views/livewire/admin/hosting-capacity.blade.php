@@ -5,6 +5,46 @@
       subtitle="Manage the Net Metering and Distributed Energy Resources hosting capacity tables shown on the public customer pages." />
 
 
+  {{-- ─── Page Settings ───────────────────────────────────── --}}
+  <div class="bg-white rounded-2xl shadow-sm border border-tei-blue/8 mb-6">
+
+    <div class="px-6 py-4 border-b border-tei-blue/6 flex items-center justify-between">
+      <div>
+        <h3 class="text-sm font-bold text-tei-blue">Page Settings</h3>
+        <p class="text-xs text-tei-gray-light mt-0.5">Set the "As of" date shown on the public Net Metering and DER hosting capacity pages.</p>
+      </div>
+      @if ($settingSaved)
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-success">
+          <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Saved
+        </span>
+      @endif
+    </div>
+
+    <div class="px-6 py-5 flex items-end gap-4">
+
+      <div class="w-56">
+        <label class="block text-xs font-semibold text-tei-blue mb-1.5">As of Date</label>
+        <input wire:model="settingAsOfDate" type="date"
+          class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark
+                 outline-none transition-all duration-200
+                 focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
+        @error('settingAsOfDate')
+          <p class="mt-1 text-xs text-danger">{{ $message }}</p>
+        @enderror
+      </div>
+
+      <x-button variant="secondary" wire:click="saveSettings" loading="Saving…">
+        Save
+      </x-button>
+
+    </div>
+
+  </div>
+
+
   {{-- ─── Stat cards ──────────────────────────────────────── --}}
   <div class="grid grid-cols-3 gap-4 mb-6">
 

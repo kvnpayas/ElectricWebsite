@@ -23,7 +23,7 @@
         ],
         [
           'name'    => 'Vitus M. Romero',
-          'title'   => 'Director / President and General Manager',
+          'title'   => 'Director/President and General Manager',
           'type'    => 'officer',
           'initials'=> 'VR',
           'bio'     => [
@@ -33,7 +33,7 @@
         ],
         [
           'name'    => 'Venus M. Romero',
-          'title'   => 'Director / Vice President',
+          'title'   => 'Director/Vice President',
           'type'    => 'officer',
           'initials'=> 'VR',
           'bio'     => [
@@ -47,7 +47,7 @@
           'type'    => 'director',
           'initials'=> 'MS',
           'bio'     => [
-            'Ms. Maria Victoria R. San Pascual was first elected to the Board of Directors in May 2017 and has been consistently re-elected at every annual meeting thereafter. She was also the Corporate Secretary from 2005 to June 2019, and a consultant from 2018 to 2021. Prior to those positions, she was the Administrative Manager from 1983–1995.',
+            'Ms. Maria Victoria R. San Pascual was first elected to the Board of Directors in May 2017 and has been consistently re-elected at every annual meeting thereafter. She was also the Corporate Secretary from 2005 to June 2019, and a consultant from 2018 to 2021. Prior to those positions, she was the Administrative Manager from 1983-1995.',
             'Ms. San Pascual was elected as Member of the Company\'s Board Audit Committee in March 2021 and in June 2025.',
           ],
         ],
@@ -58,7 +58,7 @@
           'initials'=> 'MG',
           'bio'     => [
             'Engr. Miriam S. Galvez was elected as Independent Director on 27 January 2021 to serve for the remaining term of the resigning director, Mr. Virgilio M. Romero, and was re-elected as Independent Director during the Annual Stockholders\' Meeting from 2022 to 2025. She was also elected as Chairperson of the Board Audit Committee in March 2021 and June 2025, and as member of the Corporate Governance Committee and Board Risk Oversight Committee in June 2025.',
-            'Engr. Galvez earned her Masters in Engineering Education Major in Electrical Engineering degree in 1990 and Doctor of Education degree in 2006 from the Central Luzon Polytechnic College (now NEUST). She has been a faculty member of Tarlac State University since 1991, served as Dean of the College of Engineering and Technology from 2014 to August 2022, and served as Chairperson of the College of Engineering Graduate Program. She has been re-appointed as the Dean of the College of Engineering for Academic Year 2024–2025.',
+            'Engr. Galvez earned her Masters in Engineering Education Major in Electrical Engineering degree in 1990 and Doctor of Education degree in 2006 from the Central Luzon Polytechnic College (now NEUST). She has been a faculty member of Tarlac State University since 1991, served as Dean of the College of Engineering and Technology from 2014 to August 2022, and served as Chairperson of the College of Engineering Graduate Program. She has been re-appointed as the Dean of the College of Engineering for Academic Year 2024-2025.',
           ],
         ],
         [
@@ -68,7 +68,7 @@
           'initials'=> 'AS',
           'bio'     => [
             'Engr. Augusto D. Sarmiento was elected as Independent Director in June 2025. Engr. Sarmiento earned his Bachelor of Science in Electrical Engineering degree from the Holy Angel University in 1980 and completed his Master of Business Administration from University of Pangasinan-PHINMA in 2013. He is both a Registered Electrical Engineer and a Professional Electrical Engineer.',
-            'With decades of experience in the electric industry, Engr. Sarmiento began his career as Cadet Engineer in 1981 in a private distribution utility. He was subsequently promoted as Line Supervisor in 1983, Senior Supervising Engineer QCO in 1986, and Assistant Area Manager-QCO in 1996. He later served as Operations Manager in 2001, Network Operations Manager in 2004, and Chief Operating Officer of the same company from 2019 until his retirement in 2024.',
+            'With decades of experience in the electric industry, Engr. Sarmiento began his career as Cadet Engineer in 1981 in a private distribution utility. He was subsequently promoted as Line Supervisor in 1983, Senior Supervising Engineer QCO in 1986, and Assistant Area Manager-QCO in 1996. He later served as Operations Manager in 2001, Network Operations Manager in 2004 and Chief Operating Officer of the same company from 2019 until his retirement in 2024.',
           ],
         ],
       ];

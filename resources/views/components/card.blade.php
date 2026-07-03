@@ -26,21 +26,22 @@
   <div class="h-1 shrink-0 {{ $barClass }}"></div>
 
   <div class="p-6 flex-1">
-    <div class="flex items-center justify-between mb-4">
-      <div>
-        @if ($badge)
-          <span class="px-3 py-1 rounded-full text-xs font-bold {{ $badgeColor }} {{ $textColor }}">
-            {{ $badge }}
-          </span>
-        @endif
+    @if ($badge || $preText)
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          @if ($badge)
+            <span class="px-3 py-1 rounded-full text-xs font-bold {{ $badgeColor }} {{ $textColor }}">
+              {{ $badge }}
+            </span>
+          @endif
+        </div>
+        <div>
+          @if ($preText)
+            <span class="text-xs text-tei-gray-light">{{ $preText }}</span>
+          @endif
+        </div>
       </div>
-
-      <div>
-        @if ($preText)
-          <span class="text-xs text-tei-gray-light">{{ $preText }}</span>
-        @endif
-      </div>
-    </div>
+    @endif
     {{ $slot }}
   </div>
 

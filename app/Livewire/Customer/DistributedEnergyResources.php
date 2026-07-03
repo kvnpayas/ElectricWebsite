@@ -3,6 +3,7 @@
 namespace App\Livewire\Customer;
 
 use App\Models\HostingCapacityRow;
+use App\Models\HostingCapacitySetting;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
@@ -13,6 +14,19 @@ use Livewire\Component;
 #[Title('Distributed Energy Resources — TEI Tarlac Electric')]
 class DistributedEnergyResources extends Component
 {
+    #[Computed]
+    public function setting(): HostingCapacitySetting
+    {
+        return HostingCapacitySetting::firstOrCreate([]);
+    }
+
+    #[Computed]
+    public function asOfLabel(): string
+    {
+        $date = $this->setting->getRawOriginal('as_of_date');
+        return $date ? 'As of ' . \Carbon\Carbon::parse($date)->format('F d, Y') : '';
+    }
+
     #[Computed]
     public function feederRows(): Collection
     {

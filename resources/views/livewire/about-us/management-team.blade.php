@@ -20,33 +20,15 @@
           'dept'     => 'Senior Leadership',
           'initials' => 'VR',
           'color'    => 'bg-tei-orange',
-          'bio'      => 'Engr. Vitus M. Romero is the President and General Manager of TEI. He was elected to the position of President in May 2018. Prior to his election as President, he was elected General Manager at the annual stockholders\' meeting in 2016. He joined the company in 2006 and was appointed as the Head of the Retail Services Group which oversees the Consumer and Technical Services Departments.',
+          'bio'      => 'Vitus M. Romero is the President and General Manager of TEI. He was elected to the position of President in May 2018. Prior to his election as President, he was elected General Manager at the annual stockholders\' meeting in 2016, a position he holds up to this day. He joined the company in 2006 and was appointed as the Head of the Retail Services Group which oversees the Consumer and Technical Services Departments.',
         ],
         [
           'name'     => 'Venus M. Romero',
-          'title'    => 'Information Technology & Communication Services Head',
+          'title'    => 'Information Technology and Communication Services Department Head',
           'dept'     => 'Senior Leadership',
           'initials' => 'VR',
           'color'    => 'bg-tei-blue',
           'bio'      => 'Venus M. Romero has been the Head of the Information Technology Communications Department since 1991. He has also served as Vice President of the Company since 2018.',
-        ],
-
-        // ── Finance ───────────────────────────────────
-        [
-          'name'     => 'Maria Elisa B. Abaya',
-          'title'    => 'Treasury Head',
-          'dept'     => 'Finance',
-          'initials' => 'MA',
-          'color'    => 'bg-tei-blue/80',
-          'bio'      => 'Ms. Maria Elisa Abaya is the company\'s Treasurer and Head of Treasury. She ensures that the Company has efficient liquidity planning and control related to the company\'s financial activities. Prior to her appointments as Treasurer and Treasury Head, she held the position of Administrative Services Head from July 2006 to May 2019. She joined the company in 1991 and held various accounting and audit positions.',
-        ],
-        [
-          'name'     => 'Lorna J. Ragasa',
-          'title'    => 'Accounting Head',
-          'dept'     => 'Finance',
-          'initials' => 'LR',
-          'color'    => 'bg-tei-blue/80',
-          'bio'      => 'Ms. Lorna J. Ragasa was appointed as Accounting Head last January 19, 2024. As Accounting Head, she is responsible for the efficient and effective implementation of controls and procedures involving the recording of financial transactions, and timely preparation of financial statement and related analysis and reports.',
         ],
 
         // ── Compliance & Legal ────────────────────────
@@ -56,17 +38,25 @@
           'dept'     => 'Compliance & Legal',
           'initials' => 'FF',
           'color'    => 'bg-tei-blue/80',
-          'bio'      => 'Ms. Floriza D. Forlales is the Company\'s Compliance Officer. As Compliance Officer, she is responsible for the Company\'s full compliance to industry regulations and other reportorial requirements as may be required by the government and its instrumentalities.',
+          'bio'      => 'Floriza D. Forlales is the company\'s Compliance Officer. As Compliance Officer, she is responsible for the Company\'s full compliance to industry regulations and other reportorial requirements as maybe required by the government and its instrumentalities.',
         ],
 
         // ── Operations ────────────────────────────────
+        [
+          'name'     => 'Maria Elisa B. Abaya',
+          'title'    => 'Treasury Head',
+          'dept'     => 'Operations',
+          'initials' => 'MA',
+          'color'    => 'bg-tei-blue/80',
+          'bio'      => 'Maria Elisa Abaya is the company\'s Treasurer and Head of Treasury. She ensures that the Company has efficient liquidity planning and control related to the company\'s financial activities. Prior to her appointments as Treasurer and Treasury Head, she held the position of Administrative Services Head from July 2006 to May 2019. She joined the company in 1991 and held various accounting and audit positions.',
+        ],
         [
           'name'     => 'Anna Bianca R. Morales',
           'title'    => 'Acting Retail Services Head',
           'dept'     => 'Operations',
           'initials' => 'AM',
           'color'    => 'bg-tei-blue/70',
-          'bio'      => 'Ms. Anna Bianca R. Morales was appointed as Acting Retail Services Head in June 2022. She closely monitors the departments that involve retail activities — Consumer, Metering, and Technical Services — ensuring that retail activities are operating efficiently, from customer experience to metering and meter lab activities.',
+          'bio'      => 'Ms. Anna Bianca R. Morales was appointed as Acting Retail Services Head in June 2022. As Acting Retail Services Head, she closely monitors the departments that involve retail activities, Consumer, Metering and Technical Services. She ensures that retail activities are operating efficiently, from customer experience to metering and meter lab activities.',
         ],
         [
           'name'     => 'Roy Y. Yutuc',
@@ -93,12 +83,36 @@
           'bio'      => 'Engr. Frederick C. Calma oversees all metering operations such as meter installation, meter accuracy monitoring, rehabilitation of meters, metering complaints, pilferage and maintenance. He joined the company in 1994 as a Cadet Engineer.',
         ],
         [
+          'name'     => 'Wendy V. Abad',
+          'title'    => 'Human Resources Head',
+          'dept'     => 'Operations',
+          'initials' => 'WA',
+          'color'    => 'bg-tei-blue/70',
+          'bio'      => 'Ms. Wendy V. Abad has been appointed as Human Resource Head last September 18, 2023. She handles all HR related operations that range from employee recruitment, training design to human resource policies. She develops human resource programs to promote employee competency, well-being and overall company growth.',
+        ],
+        [
+          'name'     => 'Jinalyn D. Quiazon',
+          'title'    => 'General Services Head',
+          'dept'     => 'Operations',
+          'initials' => 'JQ',
+          'color'    => 'bg-tei-blue/70',
+          'bio'      => 'Jinalyn D. Quiazon is responsible for the day to day administrative transactions for procurement, warehousing, maintenance and security of company properties. She joined the Company in 2019 as a Management Trainee.',
+        ],
+        [
+          'name'     => 'Lorna J. Ragasa',
+          'title'    => 'Accounting Head',
+          'dept'     => 'Operations',
+          'initials' => 'LR',
+          'color'    => 'bg-tei-blue/70',
+          'bio'      => 'Ms. Lorna J. Ragasa was appointed as Accounting Head last January 19, 2024. As Accounting Head, she is responsible for the efficient and effective implementation of controls and procedures involving the recording of financial transactions, and timely preparation of financial statement and related analysis and reports.',
+        ],
+        [
           'name'     => 'Angeline Rina M. Ramos',
           'title'    => 'Consumer Services Head',
           'dept'     => 'Operations',
           'initials' => 'AR',
           'color'    => 'bg-tei-blue/70',
-          'bio'      => 'Ms. Angeline Rina M. Ramos is the Consumer Services Head since June 2022. She ensures that the Company is responsibly performing administrative functions directly involving consumer welfare from new meter application, meter reading, billing, collection, disconnection, and reconnection, and is able to establish quality relationships with customers.',
+          'bio'      => 'Ms. Angeline Rina M. Ramos is the Consumer Services Head since June 2022. As Consumer Services Head, she ensures that the Company is responsibly performing administrative functions directly involving consumer welfare from new meter application, meter reading, billing, collection, disconnection, and reconnection, and is able to establish quality relationships with customers. Her department ensures that all customer related concerns are met with efficient operational procedures.',
         ],
         [
           'name'     => 'Nelson L. Gutierrez',
@@ -117,24 +131,6 @@
           'bio'      => 'Engr. Jayson T. Fider is the Lines Operations and Maintenance Head since June 2022. As Lines Operations and Maintenance Head, he is responsible for the overall efficient management and safety of the distribution and sub-transmission line system.',
         ],
 
-        // ── Support Services ──────────────────────────
-        [
-          'name'     => 'Wendy V. Abad',
-          'title'    => 'Human Resources Head',
-          'dept'     => 'Support Services',
-          'initials' => 'WA',
-          'color'    => 'bg-slate-500',
-          'bio'      => 'Ms. Wendy V. Abad has been appointed as Human Resource Head last September 18, 2023. She handles all HR related operations that range from employee recruitment, training design to human resource policies. She develops human resource programs to promote employee competency, well-being and overall company growth.',
-        ],
-        [
-          'name'     => 'Jinalyn D. Quiazon',
-          'title'    => 'General Services Head',
-          'dept'     => 'Support Services',
-          'initials' => 'JQ',
-          'color'    => 'bg-slate-500',
-          'bio'      => 'Jinalyn D. Quiazon is responsible for the day-to-day administrative transactions for procurement, warehousing, maintenance and security of company properties. She joined the Company in 2019 as a Management Trainee.',
-        ],
-
         // ── Consultant ────────────────────────────────
         [
           'name'     => 'Henry John G. Sacaguing',
@@ -142,18 +138,16 @@
           'dept'     => 'Consultant',
           'initials' => 'HS',
           'color'    => 'bg-emerald-600',
-          'bio'      => 'Engr. Henry John Sacaguing is a Consultant for Network Services Group. He was the Network Services Head of the Company prior to his retirement on 30 October 2023, having been appointed to the position in April 2016. He also served as the Lines Operations and Maintenance Head from 1998. He joined the Company in 1983 as Electrical Lineman.',
+          'bio'      => 'Engr. Henry John Sacaguing is a Consultant for Network Services Group. He was the Network Services Head of the Company prior to his retirement on 30 October 2023 being appointed to the position in April 2016. He also served as the Lines Operations and Maintenance Head from 1998. He joined the Company in 1983 as Electrical Lineman.',
         ],
 
       ];
 
-      $deptColors = [
-        'Senior Leadership'  => 'bg-tei-orange/10 text-tei-orange border-tei-orange/20',
-        'Finance'            => 'bg-tei-blue/8 text-tei-blue border-tei-blue/15',
-        'Compliance & Legal' => 'bg-violet-50 text-violet-700 border-violet-200',
-        'Operations'         => 'bg-tei-blue/8 text-tei-blue border-tei-blue/15',
-        'Support Services'   => 'bg-slate-100 text-slate-600 border-slate-200',
-        'Consultant'         => 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      $deptVariants = [
+        'Senior Leadership'  => 'secondary',
+        'Compliance & Legal' => 'info',
+        'Operations'         => 'primary',
+        'Consultant'         => 'success',
       ];
 
       $grouped = collect($members)->groupBy('dept');
@@ -165,12 +159,7 @@
       <div class="mb-14 scroll-reveal">
 
         {{-- Department heading --}}
-        <div class="flex items-center gap-3 mb-7">
-          <span class="px-3 py-1 rounded-full text-xs font-bold border {{ $deptColors[$dept] }}">
-            {{ $dept }}
-          </span>
-          <div class="flex-1 h-px" style="background: rgba(15,61,92,0.08);"></div>
-        </div>
+        <x-section-heading :title="$dept" :variant="$deptVariants[$dept]" align="left" />
 
         {{-- Members grid --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8">
