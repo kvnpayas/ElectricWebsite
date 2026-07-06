@@ -38,12 +38,15 @@
       {{-- ════════════════════════════════════════
            DESKTOP NAV
       ════════════════════════════════════════ --}}
-      <div class="hidden lg:flex items-center gap-0.5">
+      <div class="hidden lg:flex items-center gap-1">
 
         {{-- Home --}}
         <a href="/" wire:navigate
-          class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ $isHome ? 'bg-white/12 text-tei-orange' : 'text-white/90 hover:bg-white/8' }}">
+          class="relative px-4 py-2 text-sm font-medium transition-colors duration-200 {{ $isHome ? 'text-white' : 'text-white/60 hover:text-white' }}">
           Home
+          @if ($isHome)
+            <span class="absolute -bottom-px left-4 right-4 h-0.5 rounded-full" style="background-color: var(--color-tei-orange);"></span>
+          @endif
         </a>
 
         {{-- ── Customer (3-level) ── --}}
@@ -64,14 +67,16 @@
         }" @mouseenter="go()" @mouseleave="stop()">
 
           {{-- L1: split button — label navigates, chevron toggles dropdown --}}
-          <div :class="open ? 'bg-white/14' : '{{ $isCustomer ? 'bg-white/12' : 'hover:bg-white/8' }}'"
-            class="flex items-center rounded-lg transition-all duration-200">
-            <a href="{{ route('customer') }}" wire:navigate :class="open ? 'text-white' : '{{ $isCustomer ? 'text-tei-orange' : 'text-white/90' }}'"
-              class="pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200">
+          <div class="flex items-center">
+            <a href="{{ route('customer') }}" wire:navigate
+              class="relative pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200 {{ $isCustomer ? 'text-white' : 'text-white/60 hover:text-white' }}">
               Customer
+              @if ($isCustomer)
+                <span class="absolute -bottom-px left-4 right-0 h-0.5 rounded-full" style="background-color: var(--color-tei-orange);"></span>
+              @endif
             </a>
             <button @click.stop="open = !open; if (!open) subOpen = false"
-              :class="open ? 'text-white' : 'text-white/80'"
+              :class="open ? 'text-white' : '{{ $isCustomer ? 'text-tei-orange' : 'text-white/40' }}'"
               class="pr-3 py-2 cursor-pointer transition-colors duration-200 bg-transparent">
               <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24">
@@ -241,14 +246,16 @@
         }" @mouseenter="go()" @mouseleave="stop()">
 
           {{-- L1: split button --}}
-          <div :class="open ? 'bg-white/14' : '{{ $isAbout ? 'bg-white/12' : 'hover:bg-white/8' }}'"
-            class="flex items-center rounded-lg transition-all duration-200">
-            <a href="{{ route('about-us') }}" wire:navigate :class="open ? 'text-white' : '{{ $isAbout ? 'text-tei-orange' : 'text-white/90' }}'"
-              class="pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200">
+          <div class="flex items-center">
+            <a href="{{ route('about-us') }}" wire:navigate
+              class="relative pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200 {{ $isAbout ? 'text-white' : 'text-white/60 hover:text-white' }}">
               About
+              @if ($isAbout)
+                <span class="absolute -bottom-px left-4 right-0 h-0.5 rounded-full" style="background-color: var(--color-tei-orange);"></span>
+              @endif
             </a>
             <button @click.stop="open = !open; if (!open) subOpen = false"
-              :class="open ? 'text-white' : 'text-white/80'"
+              :class="open ? 'text-white' : '{{ $isAbout ? 'text-tei-orange' : 'text-white/40' }}'"
               class="pr-3 py-2 cursor-pointer transition-colors duration-200 bg-transparent">
               <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24">
@@ -400,15 +407,16 @@
         }" @mouseenter="go()" @mouseleave="stop()">
 
           {{-- L1: split button — label navigates, chevron toggles dropdown --}}
-          <div :class="open ? 'bg-white/14' : '{{ $isRatesAdvisory ? 'bg-white/12' : 'hover:bg-white/8' }}'"
-            class="flex items-center rounded-lg transition-all duration-200">
+          <div class="flex items-center">
             <a href="{{ route('rate-and-advisories') }}" wire:navigate
-              :class="open ? 'text-white' : '{{ $isRatesAdvisory ? 'text-tei-orange' : 'text-white/90' }}'"
-              class="pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200">
+              class="relative pl-4 pr-1.5 py-2 text-sm font-medium transition-colors duration-200 {{ $isRatesAdvisory ? 'text-white' : 'text-white/60 hover:text-white' }}">
               Rates & Advisories
+              @if ($isRatesAdvisory)
+                <span class="absolute -bottom-px left-4 right-0 h-0.5 rounded-full" style="background-color: var(--color-tei-orange);"></span>
+              @endif
             </a>
             <button @click.stop="open = !open"
-              :class="open ? 'text-white' : 'text-white/80'"
+              :class="open ? 'text-white' : '{{ $isRatesAdvisory ? 'text-tei-orange' : 'text-white/40' }}'"
               class="pr-3 py-2 cursor-pointer transition-colors duration-200 bg-transparent">
               <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24">
@@ -459,8 +467,8 @@
         }" @mouseenter="go()" @mouseleave="stop()">
 
           <button @click="open = !open"
-            :class="open ? 'bg-white/14 text-white' : '{{ $isCsp ? 'bg-white/12 text-tei-orange' : 'text-white/90 hover:bg-white/8' }}'"
-            class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer bg-transparent">
+            :class="open ? 'text-white' : '{{ $isCsp ? 'text-tei-orange' : 'text-white/60 hover:text-white' }}'"
+            class="flex items-center gap-1 px-4 py-2 text-sm font-medium transition-all duration-200 cursor-pointer bg-transparent">
             CSP
             <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-200" fill="none"
               stroke="currentColor" viewBox="0 0 24 24">
@@ -488,7 +496,7 @@
 
               @foreach ([
                 ['Power Supply Procurement', 'M13 10V3L4 14h7v7l9-11h-7z', 'csp.power-supply-procurement'],
-                ['Procurement Opportunities', 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', null],
+                ['Procurement Opportunities', 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'procurement.opportunities'],
               ] as [$lbl, $ico, $rName])
                 @if ($rName && Route::has($rName))
                   <a href="{{ route($rName) }}" wire:navigate
@@ -511,43 +519,27 @@
           </div>
         </div>
 
-        {{-- Contact Us --}}
-        <a href="{{ route('contact-us') }}" wire:navigate
-          class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ $isContact ? 'bg-white/12 text-tei-orange' : 'text-white/90 hover:bg-white/8' }}">
-          Contact Us
-        </a>
-
-        {{-- Other top-level links --}}
-        @foreach (['Careers'] as $link)
-          <a href="#" class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 text-white/90 hover:bg-white/8">
-            {{ $link }}
-          </a>
-        @endforeach
-
         {{-- Privacy Policy --}}
         <a href="{{ route('privacy-policy') }}" wire:navigate
-          class="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 {{ $isPrivacy ? 'bg-white/12 text-tei-orange' : 'text-white/90 hover:bg-white/8' }}">
+          class="relative px-4 py-2 text-sm font-medium transition-colors duration-200 {{ $isPrivacy ? 'text-white' : 'text-white/60 hover:text-white' }}">
           Privacy Policy
+          @if ($isPrivacy)
+            <span class="absolute -bottom-px left-4 right-4 h-0.5 rounded-full" style="background-color: var(--color-tei-orange);"></span>
+          @endif
         </a>
 
       </div>
 
       {{-- ── Desktop CTA ── --}}
-      <div class="hidden lg:flex items-center gap-4">
-        {{-- <a href="tel:+6345-606-1834" class="text-sm font-medium transition-colors duration-200"
-          style="color: rgba(255,255,255,0.5);" onmouseover="this.style.color='rgba(255,255,255,0.85)'"
-          onmouseout="this.style.color='rgba(255,255,255,0.5)'">
-          (045) 606-1834
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="{{ route('contact-us') }}" wire:navigate
+          class="px-5 py-2 text-sm font-semibold rounded-full border transition-all duration-200
+            {{ $isContact
+              ? 'border-tei-orange text-tei-orange bg-tei-orange/10'
+              : 'border-white/25 text-white/70 hover:border-tei-orange hover:text-tei-orange' }}">
+          Contact Us
         </a>
-        <a href="#"
-          class="px-5 py-2.5 text-sm font-bold rounded-xl transition-all duration-200 cursor-pointer shadow-lg"
-          style="background-color: var(--color-tei-orange); color: white;"
-          onmouseover="this.style.backgroundColor='#C45218'; this.style.transform='translateY(-1px)'"
-          onmouseout="this.style.backgroundColor='var(--color-tei-orange)'; this.style.transform='translateY(0)'">
-          Pay Bill
-        </a> --}}
       </div>
-      {{-- <div class="px-3"></div> --}}
 
       {{-- ── Mobile hamburger ── --}}
       <button @click="mobileOpen = !mobileOpen" class="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg cursor-pointer"
@@ -801,7 +793,7 @@
             onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.7)'">
             Power Supply Procurement
           </a>
-          <a href="#" @click="mobileOpen = false"
+          <a href="{{ route('procurement.opportunities') }}" wire:navigate @click="mobileOpen = false"
             class="px-3 py-2.5 text-sm rounded-lg transition-colors duration-150"
             style="color: rgba(255,255,255,0.7);"
             onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='white'"

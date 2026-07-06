@@ -24,7 +24,7 @@
 
 
     <div class="overflow-x-auto pb-10 scroll-reveal">
-      <div class="min-w-[560px]">
+      <div class="min-w-140">
 
         {{-- ── L1: President & GM ─────────────────────────── --}}
         <div class="flex justify-center">

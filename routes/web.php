@@ -1,6 +1,10 @@
 <?php
 
 use App\Livewire\Csp\PowerSupplyProcurement;
+use App\Livewire\Csp\ProcurementOpportunities;
+use App\Livewire\Admin\HomeBanners;
+use App\Livewire\Admin\CspProcurement;
+use App\Livewire\Admin\ProcurementOpportunities as AdminProcurementOpportunities;
 use App\Livewire\Admin\PowerInterruptionSchedules;
 use App\Livewire\Admin\AboutDocuments;
 use App\Livewire\Admin\HostingCapacity;
@@ -102,6 +106,9 @@ Route::get('/about-file/{slug}', function (string $slug) {
 })->name('about-us.pdf');
 Route::get('/faqs', Faqs::class)->name('about-us.faqs');
 Route::get('/power-supply-procurement', PowerSupplyProcurement::class)->name('csp.power-supply-procurement');
+Route::get('/procurement-opportunities', ProcurementOpportunities::class)->name('procurement.opportunities');
+
+
 Route::redirect('/how-toread-your-bill', '/how-to-read-your-bill', 301);
 
 Route::middleware(['guest.custom'])->group(function () {
@@ -121,6 +128,9 @@ Route::middleware(['auth.custom'])->group(function () {
     Route::get('/about-documents', AboutDocuments::class)->name('about-documents');
     Route::get('/profile-documents', ProfileDocuments::class)->name('profile-documents');
     Route::get('/hosting-capacity', HostingCapacity::class)->name('hosting-capacity');
+    Route::get('/csp-procurement', CspProcurement::class)->name('csp-procurement');
+    Route::get('/procurement-opportunities', AdminProcurementOpportunities::class)->name('procurement-opportunities');
+    Route::get('/home-banners', HomeBanners::class)->name('home-banners');
 
     Route::get('/profile-documents/{document}', function (ProfileDocument $document) {
         abort_unless($document->file_path && Storage::exists($document->file_path), 404);

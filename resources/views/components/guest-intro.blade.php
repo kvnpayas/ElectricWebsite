@@ -20,7 +20,7 @@
   [$labelColor, $borderColor] = $variantStyles[$variant] ?? $variantStyles['secondary'];
 @endphp
 
-<div class="scroll-reveal mb-5">
+<div {{ $attributes->merge(['class' => 'scroll-reveal mb-5' ]) }}>
   @if ($label)
     <p class="text-[11px] font-bold {{ $labelColor }} uppercase tracking-[0.2em] mb-3">{{ $label }}</p>
   @endif

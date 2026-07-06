@@ -25,7 +25,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex overflow-x-auto scrollbar-none -mb-px gap-0">
 
-          @foreach ([['generation', 'Generation &amp; Transmission', '#E76727'], ['distribution', 'Distribution Revenues', '#0F3D5C'], ['others', 'Others', '#10B981'], ['taxes', 'Government Taxes', '#6B7280']] as [$id, $label, $color])
+          @foreach ([['generation', 'Generation & Transmission', '#E76727'], ['distribution', 'Distribution Revenues', '#0F3D5C'], ['others', 'Others', '#10B981'], ['taxes', 'Government Taxes', '#6B7280']] as [$id, $label, $color])
             <button
               @click="tab='{{ $id }}'; $el.dispatchEvent(new CustomEvent('tei-tab',{detail:{tab:'{{ $id }}'},bubbles:true}))"
               class="whitespace-nowrap flex items-center gap-2 px-5 py-4 text-sm font-semibold border-b-2 transition-all duration-150 cursor-pointer shrink-0"
