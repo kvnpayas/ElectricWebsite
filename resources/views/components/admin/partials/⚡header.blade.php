@@ -41,9 +41,10 @@ new class extends Component {
   </button>
 
   {{-- Breadcrumb --}}
-  <nav class="hidden sm:flex items-center gap-1.5 text-sm flex-1 min-w-0" aria-label="Breadcrumb">
+  {{-- <nav class="hidden sm:flex items-center gap-1.5 text-sm flex-1 min-w-0" aria-label="Breadcrumb">
     <span class="font-medium truncate text-tei-blue-dark">@yield('page-title', 'Dashboard')</span>
-  </nav>
+  </nav> --}}
+  <div class="flex-1"></div>
 
   {{-- Spacer on mobile --}}
   <div class="flex-1 sm:hidden"></div>

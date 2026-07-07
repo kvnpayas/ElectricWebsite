@@ -90,7 +90,7 @@ $quickActions = [
             {{ now()->format('l, F j, Y') }} &mdash; Here's what's happening on the TEI platform.
         </p>
     </div>
-    <a href="#"
+    {{-- <a href="#"
        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold shadow-md transition-[box-shadow,background-color] duration-200 cursor-pointer shrink-0"
        style="background-color: #E76727; color: white;"
        onmouseover="this.style.backgroundColor='#C45218'; this.style.boxShadow='0 8px 24px rgba(231,103,39,0.35)'"
@@ -99,12 +99,12 @@ $quickActions = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
         New Post
-    </a>
+    </a> --}}
 </div>
 
 
 {{-- ─── Stat cards ─────────────────────────────────────── --}}
-<div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6" id="dash-stats">
+{{-- <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6" id="dash-stats">
     @foreach ($stats as $stat)
     <div class="bg-white rounded-2xl p-5 border transition-[box-shadow] duration-200 cursor-default"
          style="border-color: #F3F4F6; box-shadow: 0 1px 4px rgba(8,40,64,0.05);"
@@ -131,11 +131,11 @@ $quickActions = [
         <p class="text-xs mt-0.5" style="color: #A7A8AA;">{{ $stat['sub'] }}</p>
     </div>
     @endforeach
-</div>
+</div> --}}
 
 
 {{-- ─── Quick actions ───────────────────────────────────── --}}
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6" id="dash-actions">
+{{-- <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6" id="dash-actions">
     @foreach ($quickActions as $action)
     <button class="flex items-center gap-3 bg-white rounded-2xl px-4 py-3.5 border text-left transition-[box-shadow,border-color] duration-200 cursor-pointer w-full"
             style="border-color: #F3F4F6; box-shadow: 0 1px 4px rgba(8,40,64,0.04);"
@@ -155,13 +155,12 @@ $quickActions = [
         </div>
     </button>
     @endforeach
-</div>
+</div> --}}
 
 
 {{-- ─── Main two-column content ────────────────────────── --}}
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+{{-- <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
-    {{-- Recent posts table (wider column) --}}
     <div class="xl:col-span-2 bg-white rounded-2xl border overflow-hidden"
          style="border-color: #F3F4F6; box-shadow: 0 1px 4px rgba(8,40,64,0.05);" id="dash-posts">
         <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color: #F9FAFB;">
@@ -176,7 +175,6 @@ $quickActions = [
                onmouseout="this.style.backgroundColor='rgba(231,103,39,0.08)'">View all</a>
         </div>
 
-        {{-- Table --}}
         <div class="overflow-x-auto">
             <table class="w-full text-sm" style="border-collapse: collapse;">
                 <thead>
@@ -219,7 +217,6 @@ $quickActions = [
                         </td>
                         <td class="px-5 py-3.5 text-right">
                             <div class="flex items-center justify-end gap-1">
-                                {{-- Edit --}}
                                 <button class="size-7 rounded-lg flex items-center justify-center transition-colors duration-150 cursor-pointer"
                                         style="color: #56565A;"
                                         onmouseover="this.style.backgroundColor='#EFF6FF'; this.style.color='#3B82F6'"
@@ -230,7 +227,6 @@ $quickActions = [
                                               d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                     </svg>
                                 </button>
-                                {{-- Delete --}}
                                 <button class="size-7 rounded-lg flex items-center justify-center transition-colors duration-150 cursor-pointer"
                                         style="color: #56565A;"
                                         onmouseover="this.style.backgroundColor='#FEF2F2'; this.style.color='#EF4444'"
@@ -250,10 +246,9 @@ $quickActions = [
         </div>
     </div>
 
-    {{-- Right column: System Health + Recent Users --}}
+
     <div class="space-y-6">
 
-        {{-- System Health --}}
         <div class="bg-white rounded-2xl border overflow-hidden"
              style="border-color: #F3F4F6; box-shadow: 0 1px 4px rgba(8,40,64,0.05);" id="dash-health">
             <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color: #F9FAFB;">
@@ -279,7 +274,7 @@ $quickActions = [
             </div>
         </div>
 
-        {{-- Recent Users --}}
+
         <div class="bg-white rounded-2xl border overflow-hidden"
              style="border-color: #F3F4F6; box-shadow: 0 1px 4px rgba(8,40,64,0.05);" id="dash-users">
             <div class="flex items-center justify-between px-5 py-4 border-b" style="border-color: #F9FAFB;">
@@ -308,7 +303,7 @@ $quickActions = [
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 
