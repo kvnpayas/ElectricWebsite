@@ -87,9 +87,9 @@ class PowerInterruptionSchedule extends Model
         $end     = $this->formatTime($this->end_time);
         $endDate = $this->end_date ?? $this->scheduled_date;
 
-        if ($endDate->ne($this->scheduled_date)) {
-            return "{$start} – {$end} ({$endDate->format('M j')})";
-        }
+        // if ($endDate->ne($this->scheduled_date)) {
+        //     return "{$start} – {$end} ({$endDate->format('M j')})";
+        // }
 
         return "{$start} – {$end}";
     }

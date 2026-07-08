@@ -279,6 +279,48 @@
         @enderror
       </div>
 
+      {{-- Card Image Dimensions --}}
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold text-tei-blue mb-1.5">
+            Image Width
+            <span class="ml-1 text-xs font-normal text-tei-gray-light">px · optional</span>
+          </label>
+          <input wire:model="bannerImageWidth" type="number" min="50" max="1200" placeholder="500"
+            class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark placeholder:text-tei-gray-light
+                   outline-none transition-all duration-200
+                   focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15" />
+          @error('bannerImageWidth')
+            <p class="mt-1.5 text-xs text-danger flex items-center gap-1">
+              <svg class="size-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {{ $message }}
+            </p>
+          @enderror
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-tei-blue mb-1.5">
+            Image Height
+            <span class="ml-1 text-xs font-normal text-tei-gray-light">px · optional</span>
+          </label>
+          <input wire:model="bannerImageHeight" type="number" min="50" max="1600" placeholder="660"
+            class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark placeholder:text-tei-gray-light
+                   outline-none transition-all duration-200
+                   focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15" />
+          @error('bannerImageHeight')
+            <p class="mt-1.5 text-xs text-danger flex items-center gap-1">
+              <svg class="size-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {{ $message }}
+            </p>
+          @enderror
+        </div>
+      </div>
+
       {{-- Published toggle row --}}
       <div class="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
         <div>

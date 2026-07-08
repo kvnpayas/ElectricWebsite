@@ -19,8 +19,10 @@ new class extends Component
                 'sub'      => $b->sub,
                 'cta_text' => $b->cta_text,
                 'cta_href' => $b->cta_href,
-                'image'    => $b->image_path    ? Storage::url($b->image_path)    : null,
-                'bg_image' => $b->bg_image_path ? Storage::url($b->bg_image_path) : null,
+                'image'        => $b->image_path    ? Storage::url($b->image_path)    : null,
+                'image_width'  => $b->image_width,
+                'image_height' => $b->image_height,
+                'bg_image'     => $b->bg_image_path ? Storage::url($b->bg_image_path) : null,
             ])
             ->all();
     }
@@ -171,17 +173,22 @@ $slides = $this->slides ?: [
                         </div>{{-- /LEFT --}}
 
                         {{-- RIGHT: image card or decorative (lg+) ── --}}
-                        <div class="hidden lg:flex shrink-0 w-105 xl:w-120 items-center justify-center">
+                        @php
+                            $colW = $slide['image_width']  ? $slide['image_width'].'px'  : '420px';
+                            $imgH = $slide['image_height'] ? $slide['image_height'].'px' : '660px';
+                        @endphp
+                        <div class="hidden lg:flex shrink-0 items-center justify-center"
+                            style="width: {{ $colW }};">
 
                             @if (!empty($slide['image']))
                                 {{-- Floating card --}}
-                                <div class="relative">
+                                <div class="relative w-full">
                                     <div class="absolute -inset-4 rounded-3xl blur-2xl opacity-20 pointer-events-none"
                                         style="background: var(--color-tei-orange);"></div>
                                     <div class="relative rounded-2xl overflow-hidden shadow-[0_32px_64px_rgba(0,0,0,0.55)]"
                                         style="border: 1px solid rgba(255,255,255,0.14);">
-                                        <img src="{{ $slide['image'] }}" alt="" class="block"
-                                            style="width: 500px; max-height: 660px; object-fit: contain; background-color: white;"
+                                        <img src="{{ $slide['image'] }}" alt="" class="block w-full"
+                                            style="max-height: {{ $imgH }}; object-fit: contain; background-color: white;"
                                             loading="{{ $i === 0 ? 'eager' : 'lazy' }}" />
                                         <div class="absolute bottom-0 left-0 right-0 h-10 pointer-events-none"
                                             style="background: linear-gradient(to bottom, transparent, rgba(8,40,64,0.2));"></div>

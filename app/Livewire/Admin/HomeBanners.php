@@ -32,6 +32,10 @@ class HomeBanners extends Component
     public int    $bannerSortOrder  = 0;
     public bool   $bannerIsPublished = true;
 
+    // ── Image dimensions ─────────────────────────────────
+    public ?int   $bannerImageWidth  = null;
+    public ?int   $bannerImageHeight = null;
+
     // ── Image uploads ────────────────────────────────────
     public        $imageFile      = null;
     public bool   $imageHasFile   = false;
@@ -83,12 +87,14 @@ class HomeBanners extends Component
         $this->bannerCtaText     = '';
         $this->bannerCtaHref     = '';
         $this->bannerSortOrder   = HomeBanner::count();
-        $this->bannerIsPublished = true;
-        $this->imageFile         = null;
-        $this->imageHasFile      = false;
-        $this->bgImageFile       = null;
-        $this->bgImageHasFile    = false;
-        $this->showDrawer        = true;
+        $this->bannerIsPublished  = true;
+        $this->bannerImageWidth   = null;
+        $this->bannerImageHeight  = null;
+        $this->imageFile          = null;
+        $this->imageHasFile       = false;
+        $this->bgImageFile        = null;
+        $this->bgImageHasFile     = false;
+        $this->showDrawer         = true;
         $this->resetErrorBag();
     }
 
@@ -103,9 +109,11 @@ class HomeBanners extends Component
         $this->bannerCtaText     = $banner->cta_text ?? '';
         $this->bannerCtaHref     = $banner->cta_href ?? '';
         $this->bannerSortOrder   = $banner->sort_order;
-        $this->bannerIsPublished = (bool) $banner->is_published;
-        $this->imageFile         = null;
-        $this->imageHasFile      = (bool) $banner->image_path;
+        $this->bannerIsPublished  = (bool) $banner->is_published;
+        $this->bannerImageWidth   = $banner->image_width;
+        $this->bannerImageHeight  = $banner->image_height;
+        $this->imageFile          = null;
+        $this->imageHasFile       = (bool) $banner->image_path;
         $this->bgImageFile       = null;
         $this->bgImageHasFile    = (bool) $banner->bg_image_path;
         $this->showDrawer        = true;
@@ -120,9 +128,11 @@ class HomeBanners extends Component
             'bannerSub'       => 'nullable|string|max:1000',
             'bannerCtaText'   => 'nullable|string|max:60',
             'bannerCtaHref'   => 'nullable|string|max:500',
-            'bannerSortOrder' => 'required|integer|min:0',
-            'imageFile'       => 'nullable|image|max:5120',
-            'bgImageFile'     => 'nullable|image|max:10240',
+            'bannerSortOrder'   => 'required|integer|min:0',
+            'bannerImageWidth'  => 'nullable|integer|min:50|max:1200',
+            'bannerImageHeight' => 'nullable|integer|min:50|max:1600',
+            'imageFile'         => 'nullable|image|max:5120',
+            'bgImageFile'       => 'nullable|image|max:10240',
         ]);
 
         $data = [
@@ -133,6 +143,8 @@ class HomeBanners extends Component
             'cta_href'     => $this->bannerCtaHref ?: null,
             'sort_order'   => $this->bannerSortOrder,
             'is_published' => $this->bannerIsPublished,
+            'image_width'  => $this->bannerImageWidth ?: null,
+            'image_height' => $this->bannerImageHeight ?: null,
         ];
 
         if ($this->imageFile) {
