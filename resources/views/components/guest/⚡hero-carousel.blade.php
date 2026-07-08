@@ -19,6 +19,7 @@ new class extends Component
                 'sub'      => $b->sub,
                 'cta_text' => $b->cta_text,
                 'cta_href' => $b->cta_href,
+                'cta_external' => $b->cta_external,
                 'image'        => $b->image_path    ? Storage::url($b->image_path)    : null,
                 'image_width'  => $b->image_width,
                 'image_height' => $b->image_height,
@@ -159,6 +160,7 @@ $slides = $this->slides ?: [
                             {{-- Single CTA button --}}
                             @if (!empty($slide['cta_text']) && !empty($slide['cta_href']))
                                 <a href="{{ $slide['cta_href'] }}"
+                                    @if (!empty($slide['cta_external'])) target="_blank" rel="noopener noreferrer" @endif
                                     class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl text-sm font-bold shadow-xl transition-all duration-200"
                                     style="background-color: var(--color-tei-orange); color: white;"
                                     onmouseover="this.style.backgroundColor='var(--color-tei-orange-dark)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 20px 44px rgba(231,103,39,0.4)'"

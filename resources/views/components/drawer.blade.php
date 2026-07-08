@@ -28,7 +28,7 @@
         x-transition:leave="transition ease-in duration-150"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        @click="{{ $close }}">
+        wire:click="{{ $close }}">
     </div>
 
     <div class="fixed top-0 right-0 bottom-0 z-50 w-full {{ $width }} flex flex-col"

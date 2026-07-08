@@ -27,9 +27,10 @@ class HomeBanners extends Component
     public string $bannerLabel      = '';
     public string $bannerHeadline   = '';
     public string $bannerSub        = '';
-    public string $bannerCtaText    = '';
-    public string $bannerCtaHref    = '';
-    public int    $bannerSortOrder  = 0;
+    public string $bannerCtaText     = '';
+    public string $bannerCtaHref     = '';
+    public bool   $bannerCtaExternal = false;
+    public int    $bannerSortOrder   = 0;
     public bool   $bannerIsPublished = true;
 
     // ── Image dimensions ─────────────────────────────────
@@ -86,6 +87,7 @@ class HomeBanners extends Component
         $this->bannerSub         = '';
         $this->bannerCtaText     = '';
         $this->bannerCtaHref     = '';
+        $this->bannerCtaExternal = false;
         $this->bannerSortOrder   = HomeBanner::count();
         $this->bannerIsPublished  = true;
         $this->bannerImageWidth   = null;
@@ -108,6 +110,7 @@ class HomeBanners extends Component
         $this->bannerSub         = $banner->sub ?? '';
         $this->bannerCtaText     = $banner->cta_text ?? '';
         $this->bannerCtaHref     = $banner->cta_href ?? '';
+        $this->bannerCtaExternal = (bool) $banner->cta_external;
         $this->bannerSortOrder   = $banner->sort_order;
         $this->bannerIsPublished  = (bool) $banner->is_published;
         $this->bannerImageWidth   = $banner->image_width;
@@ -141,6 +144,7 @@ class HomeBanners extends Component
             'sub'          => $this->bannerSub ?: null,
             'cta_text'     => $this->bannerCtaText ?: null,
             'cta_href'     => $this->bannerCtaHref ?: null,
+            'cta_external' => $this->bannerCtaExternal,
             'sort_order'   => $this->bannerSortOrder,
             'is_published' => $this->bannerIsPublished,
             'image_width'  => $this->bannerImageWidth ?: null,

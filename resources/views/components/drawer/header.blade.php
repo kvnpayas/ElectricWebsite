@@ -30,7 +30,7 @@
   </div>
 
   {{-- Close --}}
-  <button type="button" @click="{{ $close }}"
+  <button type="button" wire:click="{{ $close }}"
     class="w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer transition-colors duration-150"
     style="color: #9CA3AF;" onmouseover="this.style.backgroundColor='#F3F4F6'; this.style.color='#374151'"
     onmouseout="this.style.backgroundColor='transparent'; this.style.color='#9CA3AF'" aria-label="Close drawer">

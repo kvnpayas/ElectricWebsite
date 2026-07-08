@@ -192,7 +192,7 @@
 
 
   {{-- ─── Add / Edit Drawer ──────────────────────────────── --}}
-  <x-drawer show="showDrawer" close="$wire.set('showDrawer', false)" width="max-w-md">
+  <x-drawer show="showDrawer" close="closeDrawer" width="max-w-md">
 
     <x-drawer.header
         :title="$editId ? 'Edit Row' : 'Add Row'"
@@ -202,7 +202,8 @@
             'der-substation' => 'DER — Per Substation',
             default          => '',
         }"
-        icon="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        icon="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" 
+        close="closeDrawer"/>
 
     <form wire:submit.prevent="save" id="hosting-capacity-form" class="flex-1 overflow-y-auto px-6 py-6 space-y-5">
 

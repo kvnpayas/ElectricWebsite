@@ -109,6 +109,11 @@ class HostingCapacity extends Component
         $this->showDrawer    = true;
         $this->resetErrorBag();
     }
+    public function closeDrawer(): void
+    {
+        $this->showDrawer  = false;
+        $this->resetErrorBag();
+    }
 
     public function save(): void
     {

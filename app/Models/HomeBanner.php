@@ -10,11 +10,13 @@ class HomeBanner extends Model
         'label', 'headline', 'sub', 'cta_text', 'cta_href',
         'image_path', 'image_name', 'image_width', 'image_height',
         'bg_image_path', 'bg_image_name',
+        'cta_external',
         'is_published', 'sort_order',
     ];
 
     protected $casts = [
         'is_published' => 'boolean',
+        'cta_external' => 'boolean',
         'sort_order'   => 'integer',
         'image_width'  => 'integer',
         'image_height' => 'integer',

@@ -85,7 +85,7 @@
             {{-- CTA --}}
             <x-table.td hidden="md">
               @if ($banner->cta_text)
-                <span class="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-tei-orange/10 text-tei-orange">
+                <span class="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-tei-orange/10 text-tei-orange truncate">
                   {{ $banner->cta_text }}
                 </span>
               @else
@@ -245,7 +245,8 @@
         </div>
         <div>
           <label class="block text-sm font-semibold text-tei-blue mb-1.5">Button URL</label>
-          <input wire:model="bannerCtaHref" type="text" maxlength="500" placeholder="/rates-and-advisories"
+          <input wire:model="bannerCtaHref" type="text" maxlength="500"
+            placeholder="/rates-and-advisories or https://docs.google.com/…"
             class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark placeholder:text-tei-gray-light
                    outline-none transition-all duration-200
                    focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15" />
@@ -258,6 +259,18 @@
               {{ $message }}
             </p>
           @enderror
+          {{-- Open in new tab toggle --}}
+          <label class="mt-2.5 flex items-center gap-2.5 cursor-pointer select-none">
+            <div class="relative shrink-0">
+              <input wire:model="bannerCtaExternal" type="checkbox" class="sr-only peer" />
+              <div class="w-8 h-4 rounded-full bg-gray-300 peer-checked:bg-tei-orange transition-colors duration-200
+                          after:content-[''] after:absolute after:top-0.5 after:left-0.5
+                          after:w-3 after:h-3 after:rounded-full after:bg-white after:shadow
+                          after:transition-transform after:duration-200
+                          peer-checked:after:translate-x-4"></div>
+            </div>
+            <span class="text-xs font-medium text-tei-gray">Open in new tab <span class="text-tei-gray-light">(for external links like Google Docs)</span></span>
+          </label>
         </div>
       </div>
 
