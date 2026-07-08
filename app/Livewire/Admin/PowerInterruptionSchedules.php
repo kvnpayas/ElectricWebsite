@@ -2,8 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Barangay;
-use App\Models\BarangayArea;
+use App\Models\PowerInterruptionFile;
 use App\Models\PowerInterruptionSchedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -29,17 +28,12 @@ class PowerInterruptionSchedules extends Component
     public ?int   $formId    = null;
 
     // ── Form fields ───────────────────────────────────────────
-    public string $formTitle     = '';
-    public string $formDate      = '';
-    public string $formStartTime = '';
-    public string $formEndTime   = '';
-    public string $formEndDate    = '';   // blank = same day as formDate
-    public string $formExpiryTime = '';   // blank = fall back to formEndTime
-    // Each entry: ['barangay' => '', 'areas' => []]
-    public array  $formAreas     = [];
-    public string $formReason    = '';
-    public string $formStatus    = 'scheduled';
-    public        $formImage     = null;
+    public string $formTitle      = 'Scheduled Power Interruption';
+    public string $formDate       = '';
+    public string $formExpiryDate = '';
+    public string $formReason     = '';
+    public string $formStatus     = 'scheduled';
+    public array  $formImages     = [];
 
     // ── Delete ────────────────────────────────────────────────
     public ?int $deleteTarget = null;
@@ -51,7 +45,11 @@ class PowerInterruptionSchedules extends Component
     {
         return PowerInterruptionSchedule::query()
             ->when($this->statusFilter !== 'all', fn ($q) => $q->where('status', $this->statusFilter))
-            ->when($this->search, fn ($q) => $q->where('title', 'like', "%{$this->search}%"))
+            ->when($this->search, fn ($q) => $q->where(function ($q) {
+                $q->where('title', 'like', "%{$this->search}%")
+                  ->orWhere('reason', 'like', "%{$this->search}%");
+            }))
+            ->withCount('files')
             ->orderByDesc('scheduled_date')
             ->orderBy('sort_order')
             ->get();
@@ -75,6 +73,18 @@ class PowerInterruptionSchedules extends Component
         return $raw;
     }
 
+    #[Computed]
+    public function existingFiles()
+    {
+        if (! $this->formId) {
+            return collect();
+        }
+
+        return PowerInterruptionFile::where('schedule_id', $this->formId)
+            ->orderBy('sort_order')
+            ->get();
+    }
+
     // ── Status filter ─────────────────────────────────────────
 
     public function setStatus(string $status): void
@@ -83,76 +93,44 @@ class PowerInterruptionSchedules extends Component
         $this->deleteTarget = null;
     }
 
-    // ── Barangay entry helpers ────────────────────────────────
-
-    public function addBarangayEntry(): void
-    {
-        $this->formAreas[] = ['barangay' => '', 'areas' => []];
-    }
-
-    public function removeBarangayEntry(int $index): void
-    {
-        array_splice($this->formAreas, $index, 1);
-        $this->formAreas = array_values($this->formAreas);
-    }
-
-    public function addAreaToEntry(int $entryIndex, string $areaName): void
-    {
-        $name = trim($areaName);
-        if (! $name || ! isset($this->formAreas[$entryIndex])) {
-            return;
-        }
-        if (! in_array($name, $this->formAreas[$entryIndex]['areas'])) {
-            $this->formAreas[$entryIndex]['areas'][] = $name;
-        }
-    }
-
-    public function removeAreaFromEntry(int $entryIndex, int $areaIndex): void
-    {
-        if (! isset($this->formAreas[$entryIndex]['areas'][$areaIndex])) {
-            return;
-        }
-        array_splice($this->formAreas[$entryIndex]['areas'], $areaIndex, 1);
-        $this->formAreas[$entryIndex]['areas'] = array_values($this->formAreas[$entryIndex]['areas']);
-    }
-
     // ── Drawer open / close ───────────────────────────────────
 
     public function openAdd(): void
     {
-        $this->reset(['formId', 'formStartTime', 'formEndTime', 'formEndDate', 'formExpiryTime', 'formReason', 'formImage']);
-        $this->formTitle  = 'Scheduled Power Interruption';
-        $this->formAreas  = [['barangay' => '', 'areas' => []]];
-        $this->formDate   = now()->format('Y-m-d');
-        $this->formStatus = 'scheduled';
-        $this->formMode   = 'add';
-        $this->showModal  = true;
+        $this->formId         = null;
+        $this->formTitle      = 'Scheduled Power Interruption';
+        $this->formDate       = now()->format('Y-m-d\TH:i');
+        $this->formExpiryDate = '';
+        $this->formReason     = '';
+        $this->formStatus     = 'scheduled';
+        $this->formImages     = [];
+        $this->formMode       = 'add';
+        $this->showModal      = true;
         $this->resetErrorBag();
+        unset($this->existingFiles);
     }
 
     public function openEdit(int $id): void
     {
         $schedule = PowerInterruptionSchedule::findOrFail($id);
 
-        $this->formId        = $schedule->id;
-        $this->formTitle     = $schedule->title;
-        $this->formDate      = $schedule->scheduled_date->format('Y-m-d');
-        $this->formStartTime = substr($schedule->start_time, 0, 5);
-        $this->formEndTime   = substr($schedule->end_time, 0, 5);
-        $this->formEndDate    = $schedule->end_date?->format('Y-m-d') ?? '';
-        $this->formExpiryTime = substr($schedule->expiry_time ?? '', 0, 5);
-        $this->formAreas     = ! empty($schedule->areas) ? $schedule->areas : [['barangay' => '', 'areas' => []]];
-        $this->formReason    = $schedule->reason;
-        $this->formStatus    = $schedule->status;
-        $this->formImage     = null;
-        $this->formMode      = 'edit';
-        $this->showModal     = true;
+        $this->formId         = $schedule->id;
+        $this->formTitle      = $schedule->title;
+        $this->formDate       = $schedule->scheduled_date->format('Y-m-d\TH:i');
+        $this->formExpiryDate = $schedule->expiry_date?->format('Y-m-d\TH:i') ?? '';
+        $this->formReason     = $schedule->reason;
+        $this->formStatus     = $schedule->status;
+        $this->formImages     = [];
+        $this->formMode       = 'edit';
+        $this->showModal      = true;
         $this->resetErrorBag();
+        unset($this->existingFiles);
     }
 
     public function closeModal(): void
     {
-        $this->showModal = false;
+        $this->showModal  = false;
+        $this->formImages = [];
         $this->resetErrorBag();
     }
 
@@ -160,90 +138,90 @@ class PowerInterruptionSchedules extends Component
 
     public function save(): void
     {
-        // Drop entries where barangay was left blank
-        $this->formAreas = array_values(
-            array_filter($this->formAreas, fn ($e) => trim($e['barangay'] ?? '') !== '')
-        );
-
-        $this->validate(
-            [
-                'formTitle'            => ['required', 'min:3'],
-                'formDate'             => ['required', 'date'],
-                'formStartTime'        => ['required'],
-                'formEndTime'          => ['required'],
-                'formEndDate'          => ['nullable', 'date', 'after_or_equal:formDate'],
-                'formExpiryTime'       => ['nullable'],
-                'formAreas'            => ['required', 'array', 'min:1'],
-                'formAreas.*.barangay' => ['required', 'string'],
-                'formReason'           => ['required', 'min:5'],
-                'formStatus'           => ['required', 'in:scheduled,ongoing,resolved'],
-                'formImage'            => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
-            ],
-            attributes: [
-                'formTitle'            => 'title',
-                'formDate'             => 'scheduled date',
-                'formStartTime'        => 'start time',
-                'formEndTime'          => 'end time',
-                'formEndDate'          => 'end date',
-                'formExpiryTime'       => 'expiry time',
-                'formAreas'            => 'affected barangays',
-                'formAreas.*.barangay' => 'barangay name',
-                'formReason'           => 'reason',
-                'formImage'            => 'image',
-            ]
-        );
+        $this->validate([
+            'formTitle'      => ['required', 'string', 'max:200'],
+            'formDate'       => ['required', 'date'],
+            'formExpiryDate' => ['nullable', 'date', 'after_or_equal:formDate'],
+            'formReason'     => ['required', 'min:5'],
+            'formStatus'     => ['required', 'in:scheduled,ongoing,resolved'],
+            'formImages'     => ['nullable', 'array'],
+            'formImages.*'   => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:10240'],
+        ], attributes: [
+            'formTitle'      => 'title',
+            'formDate'       => 'scheduled date',
+            'formExpiryDate' => 'expiry date',
+            'formReason'     => 'reason',
+            'formImages.*'   => 'file',
+        ]);
 
         $data = [
             'title'          => $this->formTitle,
             'status'         => $this->formStatus,
-            'scheduled_date' => $this->formDate,
-            'start_time'     => $this->formStartTime,
-            'end_time'       => $this->formEndTime,
-            'end_date'       => $this->formEndDate ?: null,
-            'expiry_time'    => $this->formExpiryTime ?: null,
-            'areas'          => $this->formAreas,
-            'reason'         => $this->formReason,
+            'scheduled_date' => \Carbon\Carbon::parse($this->formDate),
+            'expiry_date'    => $this->formExpiryDate ? \Carbon\Carbon::parse($this->formExpiryDate) : null,
+            'reason'         => trim($this->formReason),
             'upd_user'       => Auth::id(),
         ];
 
-        if ($this->formImage) {
-            if ($this->formMode === 'edit') {
-                $existing = PowerInterruptionSchedule::find($this->formId);
-                if ($existing?->image_path) {
-                    Storage::disk('public')->delete($existing->image_path);
-                }
-            }
-
-            $originalName       = $this->formImage->getClientOriginalName();
-            $safeName           = preg_replace('/[^a-zA-Z0-9._-]/', '-', $originalName);
-            $data['image_path'] = $this->formImage->storeAs('power-interruptions', $safeName, 'public');
-            $data['image_name'] = $originalName;
-            $this->formImage    = null;
-        }
-
-        // Register new barangay names and link areas to their barangay for future suggestions
-        Barangay::syncFromAreas(array_column($this->formAreas, 'barangay'));
-
-        foreach ($this->formAreas as $entry) {
-            if (! empty($entry['areas'])) {
-                BarangayArea::syncFromNames($entry['areas'], $entry['barangay']);
-            }
-        }
+        $grouped = false;
 
         if ($this->formMode === 'add') {
-            $data['ctrd_user'] = Auth::id();
-            $schedule = PowerInterruptionSchedule::create($data);
-            $this->dispatch('toast', message: "Schedule \"{$schedule->title}\" was added.");
+            // Auto-group: if same date + reason already exists, attach files to it
+            $existing = PowerInterruptionSchedule::whereDate('scheduled_date', \Carbon\Carbon::parse($this->formDate)->toDateString())
+                ->where('reason', trim($this->formReason))
+                ->first();
+
+            if ($existing) {
+                $existing->update($data);
+                $schedule = $existing;
+                $grouped  = true;
+            } else {
+                $data['ctrd_user'] = Auth::id();
+                $schedule = PowerInterruptionSchedule::create($data);
+            }
         } else {
             $schedule = PowerInterruptionSchedule::findOrFail($this->formId);
             $schedule->update($data);
-            $this->dispatch('toast', message: "Schedule \"{$schedule->title}\" was updated.");
         }
 
+        // Store new uploaded files
+        foreach ($this->formImages as $file) {
+            $safeName = preg_replace('/[^a-zA-Z0-9._-]/', '-', $file->getClientOriginalName());
+            $path     = $file->storeAs('power-interruptions', $safeName, 'public');
+            PowerInterruptionFile::create([
+                'schedule_id' => $schedule->id,
+                'file_path'   => $path,
+                'file_name'   => $file->getClientOriginalName(),
+                'sort_order'  => $schedule->files()->count(),
+            ]);
+        }
+
+        $this->formImages = [];
         $this->closeModal();
+        unset($this->schedules, $this->existingFiles);
+
+        $msg = $grouped
+            ? "Files added to existing schedule for {$schedule->scheduled_date->format('M j, Y')}."
+            : ($this->formMode === 'add' ? "Schedule added." : "Schedule updated.");
+
+        $this->dispatch('toast', message: $msg);
     }
 
-    // ── Delete ────────────────────────────────────────────────
+    // ── File management ───────────────────────────────────────
+
+    public function removeFile(int $fileId): void
+    {
+        $file = PowerInterruptionFile::find($fileId);
+
+        if ($file) {
+            Storage::disk('public')->delete($file->file_path);
+            $file->delete();
+            unset($this->existingFiles, $this->schedules);
+            $this->dispatch('toast', message: 'File removed.');
+        }
+    }
+
+    // ── Delete schedule ───────────────────────────────────────
 
     public function confirmDelete(int $id): void
     {
@@ -264,30 +242,23 @@ class PowerInterruptionSchedules extends Component
             return;
         }
 
-        $title = $schedule->title;
-
-        if ($schedule->image_path) {
-            Storage::disk('public')->delete($schedule->image_path);
+        // Delete all attached files from storage
+        foreach ($schedule->files as $file) {
+            Storage::disk('public')->delete($file->file_path);
         }
 
-        $schedule->delete();
+        $title = $schedule->title;
+        $schedule->delete(); // files cascade via DB constraint
 
+        unset($this->schedules);
         $this->dispatch('toast', message: "\"{$title}\" was deleted.");
         $this->deleteTarget = null;
     }
 
     // ── Render ────────────────────────────────────────────────
 
-    public function render()
+    public function render(): \Illuminate\View\View
     {
-        return view('livewire.admin.power-interruption-schedules', [
-            'barangaySuggestions'     => Barangay::orderBy('name')->pluck('name')->all(),
-            'areaSuggestionsByBarangay' => BarangayArea::whereNotNull('barangay_name')
-                ->orderBy('name')
-                ->get()
-                ->groupBy('barangay_name')
-                ->map(fn ($g) => $g->pluck('name')->values()->all())
-                ->all(),
-        ]);
+        return view('livewire.admin.power-interruption-schedules');
     }
 }

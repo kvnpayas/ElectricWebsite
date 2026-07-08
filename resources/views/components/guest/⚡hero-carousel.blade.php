@@ -198,7 +198,7 @@ $slides = $this->slides ?: [
                                 </div>
                             @else
                                 {{-- Abstract electric tower SVG --}}
-                                <div class="w-64 h-64 opacity-[0.07] pointer-events-none select-none">
+                                {{-- <div class="w-64 h-64 opacity-[0.07] pointer-events-none select-none">
                                     <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                                         <path d="M150 20 L110 130 L160 130 L130 240 L180 240 L150 350" stroke="white" stroke-width="3" stroke-dasharray="10 6"/>
                                         <path d="M150 20 L190 130 L140 130 L170 240 L120 240 L150 350" stroke="white" stroke-width="3" stroke-dasharray="10 6"/>
@@ -216,7 +216,7 @@ $slides = $this->slides ?: [
                                         <line x1="135" y1="240" x2="135" y2="265" stroke="white" stroke-width="1.5"/>
                                         <line x1="165" y1="240" x2="165" y2="265" stroke="white" stroke-width="1.5"/>
                                     </svg>
-                                </div>
+                                </div> --}}
                             @endif
 
                         </div>{{-- /RIGHT --}}

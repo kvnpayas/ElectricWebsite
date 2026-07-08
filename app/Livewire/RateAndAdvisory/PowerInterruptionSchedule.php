@@ -20,6 +20,7 @@ class PowerInterruptionSchedule extends Component
         return Schedule::query()
             ->whereIn('status', ['scheduled', 'ongoing'])
             ->when($this->filter !== 'all', fn ($q) => $q->where('status', $this->filter))
+            ->with('files')
             ->orderByRaw("CASE WHEN status = 'ongoing' THEN 0 ELSE 1 END")
             ->orderByDesc('scheduled_date')
             ->get();
@@ -29,6 +30,7 @@ class PowerInterruptionSchedule extends Component
     public function ongoingAdvisories()
     {
         return Schedule::where('status', 'ongoing')
+            ->with('files')
             ->orderByDesc('scheduled_date')
             ->get();
     }

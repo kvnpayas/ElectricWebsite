@@ -10,6 +10,7 @@ new class extends Component {
     {
         return Schedule::query()
             ->whereIn('status', ['ongoing', 'scheduled'])
+            ->with('files')
             ->orderByRaw("CASE WHEN status = 'ongoing' THEN 0 ELSE 1 END")
             ->orderBy('scheduled_date')
             ->limit(3)
@@ -82,10 +83,7 @@ new class extends Component {
       @foreach ($this->schedules as $schedule)
         @php
           $isOngoing = $schedule->status === 'ongoing';
-          $variant = $isOngoing ? 'danger' : 'warning';
-          $timeColor = $isOngoing ? 'text-danger' : 'text-tei-orange';
-          $barangayNames = array_column($schedule->areas ?? [], 'barangay');
-          $extraAreas = max(0, count($barangayNames) - 3);
+          $variant   = $isOngoing ? 'danger' : 'warning';
         @endphp
 
         <x-card :variant="$variant">
@@ -93,18 +91,15 @@ new class extends Component {
           {{-- Status + date row --}}
           <div class="flex items-center justify-between mb-3">
             @if ($isOngoing)
-              <span
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-danger/10 text-danger">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-danger/10 text-danger">
                 <span class="relative flex h-1.5 w-1.5">
-                  <span
-                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-danger opacity-75"></span>
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-danger opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-danger"></span>
                 </span>
                 Ongoing
               </span>
             @else
-              <span
-                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-warning/15 text-warning">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-warning/15 text-warning">
                 <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -118,36 +113,10 @@ new class extends Component {
           </div>
 
           {{-- Title --}}
-          <h3 class="text-sm font-bold text-tei-blue mb-3 leading-snug">{{ $schedule->title }}</h3>
-
-          {{-- Time --}}
-          <div class="flex items-center gap-1.5 mb-2">
-            <svg class="w-3.5 h-3.5 shrink-0 {{ $timeColor }}" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span class="text-xs font-semibold {{ $timeColor }}">{{ $schedule->formatted_time }}</span>
-          </div>
-
-          {{-- Areas --}}
-          @if (!empty($barangayNames))
-            <div class="flex items-start gap-1.5 mb-3">
-              <svg class="w-3.5 h-3.5 shrink-0 mt-0.5 text-tei-gray-light" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span class="text-xs text-tei-gray leading-relaxed">
-                {{ implode(', ', array_slice($barangayNames, 0, 3)) }}{{ $extraAreas > 0 ? ' +' . $extraAreas . ' more' : '' }}
-              </span>
-            </div>
-          @endif
+          <h3 class="text-sm font-bold text-tei-blue mb-2 leading-snug">{{ $schedule->title }}</h3>
 
           {{-- Reason --}}
-          <p class="text-xs text-tei-gray-light leading-relaxed line-clamp-2">{{ $schedule->reason }}</p>
+          <p class="text-xs text-tei-gray leading-relaxed line-clamp-3">{{ $schedule->reason }}</p>
 
           {{-- Footer CTA --}}
           <x-slot:footer>
