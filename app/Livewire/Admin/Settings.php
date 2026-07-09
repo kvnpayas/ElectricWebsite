@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\ActivityLog;
 use App\Models\Setting;
 use App\Models\SettingEmail;
 use App\Models\SettingPhone;
 use App\Models\SettingSocial;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -89,6 +92,7 @@ class Settings extends Component
             attributes: ['address' => 'address']);
 
         Setting::set('address', trim($this->address));
+        $this->logSettingsChange('Address');
         $this->dispatch('toast', message: 'Address saved.');
     }
 
@@ -112,6 +116,7 @@ class Settings extends Component
         Setting::set('notice_dismissible', $this->noticeDismissible ? '1' : '0');
         Setting::set('notice_version',     (int) Setting::get('notice_version', '0') + 1);
 
+        $this->logSettingsChange('Site Notice');
         $this->dispatch('toast', message: 'Site notice saved.');
     }
 
@@ -304,6 +309,30 @@ class Settings extends Component
         unset($this->phones, $this->emails, $this->socials);
         $this->dispatch('toast', message: ucfirst($this->deleteType) . ' removed.');
         $this->cancelDelete();
+    }
+
+    // ── Logging ───────────────────────────────────────────────
+
+    private function logSettingsChange(string $label): void
+    {
+        $userId   = Auth::id();
+        $userName = Auth::user()?->name ?? 'System';
+        $ip       = request()->ip();
+
+        ActivityLog::create([
+            'user_id'       => $userId,
+            'user_name'     => $userName,
+            'action'        => 'updated',
+            'subject_type'  => 'Settings',
+            'subject_id'    => null,
+            'subject_label' => $label,
+            'ip_address'    => $ip,
+        ]);
+
+        Log::channel('user-logs')->info(sprintf(
+            '[UPDATED] %s (ID:%s) — Settings "%s" from %s',
+            $userName, $userId ?? '—', $label, $ip
+        ));
     }
 
     // ── Render ────────────────────────────────────────────────
