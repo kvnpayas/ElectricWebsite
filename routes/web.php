@@ -131,6 +131,8 @@ Route::middleware(['auth.custom'])->group(function () {
     Route::get('/csp-procurement', CspProcurement::class)->name('csp-procurement');
     Route::get('/procurement-opportunities', AdminProcurementOpportunities::class)->name('procurement-opportunities');
     Route::get('/home-banners', HomeBanners::class)->name('home-banners');
+    Route::get('/activity-log', \App\Livewire\Admin\ActivityLogs::class)->name('activity-log');
+    Route::get('/settings', \App\Livewire\Admin\Settings::class)->name('settings');
 
     Route::get('/profile-documents/{document}', function (ProfileDocument $document) {
         abort_unless($document->file_path && Storage::exists($document->file_path), 404);

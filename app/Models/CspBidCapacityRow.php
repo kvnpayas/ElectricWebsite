@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CspBidCapacityRow extends Model
 {
+    use LogsActivity;
     protected $fillable = ['bid_id', 'period_from', 'period_to', 'capacity_mw', 'sort_order'];
 
     protected $casts = ['sort_order' => 'integer'];
@@ -16,3 +18,6 @@ class CspBidCapacityRow extends Model
         return $this->belongsTo(CspBid::class, 'bid_id');
     }
 }
+
+
+

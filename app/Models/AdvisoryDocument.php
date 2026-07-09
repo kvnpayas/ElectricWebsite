@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AdvisoryDocument extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'category',
         'title',
@@ -74,3 +76,6 @@ class AdvisoryDocument extends Model
         return $this->belongsTo(User::class, 'upd_user');
     }
 }
+
+
+

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class HostingCapacityRow extends Model
 {
+    use LogsActivity;
     protected $fillable = ['type', 'label', 'value', 'is_note', 'sort_order'];
 
     protected $casts = [
@@ -13,3 +15,6 @@ class HostingCapacityRow extends Model
         'sort_order' => 'integer',
     ];
 }
+
+
+

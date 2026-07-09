@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class HomeBanner extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'label', 'headline', 'sub', 'cta_text', 'cta_href',
         'image_path', 'image_name', 'image_width', 'image_height',
@@ -22,3 +24,6 @@ class HomeBanner extends Model
         'image_height' => 'integer',
     ];
 }
+
+
+

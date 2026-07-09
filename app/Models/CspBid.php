@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CspBid extends Model
 {
+    use LogsActivity;
     protected $fillable = ['code', 'status', 'title', 'posted_date', 'contract_description', 'sort_order', 'is_published'];
 
     protected $casts = [
@@ -44,3 +46,6 @@ class CspBid extends Model
         return $this->hasMany(CspBidUpdate::class, 'bid_id')->orderBy('sort_order');
     }
 }
+
+
+

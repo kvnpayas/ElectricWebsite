@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProfileDocument extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'type',
         'category',
@@ -64,3 +66,6 @@ class ProfileDocument extends Model
         return $this->belongsTo(User::class, 'upd_user');
     }
 }
+
+
+

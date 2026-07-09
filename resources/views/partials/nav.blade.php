@@ -11,6 +11,8 @@
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
   style="background-color: rgba(8,40,64,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
 
+  @include('partials.site-notice')
+
   @php
     $route      = Route::currentRouteName();
     $isHome     = $route === 'home';

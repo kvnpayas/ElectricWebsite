@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PowerInterruptionSchedule extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'title',
         'status',
@@ -70,3 +72,6 @@ class PowerInterruptionSchedule extends Model
         return $this->belongsTo(User::class, 'upd_user');
     }
 }
+
+
+
