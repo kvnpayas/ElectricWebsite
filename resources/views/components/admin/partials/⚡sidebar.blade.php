@@ -156,31 +156,33 @@ new class extends Component {
     </div>
 
     {{-- Navigation --}}
-    <nav class="flex-1 overflow-y-auto overflow-x-hidden py-4 space-y-6" aria-label="Main navigation">
+    <nav class="flex-1 overflow-y-auto overflow-x-hidden py-3" aria-label="Main navigation">
       @foreach ($this->navGroups as $groupName => $items)
-        <div>
+        <div class="{{ $loop->first ? '' : 'mt-4' }}">
+
           {{-- Group label --}}
           <p x-cloak x-show="!(sidebarCollapsed && isDesktop)"
-            class="px-4 mb-1 text-[10px] font-bold tracking-[0.12em] uppercase select-none text-white/30">
+            class="px-3 mb-1 text-[9px] font-semibold tracking-[0.18em] uppercase select-none text-white/25">
             {{ $groupName }}
           </p>
 
           {{-- Items --}}
-          <ul class="space-y-0.5 px-2">
+          <ul class="space-y-px px-2">
             @foreach ($items as $item)
               <li>
                 <a href="{{ $item['href'] }}" @if ($item['href'] !== '#') wire:navigate @endif
-                  class="flex items-center gap-3 px-2 py-2.5 rounded-xl text-sm font-medium transition-colors duration-150 cursor-pointer group relative
+                  class="flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-[13px] font-medium transition-all duration-100 cursor-pointer
                               {{ $item['active']
-                                  ? 'bg-tei-orange/15 text-white border-l-[3px] border-tei-orange'
-                                  : 'text-white/70 hover:bg-white/8 hover:text-white' }}"
+                                  ? 'bg-white/10 text-white'
+                                  : 'text-white/48 hover:bg-white/5 hover:text-white/80' }}"
                   :class="(sidebarCollapsed && isDesktop) ? 'justify-center' : ''"
                   :title="(sidebarCollapsed && isDesktop) ? '{{ $item['label'] }}' : ''">
 
                   {{-- Icon --}}
-                  <svg class="size-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $item['icon'] }}" />
+                  <svg class="size-4 shrink-0 transition-colors duration-100 {{ $item['active'] ? 'text-tei-orange' : '' }}"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="{{ $item['active'] ? '2' : '1.6' }}"
+                      d="{{ $item['icon'] }}" />
                   </svg>
 
                   {{-- Label --}}
@@ -190,7 +192,7 @@ new class extends Component {
                   {{-- Badge --}}
                   @if (!empty($item['badge']))
                     <span x-cloak x-show="!(sidebarCollapsed && isDesktop)"
-                      class="shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-tei-orange text-white">
+                      class="shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-tei-orange/90 text-white tabular-nums">
                       {{ $item['badge'] }}
                     </span>
                   @endif
