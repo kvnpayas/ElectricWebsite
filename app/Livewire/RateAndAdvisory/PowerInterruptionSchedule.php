@@ -22,7 +22,7 @@ class PowerInterruptionSchedule extends Component
             ->when($this->filter !== 'all', fn ($q) => $q->where('status', $this->filter))
             ->with('files')
             ->orderByRaw("CASE WHEN status = 'ongoing' THEN 0 ELSE 1 END")
-            ->orderByDesc('scheduled_date')
+            ->orderByDesc('created_at')
             ->get();
     }
 

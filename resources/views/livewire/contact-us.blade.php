@@ -1,3 +1,12 @@
+@php
+  $primaryPhone = $phones->firstWhere('is_primary', true) ?? $phones->first();
+  $landlinePhone = $phones->firstWhere('type', 'landline');
+  $mobilePhones = $phones->where('type', 'cellphone');
+  $mobilePhonesArray = $phones->where('type', 'cellphone')->toArray();
+  $primaryEmail = $emails->firstWhere('label', 'Primary');
+  $facebookUrl = $socials->firstWhere('platform', 'Facebook');
+@endphp
+
 <div>
 
   {{-- PAGE HEADER --}}
@@ -9,10 +18,11 @@
 
 
   <x-guest-section>
-    <x-guest-intro
-      label="Get in Touch"
-      title="Contact Us"
-      text="Tarlac Electric Inc. (TEI) is always available to answer any questions you might have about your current or past utility statements, your application requests, and more. You can call the TEI hotline at (045) 606-1834 or via our mobile numbers 09171881834, 09171891834, 09989971834, 09399381834, any time of the day, seven days a week! Our customer service representatives are ready to assist you." />
+    @php
+      $introText ="Tarlac Electric Inc. (TEI) is always available to answer any questions you might have about your current or past utility statements, your application requests, and more. You can call the TEI hotline at ".$landlinePhone->number." or via our mobile numbers ".implode(', ', array_column($mobilePhonesArray, 'number')).", any time of the day, seven days a week! Our customer service representatives are ready to assist you.";
+    @endphp
+    <x-guest-intro label="Get in Touch" title="Contact Us"
+      :text="$introText" />
   </x-guest-section>
 
 
@@ -36,23 +46,24 @@
         {{-- Address --}}
         <div class="rounded-2xl p-5 bg-white border border-tei-blue/8 shadow-sm scroll-reveal">
           <p class="text-[10px] font-black uppercase tracking-widest text-tei-orange mb-2">Address</p>
-          <p class="text-sm font-bold text-tei-blue">Mabini St., Tarlac City</p>
-          <p class="text-xs text-tei-gray mt-0.5">Tarlac, Philippines</p>
+          <p class="text-sm font-bold text-tei-blue">{{ $address }}</p>
+          {{-- <p class="text-xs text-tei-gray mt-0.5">Tarlac, Philippines</p> --}}
         </div>
 
         {{-- Hotline --}}
         <div class="rounded-2xl p-5 bg-white border border-tei-blue/8 shadow-sm scroll-reveal">
           <p class="text-[10px] font-black uppercase tracking-widest text-tei-orange mb-1.5">Hotline</p>
-          <a href="tel:+63456061834"
+          <a href="{{ $landlinePhone->tel }}"
             class="text-base font-black text-tei-blue transition-colors duration-150 hover:text-tei-orange">
-            (045) 606-1834
+            {{-- (045) 606-1834 --}}
+            {{ $landlinePhone->number }}
           </a>
           <p class="text-[10px] font-bold uppercase tracking-wider text-tei-gray/60 mt-3 mb-1.5">Mobile Numbers</p>
           <div class="grid grid-cols-2 gap-x-3 gap-y-1">
-            @foreach ([['0917-188-1834', '09171881834'], ['0917-189-1834', '09171891834'], ['0998-997-1834', '09989971834'], ['0939-938-1834', '09399381834']] as [$label, $raw])
-              <a href="tel:+63{{ ltrim($raw, '0') }}"
+            @foreach ($mobilePhones as $phone)
+              <a href="{{ $phone->tel }}"
                 class="text-xs font-semibold text-tei-blue/70 transition-colors duration-150 hover:text-tei-orange">
-                {{ $label }}
+                {{ $phone->number }}
               </a>
             @endforeach
           </div>
@@ -63,7 +74,7 @@
           <p class="text-[10px] font-black uppercase tracking-widest text-tei-orange mb-2">Social Media</p>
           <p class="text-sm leading-relaxed text-tei-gray">
             Stay connected with Tarlac Electric Inc. (TEI) by liking and following our official Facebook account:
-            <a href="https://www.facebook.com/tei.ph" target="_blank" rel="noopener"
+            <a href="{{ $facebookUrl->url ?? '#' }}" target="_blank" rel="noopener"
               class="font-semibold text-tei-orange transition-colors duration-150 hover:text-tei-orange-dark">@tei.ph</a>.
             Turn on your notifications so that you can receive the latest TEI updates on your news feed.
           </p>
@@ -78,9 +89,9 @@
       <x-custom-card icon="" title="Report an Outage"
         text="Did you witness an unscheduled power outage in your area? Inform Tarlac Electric Inc. about this power interruption by calling the hotline at (045) 606-1834.">
         <div class="pt-3 border-t border-tei-blue/8 mt-1">
-          <a href="tel:+63456061834"
+          <a href="{{ $primaryPhone->tel ?? '#' }}"
             class="inline-flex items-center gap-1.5 text-sm font-bold text-tei-orange transition-colors duration-150 hover:text-tei-orange-dark">
-            Call (045) 606-1834
+            Call {{ $primaryPhone->number }}
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
@@ -92,9 +103,9 @@
         <div class="pt-3 border-t border-tei-blue/8 mt-1">
           <p class="text-sm leading-relaxed text-tei-gray">
             Please email us at
-            <a href="mailto:cwd@teiph.com" class="font-semibold text-tei-orange">cwd@teiph.com</a>
+            <a href="mailto:{{ $primaryEmail->address ?? '#' }}" class="font-semibold text-tei-orange">{{ $primaryEmail->address ?? '#' }}</a>
             or call us at
-            <a href="tel:+63456061834" class="font-semibold text-tei-orange">(045) 606-1834</a>
+            <a href="{{ $primaryPhone->tel ?? '#' }}" class="font-semibold text-tei-orange">{{ $primaryPhone->number }}</a>
           </p>
         </div>
       </x-custom-card>

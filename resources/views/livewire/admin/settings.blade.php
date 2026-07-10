@@ -31,7 +31,7 @@
         </div>
         <div class="p-5 space-y-4">
           <textarea wire:model="address" rows="3"
-                    placeholder="e.g. F. Tañedo St., Tarlac City, 2300 Tarlac"
+                    placeholder="e.g. Mabini st., Brgy. Mabini, Tarlac City, Tarlac"
                     class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark
                            placeholder:text-tei-gray-light resize-none outline-none transition-all duration-200
                            focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15"></textarea>

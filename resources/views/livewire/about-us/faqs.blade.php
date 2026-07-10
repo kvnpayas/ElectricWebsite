@@ -8,12 +8,20 @@
   ])
 
   <x-guest-section>
-    <x-guest-intro
-      label="Help Center"
-      title="Frequently Asked Questions"
+    @php
+      $primaryEmail = $emails->firstWhere('label', 'Primary');
+      $facebookUrl = $socials->firstWhere('platform', 'Facebook');
+      $primaryPhone = $phones->firstWhere('is_primary', true) ?? $phones->first();
+      $promptText =
+          "Can't find what you're looking for? Contact us at " .
+          $primaryPhone->number .
+          ' or visit our office at ' .
+          $address .
+          '.';
+    @endphp
+    <x-guest-intro label="Help Center" title="Frequently Asked Questions"
       text="Find answers to commonly asked questions about TEI services, billing, connections, and more."
-      promptTitle="Need more help?"
-      promptText="Can't find what you're looking for? Contact us at (045) 606-1834 or visit our office at Mabini St., Tarlac City, Philippines." />
+      promptTitle="Need more help?" :promptText="$promptText" />
   </x-guest-section>
 
 
@@ -51,7 +59,8 @@
             The account owner should present the original official receipt to TEI. If the official receipt is lost,
             the account owner should provide an affidavit of loss notarized by a registered attorney. If the account
             owner passed away, the representatives should provide a death certificate. For more information on you
-            TEI bill deposit, <a href="{{ route('customer.bill-deposit') }}" wire:navigate class="text-tei-orange">click here</a>
+            TEI bill deposit, <a href="{{ route('customer.bill-deposit') }}" wire:navigate class="text-tei-orange">click
+              here</a>
           </p>
         </x-accordion>
         <x-accordion question="How much is the bill deposit if I'm applying for a new connection?">
@@ -94,8 +103,8 @@
         </x-accordion>
         <x-accordion question="I did not receive my monthly billing. What should I do?">
           <p>
-            Email us at <a href="mailto:cwd@teiph.com" class="text-tei-orange">cwd@teiph.com</a> or call us at
-            606-1834. Make
+            Email us at <a href='mailto:{{ $primaryEmail->address ?? "#" }}' class="text-tei-orange">{{ $primaryEmail->address ?? 'N/A' }}</a> or call us at
+            {{ $primaryPhone->number }}. Make
             sure to provide us with your account name, your
             account number, and your nearest landmark so that we can endorse a report regarding the non-delivery of
             your SOA.
@@ -109,10 +118,10 @@
           <p>
             To know how much your current or past bill is, proceed to any of the TEI business centers and present
             your account name and account number to our attending customer representative. You may also call us at
-            606-1834 or chat with us through our official
+            {{ $primaryPhone->number }} or chat with us through our official
           </p>
           <p class="mt-3">
-            Facebook account (<a href="https://www.facebook.com/tei.ph" target="_blank"
+            Facebook account (<a href="{{ $facebookUrl->url ?? '#' }}" target="_blank"
               class="text-tei-orange">@tei.ph</a>) by providing the same details.
           </p>
         </x-accordion>
@@ -135,7 +144,8 @@
           <p>
             You can pay your electric bills at any of the following business centers: TEI Main Office (Mabini
             Street), SM City Tarlac, Magic Star Mall, Magic Star Matatalaib, CityWalk, Metrotown Mall, and Market
-            City Mall. <a href="{{ route('customer.business-centers') }}" wire:navigate class="text-tei-orange">Click here</a> to see each business center's
+            City Mall. <a href="{{ route('customer.business-centers') }}" wire:navigate class="text-tei-orange">Click
+              here</a> to see each business center's
             operating hours.
           </p>
         </x-accordion>
@@ -154,11 +164,11 @@
       <div class="flex flex-col gap-3">
         <x-accordion question="How do I file a complaint?">
           <p>
-            Feel free to call us at 606-1834. While speaking with our customer care associate, please provide your
+            Feel free to call us at {{ $primaryPhone->number }}. While speaking with our customer care associate, please provide your
             account number, your account name, your contact number, your nearest landmark, and your complaint. You
             may also submit any customer-related complaints via TEI's official Facebook account <a
-              href="https://www.facebook.com/tei.ph" target="_blank" class="text-tei-orange">@tei.ph</a> or email us
-            at <a href="mailto:cwd@teiph.com" class="text-tei-orange">cwd@teiph.com</a>.
+              href="{{ $facebookUrl->url ?? '#' }}" target="_blank" class="text-tei-orange">@tei.ph</a> or email us
+            at <a href='mailto:{{ $primaryEmail->address ?? "#" }}' class="text-tei-orange">{{ $primaryEmail->address ?? 'N/A' }}</a>.
           </p>
         </x-accordion>
       </div>
@@ -170,8 +180,8 @@
       <div class="flex flex-col gap-3">
         <x-accordion question="Where can I report illegal electric connections to Tarlac Electric Inc. (TEI)?">
           <p>
-            You can report illegal connections by contacting us at 606-1834 or by visiting any of our business
-            centers: TEI Main Office (Mabini Street), SM City Tarlac, Magic Star Mall, Magic Star Matatalaib,
+            You can report illegal connections by contacting us at {{ $primaryPhone->number }} or by visiting any of our business
+            centers: TEI Main Office ({{ $address }}), SM City Tarlac, Magic Star Mall, Magic Star Matatalaib,
             CityWalk, Metrotown Mall, and Market City Mall. Rest assured that all pilferage reports will be kept
             confidential.
           </p>
@@ -192,20 +202,21 @@
       <div class="flex flex-col gap-3">
         <x-accordion question="How can I apply and work for Tarlac Electric Inc. (TEI)?">
           <p>
-            We're delighted to know that you're interested in joining TEI's workforce! Click here [insert link] for
+            We're delighted to know that you're interested in joining TEI's workforce! <a href="" class="text-tei-orange">Click here</a> for
             more information on our current job vacancies.
           </p>
         </x-accordion>
         <x-accordion question="What are your distribution service rates?">
           <p>
-            To learn more about TEI's unbundled rates, you may call us at 606-1834 for immediate assistance. You may
+            To learn more about TEI's unbundled rates, you may call us at {{ $primaryPhone->number }} for immediate assistance. You may
             also compute for your per kWh consumption rate by dividing the amount of your total bill by your total
             kWh consumption.
           </p>
         </x-accordion>
         <x-accordion question="Where can I find your business centers?">
           <p>
-            <a href="{{ route('customer.business-centers') }}" wire:navigate class="text-tei-orange">Click here</a> to see TEI's complete list of business centers.
+            <a href="{{ route('customer.business-centers') }}" wire:navigate class="text-tei-orange">Click here</a> to
+            see TEI's complete list of business centers.
           </p>
         </x-accordion>
         <x-accordion question="What other services are accepted at the TEI business centers?">

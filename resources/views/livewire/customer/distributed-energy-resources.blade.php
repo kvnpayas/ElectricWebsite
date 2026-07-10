@@ -332,15 +332,20 @@
     </div>
 
     {{-- Contact --}}
+    @php
+      $primaryPhone = $phones->firstWhere('is_primary', true) ?? $phones->first();
+    @endphp
     <div class="rounded-2xl p-5 sm:p-6 bg-tei-surface border border-tei-blue/8 scroll-reveal">
       <div>
         <p class="text-[10px] font-black text-tei-blue uppercase tracking-[0.18em] mb-1">Contact Us</p>
         <h4 class="text-sm font-bold text-tei-blue mb-2">For Questions &amp; More Information</h4>
-        <p class="text-xs leading-relaxed text-tei-gray mb-3">To learn more about the DER Program, you may visit us at our Main Office (Mabini Street, Brgy. Mabini, Tarlac City), message us through our Facebook page (@tei.ph), or contact us at (045) 606-1834.</p>
+        <p class="text-xs leading-relaxed text-tei-gray mb-3">To learn more about the DER Program, you may visit us at our Main Office ({{ $address }}), message us through our Facebook page (<a href="{{ $facebookUrl->url ?? '#' }}" target="_blank" rel="noopener"
+              class="font-semibold text-tei-orange transition-colors duration-150 hover:text-tei-orange-dark">@tei.ph</a>), or contact us at {{ $primaryPhone->number }}.</p>
         <div class="flex flex-wrap gap-x-5 gap-y-1 text-xs">
           <span class="font-semibold text-tei-blue">Main Office: Mabini Street, Brgy. Mabini, Tarlac City</span>
-          <span class="text-tei-gray">Hotline: (045) 606-1834</span>
-          <span class="text-tei-gray">Facebook: @tei.ph</span>
+          <span class="text-tei-gray">Hotline: {{ $primaryPhone->number }}</span>
+          <span class="text-tei-gray">Facebook: <a href="{{ $facebookUrl->url ?? '#' }}" target="_blank" rel="noopener"
+              class="font-semibold text-tei-orange transition-colors duration-150 hover:text-tei-orange-dark">@tei.ph</a></span>
         </div>
       </div>
     </div>

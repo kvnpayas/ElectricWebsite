@@ -13,6 +13,15 @@ class SettingPhone extends Model
 
     protected $casts = ['is_primary' => 'boolean'];
 
+    public function getTelAttribute(): string
+    {
+        $digits = preg_replace('/[^0-9]/', '', $this->number);
+        if (str_starts_with($digits, '0')) {
+            $digits = '+63' . substr($digits, 1);
+        }
+        return 'tel:' . $digits;
+    }
+
     public function getActivityLabel(): string
     {
         return ($this->label ? "{$this->label}: " : '') . $this->number;

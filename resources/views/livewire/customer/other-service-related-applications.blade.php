@@ -215,7 +215,7 @@
                 faster processing.
               </p>
               <p class="text-sm font-medium mt-1.5" style="color: rgba(255,255,255,0.5);">
-                Mabini St., Tarlac City, Tarlac
+                {{ $address }}
               </p>
             </div>
           </div>
