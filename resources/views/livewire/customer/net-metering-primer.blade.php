@@ -248,13 +248,28 @@
         <div class="rounded-2xl p-5 bg-white border border-tei-blue/8">
           <p class="text-[10px] font-black text-tei-orange uppercase tracking-[0.18em] mb-1">Download</p>
           <p class="text-sm font-bold text-tei-blue mb-2">Application Form</p>
+          @php
+            $formFile = 'downloadable-file/Net-Metering-Application-Form.pdf';
+            $formUrl  = file_exists(public_path($formFile)) ? asset($formFile) : null;
+          @endphp
           <p class="text-xs text-tei-gray leading-relaxed mb-3">To download a copy of the Net Metering Program
-            application form, please click here.</p>
-          <a href="#" class="inline-flex items-center gap-1.5 text-xs font-bold text-tei-orange">
-            Download Form
+            application form, please click the button below.</p>
+          <a href="{{ $formUrl ?? '#' }}"
+            @if($formUrl) target="_blank" download @endif
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-colors duration-150
+              {{ $formUrl ? 'text-white' : 'text-tei-gray cursor-not-allowed' }}"
+            @if($formUrl)
+              style="background-color: var(--color-tei-orange);"
+              onmouseover="this.style.backgroundColor='#C45218'"
+              onmouseout="this.style.backgroundColor='var(--color-tei-orange)'"
+            @else
+              style="background-color: rgba(15,61,92,0.06);"
+            @endif>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
+            {{ $formUrl ? 'Download Application Form' : 'Form not available' }}
           </a>
         </div>
 

@@ -25,13 +25,14 @@ class AppServiceProvider extends ServiceProvider
             if ($data === null) {
                 try {
                     $data = [
-                        'phones'  => SettingPhone::orderByDesc('is_primary')->orderBy('sort_order')->get(),
-                        'emails'  => SettingEmail::orderBy('sort_order')->get(),
-                        'socials' => SettingSocial::orderBy('sort_order')->get(),
-                        'address' => Setting::get('address', ''),
+                        'phones'        => SettingPhone::orderByDesc('is_primary')->orderBy('sort_order')->get(),
+                        'emails'        => SettingEmail::orderBy('sort_order')->get(),
+                        'socials'       => SettingSocial::orderBy('sort_order')->get(),
+                        'address'       => Setting::get('address', ''),
+                        'streamEnabled' => (bool) Setting::get('stream_enabled', '0'),
                     ];
                 } catch (\Throwable) {
-                    $data = ['phones' => collect(), 'emails' => collect(), 'socials' => collect(), 'address' => ''];
+                    $data = ['phones' => collect(), 'emails' => collect(), 'socials' => collect(), 'address' => '', 'streamEnabled' => false];
                 }
             }
 
