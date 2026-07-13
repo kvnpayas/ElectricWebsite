@@ -156,11 +156,17 @@
 
             // ── Initial page load ────────────────────────────────────────────
             // Elements are pre-hidden via CSS (.admin-js-anim in <head>).
-            // window.load guarantees GSAP (Vite ESM) is available.
-            window.addEventListener('load', function () {
+            // When this script runs after a navigate:true redirect, window.load
+            // has already fired and won't fire again — detect that and run immediately.
+            if (document.readyState === 'complete') {
                 scheduleFallback();
                 requestAnimationFrame(runAnimation);
-            });
+            } else {
+                window.addEventListener('load', function () {
+                    scheduleFallback();
+                    requestAnimationFrame(runAnimation);
+                });
+            }
 
             // ── SPA navigation (wire:navigate) ───────────────────────────────
             // livewire:navigated also fires on initial load; _ready guards against that.
