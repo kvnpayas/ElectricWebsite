@@ -112,6 +112,12 @@ new class extends Component {
                     'active' => request()->routeIs('admin.activity*'),
                     'icon' => 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
                 ],
+                [
+                    'label' => 'My Profile',
+                    'href' => route('admin.profile'),
+                    'active' => request()->routeIs('admin.profile*'),
+                    'icon' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+                ],
             ],
         ];
     }
@@ -133,26 +139,40 @@ new class extends Component {
     :style="{ width: (sidebarCollapsed && isDesktop) ? '80px' : '288px' }">
 
     {{-- Logo / brand header --}}
-    <div class="flex h-16 shrink-0 items-center justify-between px-4 border-b border-white/8">
-      <a href="{{ url('/') }}" class="flex items-center gap-3 min-w-0" title="Back to website">
-        <div
-          class="shrink-0 size-9 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-tei-orange to-tei-orange-dark">
-          <span class="text-white font-black text-base leading-none font-display">T</span>
+    <div class="flex h-16 shrink-0 items-center border-b border-white/8 transition-all duration-300"
+      :class="(sidebarCollapsed && isDesktop) ? 'justify-center px-0' : 'justify-between px-4'">
+
+      {{-- Expanded: logo + app name + collapse toggle --}}
+      <template x-if="!(sidebarCollapsed && isDesktop)">
+        <div class="flex items-center justify-between w-full">
+          <a href="{{ url('/') }}" class="flex items-center gap-3 min-w-0" title="Back to website">
+            <div class="shrink-0 size-9 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-tei-gray to-tei-gray-dark p-1.5">
+              <img src="{{ asset('assets/TEI-logo-no-name.png') }}" alt="TEI" class="w-full h-full object-contain">
+            </div>
+            <div class="min-w-0 overflow-hidden">
+              <p class="text-white font-bold text-sm leading-tight truncate font-display">{{ config('app.name') }}</p>
+              <p class="text-[10px] truncate text-white/40">Admin Panel</p>
+            </div>
+          </a>
+          <button @click="sidebarCollapsed = true"
+            class="hidden lg:flex size-7 rounded-lg items-center justify-center transition-colors duration-200 cursor-pointer shrink-0 text-white/40 hover:bg-white/8 hover:text-white"
+            aria-label="Collapse sidebar">
+            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
         </div>
-        <div x-cloak x-show="!(sidebarCollapsed && isDesktop)" class="min-w-0 overflow-hidden">
-          <p class="text-white font-bold text-sm leading-tight truncate font-display">TEI Admin</p>
-          <p class="text-[10px] truncate text-white/40">Content Management</p>
-        </div>
-      </a>
-      {{-- Desktop collapse toggle --}}
-      <button @click="sidebarCollapsed = !sidebarCollapsed" x-cloak x-show="isDesktop"
-        class="hidden lg:flex size-7 rounded-lg items-center justify-center transition-colors duration-200 cursor-pointer shrink-0 text-white/40 hover:bg-white/8 hover:text-white"
-        :aria-label="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
-        <svg class="size-4 transition-transform duration-300" :class="sidebarCollapsed ? 'rotate-180' : ''"
-          fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+      </template>
+
+      {{-- Collapsed: logo only, click to expand --}}
+      <template x-if="sidebarCollapsed && isDesktop">
+        <button @click="sidebarCollapsed = false"
+          class="size-9 rounded-xl flex items-center justify-center shadow-lg bg-linear-to-br from-tei-gray to-tei-gray-dark p-1.5 cursor-pointer"
+          aria-label="Expand sidebar">
+          <img src="{{ asset('assets/TEI-logo-no-name.png') }}" alt="TEI" class="w-full h-full object-contain">
+        </button>
+      </template>
+
     </div>
 
     {{-- Navigation --}}
@@ -205,7 +225,7 @@ new class extends Component {
     </nav>
 
     {{-- User profile footer --}}
-    <div class="shrink-0 border-t border-white/8 p-3">
+    {{-- <div class="shrink-0 border-t border-white/8 p-3">
       <div
         class="flex items-center gap-3 px-2 py-2 rounded-xl transition-colors duration-150 cursor-pointer hover:bg-white/8"
         :class="(sidebarCollapsed && isDesktop) ? 'justify-center' : ''">
@@ -223,6 +243,6 @@ new class extends Component {
             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
         </svg>
       </div>
-    </div>
+    </div> --}}
   </aside>
 </div>

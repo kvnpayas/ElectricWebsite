@@ -12,6 +12,7 @@ use App\Livewire\AboutUs\ProfileDocumentPage;
 use App\Livewire\Admin\AboutDocuments;
 use App\Livewire\Admin\ActivityLogs;
 use App\Livewire\Admin\CspProcurement;
+use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\HomeBanners;
 use App\Livewire\Admin\HostingCapacity;
 use App\Livewire\Admin\MediaLibrary;
@@ -21,6 +22,7 @@ use App\Livewire\Admin\ProfileDocuments;
 use App\Livewire\Admin\RatesAdvisories;
 use App\Livewire\Admin\Settings;
 use App\Livewire\Admin\UserMaintenance;
+use App\Livewire\Admin\UserProfile;
 use App\Livewire\ContactUs;
 use App\Livewire\Csp\PowerSupplyProcurement;
 use App\Livewire\Csp\ProcurementOpportunities;
@@ -126,7 +128,7 @@ Route::middleware(['auth.custom'])->group(function () {
 
   Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/rates-advisories', RatesAdvisories::class)->name('rates-advisories');
     Route::get('/power-interruption', PowerInterruptionSchedules::class)->name('power-interruption');
     Route::get('/users', UserMaintenance::class)->name('users.index');
@@ -139,6 +141,7 @@ Route::middleware(['auth.custom'])->group(function () {
     Route::get('/activity-log', ActivityLogs::class)->name('activity-log');
     Route::get('/settings', Settings::class)->name('settings');
     Route::get('/media-library', MediaLibrary::class)->name('media-library');
+    Route::get('/my-profile', UserProfile::class)->name('profile');
 
     Route::get('/profile-documents/{document}', function (ProfileDocument $document) {
         abort_unless($document->file_path && Storage::exists($document->file_path), 404);
