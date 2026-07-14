@@ -17,6 +17,11 @@
             class="px-5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer">
       Site Notice
     </button>
+    <button @click="tab = 'site'"
+            :class="tab === 'site' ? 'bg-white shadow-sm text-tei-blue font-bold' : 'text-tei-gray hover:text-tei-blue'"
+            class="px-5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer">
+      Site Status
+    </button>
   </div>
 
 
@@ -296,6 +301,84 @@
 
           <div class="flex justify-end pt-1">
             <x-button variant="secondary" wire:click="saveNotice" loading="Saving…">Save Notice Settings</x-button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {{-- ══ SITE STATUS TAB ══════════════════════════════════════ --}}
+  <div x-show="tab === 'site'" x-cloak>
+    <div class="max-w-2xl">
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+        <div class="px-5 py-4 border-b border-gray-100">
+          <p class="text-sm font-bold text-tei-blue">Website Availability</p>
+          <p class="text-xs text-tei-gray-light mt-0.5">Control whether the public website is accessible to visitors.</p>
+        </div>
+
+        <div class="p-5 space-y-5">
+
+          {{-- Warning banner when disabled --}}
+          @if (!$siteEnabled)
+            <div class="flex items-start gap-3 px-4 py-3.5 rounded-xl bg-danger/8 border border-danger/15">
+              <svg class="w-4.5 h-4.5 text-danger shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <p class="text-sm text-danger font-medium">
+                The website is currently <strong>offline</strong>. Visitors see a maintenance page. Only admins can access the site.
+              </p>
+            </div>
+          @endif
+
+          {{-- Toggle --}}
+          <div class="flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-gray-50">
+            <div>
+              <p class="text-sm font-semibold text-tei-blue">Enable Website</p>
+              <p class="text-xs text-tei-gray-light mt-0.5">
+                When disabled, visitors see a maintenance page instead of the site
+              </p>
+            </div>
+            <button wire:click="$toggle('siteEnabled')" type="button"
+                    class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent
+                           transition-colors duration-200 ease-in-out focus:outline-none
+                           {{ $siteEnabled ? 'bg-tei-orange' : 'bg-gray-200' }}">
+              <span class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform
+                           transition duration-200 ease-in-out
+                           {{ $siteEnabled ? 'translate-x-5' : 'translate-x-0' }}"></span>
+            </button>
+          </div>
+
+          {{-- Status indicator --}}
+          <div class="flex items-center gap-2.5 px-4 py-3 rounded-xl
+            {{ $siteEnabled ? 'bg-success/8 border border-success/15' : 'bg-danger/8 border border-danger/15' }}">
+            <span class="w-2 h-2 rounded-full shrink-0
+              {{ $siteEnabled ? 'bg-success animate-pulse' : 'bg-danger' }}"></span>
+            <span class="text-sm font-semibold
+              {{ $siteEnabled ? 'text-success' : 'text-danger' }}">
+              Website is currently {{ $siteEnabled ? 'Online' : 'Offline (Maintenance Mode)' }}
+            </span>
+          </div>
+
+          {{-- Admin note --}}
+          <div class="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-tei-blue/6 border border-tei-blue/12">
+            <svg class="w-4 h-4 text-tei-blue shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="text-xs text-tei-blue leading-relaxed">
+              Logged-in admins always see the website regardless of this setting.
+              To verify maintenance mode, open an <strong>incognito / private window</strong> while logged out.
+            </p>
+          </div>
+
+          <div class="flex justify-end pt-1">
+            <x-button variant="{{ $siteEnabled ? 'secondary' : 'danger' }}" wire:click="saveSiteStatus" loading="Saving…">
+              Save Settings
+            </x-button>
           </div>
 
         </div>

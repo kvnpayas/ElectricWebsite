@@ -21,6 +21,9 @@ class Settings extends Component
     // ── Address ───────────────────────────────────────────────
     public string $address = '';
 
+    // ── Site Status ───────────────────────────────────────────
+    public bool   $siteEnabled       = true;
+
     // ── Site Notice ───────────────────────────────────────────
     public bool   $noticeEnabled     = false;
     public string $noticeMessage     = '';
@@ -76,12 +79,22 @@ class Settings extends Component
 
     public function mount(): void
     {
+        $this->siteEnabled       = Setting::get('site_enabled', '1') === '1';
         $this->address           = Setting::get('address', '');
         $this->noticeEnabled     = (bool) Setting::get('notice_enabled', '0');
         $this->noticeMessage     = Setting::get('notice_message', '');
         $this->noticeType        = Setting::get('notice_type', 'info');
         $this->noticeExpiresAt   = Setting::get('notice_expires_at', '');
         $this->noticeDismissible = (bool) Setting::get('notice_dismissible', '1');
+    }
+
+    // ── Site Status ───────────────────────────────────────────
+
+    public function saveSiteStatus(): void
+    {
+        Setting::set('site_enabled', $this->siteEnabled ? '1' : '0');
+        $this->logSettingsChange('Site Status (' . ($this->siteEnabled ? 'Enabled' : 'Disabled') . ')');
+        $this->dispatch('toast', message: $this->siteEnabled ? 'Website is now enabled.' : 'Website has been disabled.');
     }
 
     // ── Address ───────────────────────────────────────────────

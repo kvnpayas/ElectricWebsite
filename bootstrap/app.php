@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
       'auth.custom' => \App\Http\Middleware\Authenticated::class,
       'guest.custom' => \App\Http\Middleware\Guest::class,
     ]);
+    $middleware->appendToGroup('web', \App\Http\Middleware\SiteEnabled::class);
   })
   ->withExceptions(function (Exceptions $exceptions): void {
     $exceptions->shouldRenderJsonWhen(
