@@ -42,7 +42,7 @@ class ProcurementOpportunities extends Component
             ))
             ->when($this->statusFilter !== 'all', fn ($q) => $q->where('status', $this->statusFilter))
             ->orderByDesc('posting_date')
-            ->orderByDesc('sort_order')
+            ->orderBy('sort_order')
             ->paginate(10);
     }
 
