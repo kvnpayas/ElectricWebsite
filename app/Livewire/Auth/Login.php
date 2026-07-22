@@ -26,6 +26,12 @@ class Login extends Component
       return;
     }
 
+    if ($user->status !== 'Active') {
+      Auth::logout();
+      $this->addError('email', 'Your account has been deactivated. Please contact the administrator.');
+      return;
+    }
+
     session()->regenerate();
 
     $user->update(['last_login' => now()]);

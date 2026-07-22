@@ -363,7 +363,7 @@
   <x-confirm-modal title="Delete User?"
     message="This action cannot be undone. The user's account and all associated data will be permanently removed.">
     <x-button variant="ghost" wire:click="cancelDelete">Cancel</x-button>
-    <x-button loading="Deleting…" variant="danger" wire:click="delete">Yes, Delete</x-button>
+    <x-button loading="Deleting…" variant="danger" wire:click="deleteUser">Yes, Delete</x-button>
   </x-confirm-modal>
 
 </div>

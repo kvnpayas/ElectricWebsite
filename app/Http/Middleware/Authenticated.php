@@ -19,6 +19,18 @@ class Authenticated
       return redirect()->route('login')->with('error', 'Please log in to continue.');
     }
 
+    if (Auth::user()->status !== 'Active') {
+      Auth::logout();
+      $request->session()->invalidate();
+      $request->session()->regenerateToken();
+
+      if ($request->expectsJson()) {
+        return response()->json(['message' => 'Your account has been deactivated.'], 403);
+      }
+
+      return redirect()->route('login')->with('error', 'Your account has been deactivated. Please contact the administrator.');
+    }
+
     return $next($request);
   }
 }

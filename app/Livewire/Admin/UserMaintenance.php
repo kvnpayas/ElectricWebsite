@@ -48,7 +48,7 @@ class UserMaintenance extends Component
   public function stats(): array
   {
     $total = User::count();
-    $active = User::where('status', 'active')->count();
+    $active = User::where('status', 'Active')->count();
     $admins = User::where('role', 'administrator')->count();
     $editor = User::where('role', 'editor')->count();
 
@@ -157,10 +157,18 @@ class UserMaintenance extends Component
   public function deleteUser(): void
   {
     $user = User::findOrFail($this->deleteTarget);
+
+    if ($user->id === auth()->id()) {
+      $this->deleteTarget = null;
+      $this->dispatch('toast', message: 'You cannot delete your own account.');
+      return;
+    }
+
     $name = $user->name;
     $user->delete();
 
     $this->deleteTarget = null;
+    unset($this->users);
     $this->dispatch('toast', message: "\"{$name}\" was removed.");
   }
 
