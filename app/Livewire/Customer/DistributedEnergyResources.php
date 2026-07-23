@@ -23,7 +23,7 @@ class DistributedEnergyResources extends Component
     #[Computed]
     public function asOfLabel(): string
     {
-        $date = $this->setting->getRawOriginal('as_of_date');
+        $date = $this->setting->getRawOriginal('der_as_of_date');
         return $date ? 'As of ' . \Carbon\Carbon::parse($date)->format('F d, Y') : '';
     }
 

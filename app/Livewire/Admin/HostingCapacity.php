@@ -18,8 +18,9 @@ class HostingCapacity extends Component
     public string $search     = '';
 
     // Page settings
-    public string $settingAsOfDate = '';
-    public bool   $settingSaved    = false;
+    public string $settingNetMeteringAsOfDate = '';
+    public string $settingDerAsOfDate         = '';
+    public bool   $settingSaved               = false;
 
     // Drawer
     public bool   $showDrawer    = false;
@@ -37,18 +38,23 @@ class HostingCapacity extends Component
     public function mount(): void
     {
         $s = HostingCapacitySetting::firstOrCreate([]);
-        $this->settingAsOfDate = $s->as_of_date?->format('Y-m-d') ?? '';
+        $this->settingNetMeteringAsOfDate = $s->net_metering_as_of_date?->format('Y-m-d') ?? '';
+        $this->settingDerAsOfDate         = $s->der_as_of_date?->format('Y-m-d') ?? '';
     }
 
     public function saveSettings(): void
     {
-        $this->validate([
-            'settingAsOfDate' => 'nullable|date',
-        ]);
-
-        HostingCapacitySetting::updateOrCreate([], [
-            'as_of_date' => $this->settingAsOfDate ?: null,
-        ]);
+        if ($this->typeFilter === 'net-metering') {
+            $this->validate(['settingNetMeteringAsOfDate' => 'nullable|date']);
+            HostingCapacitySetting::updateOrCreate([], [
+                'net_metering_as_of_date' => $this->settingNetMeteringAsOfDate ?: null,
+            ]);
+        } else {
+            $this->validate(['settingDerAsOfDate' => 'nullable|date']);
+            HostingCapacitySetting::updateOrCreate([], [
+                'der_as_of_date' => $this->settingDerAsOfDate ?: null,
+            ]);
+        }
 
         $this->settingSaved = true;
         $this->js("setTimeout(() => \$wire.set('settingSaved', false), 2500)");

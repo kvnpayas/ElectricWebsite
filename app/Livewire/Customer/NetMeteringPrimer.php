@@ -23,7 +23,7 @@ class NetMeteringPrimer extends Component
     #[Computed]
     public function asOfLabel(): string
     {
-        $date = $this->setting->getRawOriginal('as_of_date');
+        $date = $this->setting->getRawOriginal('net_metering_as_of_date');
         return $date ? 'As of ' . \Carbon\Carbon::parse($date)->format('F d, Y') : '';
     }
 

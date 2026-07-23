@@ -11,7 +11,9 @@
     <div class="px-6 py-4 border-b border-tei-blue/6 flex items-center justify-between">
       <div>
         <h3 class="text-sm font-bold text-tei-blue">Page Settings</h3>
-        <p class="text-xs text-tei-gray-light mt-0.5">Set the "As of" date shown on the public Net Metering and DER hosting capacity pages.</p>
+        <p class="text-xs text-tei-gray-light mt-0.5">
+          Set the "As of" date for the currently selected tab — it will appear on the public page for that section.
+        </p>
       </div>
       @if ($settingSaved)
         <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-success">
@@ -25,16 +27,29 @@
 
     <div class="px-6 py-5 flex items-end gap-4">
 
-      <div class="w-56">
-        <label class="block text-xs font-semibold text-tei-blue mb-1.5">As of Date</label>
-        <input wire:model="settingAsOfDate" type="date"
-          class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark
-                 outline-none transition-all duration-200
-                 focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
-        @error('settingAsOfDate')
-          <p class="mt-1 text-xs text-danger">{{ $message }}</p>
-        @enderror
-      </div>
+      @if ($typeFilter === 'net-metering')
+        <div wire:key="settings-nm" class="w-56">
+          <label class="block text-xs font-semibold text-tei-blue mb-1.5">Net Metering — As of Date</label>
+          <input wire:model="settingNetMeteringAsOfDate" type="date"
+            class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark
+                   outline-none transition-all duration-200
+                   focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
+          @error('settingNetMeteringAsOfDate')
+            <p class="mt-1 text-xs text-danger">{{ $message }}</p>
+          @enderror
+        </div>
+      @else
+        <div wire:key="settings-der" class="w-56">
+          <label class="block text-xs font-semibold text-tei-blue mb-1.5">DER — As of Date</label>
+          <input wire:model="settingDerAsOfDate" type="date"
+            class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-tei-blue-dark
+                   outline-none transition-all duration-200
+                   focus:border-tei-orange focus:bg-white focus:ring-2 focus:ring-tei-orange/15">
+          @error('settingDerAsOfDate')
+            <p class="mt-1 text-xs text-danger">{{ $message }}</p>
+          @enderror
+        </div>
+      @endif
 
       <x-button variant="secondary" wire:click="saveSettings" loading="Saving…">
         Save
