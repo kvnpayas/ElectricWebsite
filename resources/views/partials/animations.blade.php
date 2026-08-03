@@ -1,19 +1,4 @@
-{{--
-  Global GSAP scroll animations.
-  Included once in guest.blade.php.
 
-  Strategy:
-    • guest.blade.php injects `.js-anim` on <html> and CSS `opacity:0` for .scroll-reveal
-      and .stagger-cards .card BEFORE first paint — no flash from visible→hidden.
-    • Here we animate hidden→visible using ScrollTrigger.create() + onEnter callback.
-      The fromTo only fires the moment the element enters the viewport.
-    • clearProps: 'transform' (only) — clears GSAP's translateY inline style after animation.
-      We intentionally keep the inline opacity:1 so it overrides the CSS opacity:0 rule.
-    • Fallback: if GSAP/ScrollTrigger didn't load in 4 s, remove js-anim class so content
-      becomes visible regardless.
-    • Re-runs on every wire:navigate via livewire:navigated.
-    • Tab panel elements ([id^="panel-"] *) are excluded — handled by how-to-read-bill @script.
---}}
 <script>
 (function () {
   var _trig = [];
@@ -72,15 +57,15 @@
     });
   }
 
-  // Fallback: if GSAP didn't animate elements within 4 s, show them anyway
+
   var _fallback = setTimeout(function () {
     document.documentElement.classList.remove('js-anim');
   }, 4000);
 
   function init() {
     teiAnimate();
-    clearTimeout(_fallback); // GSAP loaded fine — cancel the fallback
-    // Re-schedule fallback after each navigation in case GSAP takes time
+    clearTimeout(_fallback);
+
     document.addEventListener('livewire:navigated', function () {
       requestAnimationFrame(function () {
         teiAnimate();

@@ -3,7 +3,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @include('layouts._head')
-    {{-- Pre-hide admin animated elements before first paint (mirrors guest js-anim pattern) --}}
+
     <script>document.documentElement.classList.add('admin-js-anim')</script>
     <style>.admin-js-anim .admin-page-header,.admin-js-anim .stat-card,.admin-js-anim .admin-table-card{opacity:0}</style>
 </head>

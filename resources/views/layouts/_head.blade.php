@@ -1,10 +1,4 @@
-{{--
-    Shared HTML <head> partial — included by every layout.
-    Pages override:
-      @section('title', '...')          — full <title> string
-      @section('description', '...')    — meta description
-      @stack('head')                    — extra <link> / <meta> tags
---}}
+
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="{{ asset('assets/TEI-logo-no-name.png') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,17 +14,13 @@
 <meta name="description" content="@yield('description', 'TEI Tarlac Electric Inc. — Your trusted power distribution company serving Tarlac City.')">
 
 {{-- Prevent Alpine.js flash-of-unstyled-content --}}
+<!-- Developed and Design by KJSP -->
 <style>
   [x-cloak] {
     display: none !important;
   }
 </style>
 
-{{-- Livewire update endpoint config — must be set before the Vite module loads so
-     livewire.esm skips its own DOMContentLoaded auto-starter and we can call
-     Livewire.start() exactly once ourselves. inject_assets:false means Livewire
-     won't inject this automatically. The URI is hashed from APP_KEY so it must
-     be resolved server-side. --}}
 <script>window.livewireScriptConfig = {"uri": "{{ url(app('livewire')->getUpdateUri()) }}"};</script>
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
