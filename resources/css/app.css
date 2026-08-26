@@ -65,6 +65,12 @@
   --color-tei-burgundy: #6B2737;
   --color-tei-neutral: #A7A8AA;
 
+  /* Nav/footer/hero surface — kept separate from tei-blue-dark so theme presets don't affect body/table text */
+  --color-brand-header: var(--color-tei-blue-dark);
+  --color-brand-hero-start: var(--color-tei-blue-dark);
+  --color-brand-hero-mid: var(--color-tei-blue);
+  --color-brand-hero-end: var(--color-tei-blue-light);
+
   /* Accent backgrounds */
   --color-tei-sky: #41B6E6;
   --color-tei-lime: #C4D600;

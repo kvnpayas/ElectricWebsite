@@ -243,7 +243,7 @@
     scrolled: false,
     init() { window.addEventListener('scroll', () => { this.scrolled = window.scrollY > 30 }) }
 }"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-tei-blue-dark/[0.97] backdrop-blur-md">
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-brand-header/[0.97] backdrop-blur-md">
 
   @include('partials.site-notice')
 

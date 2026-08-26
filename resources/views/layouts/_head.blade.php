@@ -25,4 +25,17 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+@php
+  $themeVars = \App\Models\Setting::THEME_PRESETS[\App\Models\Setting::get('theme_preset', 'primary')] ?? null;
+@endphp
+@if ($themeVars)
+  <style>
+    :root {
+      @foreach ($themeVars as $var => $value)
+        {{ $var }}: {{ $value }};
+      @endforeach
+    }
+  </style>
+@endif
+
 @stack('head')

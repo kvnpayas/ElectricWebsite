@@ -4,7 +4,7 @@
 @endphp
 
 <section class="py-16 relative overflow-hidden"
-  style="background: linear-gradient(135deg, var(--color-tei-orange) 0%, #C45218 100%);">
+  style="background: linear-gradient(135deg, var(--color-tei-orange) 0%, var(--color-tei-orange-dark) 100%);">
   <div class="absolute inset-0 pointer-events-none opacity-[0.05]"
     style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 28px 28px;">
   </div>

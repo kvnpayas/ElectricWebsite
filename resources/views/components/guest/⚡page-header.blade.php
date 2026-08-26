@@ -41,7 +41,7 @@ new class extends Component {
 ?>
 
 <section class="relative pt-28 pb-16 overflow-hidden"
-  style="background: linear-gradient(135deg, #082840 0%, #0F3D5C 100%);">
+  style="background: linear-gradient(135deg, var(--color-brand-hero-start) 0%, var(--color-brand-hero-mid) 100%);">
   <div class="absolute inset-0 pointer-events-none opacity-[0.03]"
     style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 32px 32px;">
   </div>

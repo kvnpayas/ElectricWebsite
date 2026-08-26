@@ -98,7 +98,7 @@ $slides = $this->slides ?: [
 >
 
     {{-- BASE GRADIENT ────────────────────────────────── --}}
-    <div class="absolute inset-0" style="background: linear-gradient(135deg, #082840 0%, #0F3D5C 55%, #1A5A85 100%);"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, var(--color-brand-hero-start) 0%, var(--color-brand-hero-mid) 55%, var(--color-brand-hero-end) 100%);"></div>
     <div class="absolute inset-0 pointer-events-none opacity-[0.035]"
         style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px); background-size: 32px 32px;"></div>
 

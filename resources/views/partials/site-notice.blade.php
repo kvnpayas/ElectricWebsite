@@ -32,7 +32,7 @@
             'M13 10V3L4 14h7v7l9-11h-7z',
         ],
         default => [
-            'background-color:#e8f0f7; color:#082840;',
+            'background-color:#e8f0f7; color:var(--color-tei-blue-dark);',
             'text-tei-blue',
             'text-tei-blue/50 hover:text-tei-blue',
             'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',

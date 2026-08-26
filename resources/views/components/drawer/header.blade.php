@@ -14,7 +14,7 @@
     {{-- Icon --}}
     @if ($icon)
       <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: rgba(231,103,39,0.1);">
-        <svg class="w-5 h-5" fill="none" stroke="#E76727" viewBox="0 0 24 24">
+        <svg class="w-5 h-5" fill="none" stroke="var(--color-tei-orange)" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}" />
         </svg>
       </div>

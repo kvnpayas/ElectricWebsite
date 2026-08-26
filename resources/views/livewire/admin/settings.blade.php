@@ -22,6 +22,11 @@
             class="px-5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer">
       Site Status
     </button>
+    <button @click="tab = 'theme'"
+            :class="tab === 'theme' ? 'bg-white shadow-sm text-tei-blue font-bold' : 'text-tei-gray hover:text-tei-blue'"
+            class="px-5 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer">
+      Theme
+    </button>
   </div>
 
 
@@ -381,6 +386,49 @@
             </x-button>
           </div>
 
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {{-- ══ THEME TAB ═════════════════════════════════════════════ --}}
+  <div x-show="tab === 'theme'" x-cloak>
+    <div class="max-w-2xl">
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+        <div class="px-5 py-4 border-b border-gray-100">
+          <p class="text-sm font-bold text-tei-blue">Header Theme</p>
+          <p class="text-xs text-tei-gray-light mt-0.5">Choose the background tone for the nav bar, hero, and footer across the public site.</p>
+        </div>
+
+        <div class="p-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            @foreach (['primary' => 'Primary', 'light' => 'Light'] as $preset => $label)
+              @php
+                $vars = \App\Models\Setting::THEME_PRESETS[$preset];
+              @endphp
+              <button type="button" wire:click="saveTheme('{{ $preset }}')"
+                      class="text-left rounded-xl border-2 overflow-hidden transition-all duration-150 cursor-pointer
+                             {{ $themePreset === $preset ? 'border-tei-orange' : 'border-gray-200 hover:border-gray-300' }}">
+                <div class="h-16"
+                     style="background: linear-gradient(135deg, {{ $vars['--color-brand-hero-start'] }} 0%, {{ $vars['--color-brand-hero-mid'] }} 100%);"></div>
+                <div class="px-4 py-3 flex items-center justify-between">
+                  <span class="text-sm font-semibold text-tei-blue">{{ $label }}</span>
+                  @if ($themePreset === $preset)
+                    <span class="inline-flex items-center gap-1 text-xs font-bold text-tei-orange">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                      </svg>
+                      Active
+                    </span>
+                  @endif
+                </div>
+              </button>
+            @endforeach
+
+          </div>
         </div>
       </div>
     </div>

@@ -24,6 +24,9 @@ class Settings extends Component
     // ── Site Status ───────────────────────────────────────────
     public bool   $siteEnabled       = true;
 
+    // ── Theme ─────────────────────────────────────────────────
+    public string $themePreset = 'primary';
+
     // ── Site Notice ───────────────────────────────────────────
     public bool   $noticeEnabled     = false;
     public string $noticeMessage     = '';
@@ -80,6 +83,7 @@ class Settings extends Component
     public function mount(): void
     {
         $this->siteEnabled       = Setting::get('site_enabled', '1') === '1';
+        $this->themePreset       = Setting::get('theme_preset', 'primary');
         $this->address           = Setting::get('address', '');
         $this->noticeEnabled     = (bool) Setting::get('notice_enabled', '0');
         $this->noticeMessage     = Setting::get('notice_message', '');
@@ -95,6 +99,20 @@ class Settings extends Component
         Setting::set('site_enabled', $this->siteEnabled ? '1' : '0');
         $this->logSettingsChange('Site Status (' . ($this->siteEnabled ? 'Enabled' : 'Disabled') . ')');
         $this->dispatch('toast', message: $this->siteEnabled ? 'Website is now enabled.' : 'Website has been disabled.');
+    }
+
+    // ── Theme ─────────────────────────────────────────────────
+
+    public function saveTheme(string $preset): void
+    {
+        if (!array_key_exists($preset, Setting::THEME_PRESETS)) {
+            return;
+        }
+
+        $this->themePreset = $preset;
+        Setting::set('theme_preset', $preset);
+        $this->logSettingsChange('Theme (' . ucfirst($preset) . ')');
+        $this->dispatch('toast', message: 'Theme updated.');
     }
 
     // ── Address ───────────────────────────────────────────────

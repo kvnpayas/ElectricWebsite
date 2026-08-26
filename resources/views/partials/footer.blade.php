@@ -34,7 +34,7 @@
 {{-- ═══════════════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════════════ --}}
-<footer style="background-color: #082840;">
+<footer class="bg-brand-header">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
 

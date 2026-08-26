@@ -11,37 +11,37 @@
   $variants = [
       'secondary' => [
           'bg' => 'var(--color-tei-orange)',
-          'hover' => '#C45218',
+          'hover' => 'var(--color-tei-orange-dark)',
           'shadow' => '0 4px 12px rgba(231,103,39,0.3)',
           'text' => '#FFFFFF',
       ],
       'primary' => [
           'bg' => 'var(--color-tei-blue)',
-          'hover' => '#082840',
+          'hover' => 'var(--color-tei-blue-dark)',
           'shadow' => '0 4px 12px rgba(15,61,92,0.3)',
           'text' => '#FFFFFF',
       ],
       'success' => [
           'bg' => 'var(--color-success)',
-          'hover' => '#065F46',
+          'hover' => 'var(--color-success-dark)',
           'shadow' => '0 4px 12px rgba(16,185,129,0.3)',
           'text' => '#FFFFFF',
       ],
       'warning' => [
           'bg' => 'var(--color-warning)',
-          'hover' => '#92400E',
+          'hover' => 'var(--color-warning-dark)',
           'shadow' => '0 4px 12px rgba(245,158,11,0.3)',
           'text' => '#FFFFFF',
       ],
       'danger' => [
           'bg' => 'var(--color-danger)',
-          'hover' => '#991B1B',
+          'hover' => 'var(--color-danger-dark)',
           'shadow' => '0 4px 12px rgba(239,68,68,0.3)',
           'text' => '#FFFFFF',
       ],
       'info' => [
           'bg' => 'var(--color-info)',
-          'hover' => '#075985',
+          'hover' => 'var(--color-info-dark)',
           'shadow' => '0 4px 12px rgba(14,165,233,0.3)',
           'text' => '#FFFFFF',
       ],

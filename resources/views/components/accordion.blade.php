@@ -19,7 +19,7 @@
       <svg class="w-3.5 h-3.5 transition-transform duration-300"
            :class="open ? 'rotate-45' : ''"
            fill="none"
-           :stroke="open ? '#E76727' : '#0F3D5C'"
+           :stroke="open ? 'var(--color-tei-orange)' : 'var(--color-tei-blue)'"
            viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
       </svg>
